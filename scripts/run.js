@@ -49,26 +49,16 @@ const TOKEN = process.env.KEYAPI_TOKEN;
 const PAGE_SIZE_MAX = 10;
 
 /**
- * Per-platform configuration.
- * coverImageHosts: URL host strings that require batch cover-image conversion.
- * Add a new platform entry here when onboarding a new platform.
+ * Platforms that require cover-image URL conversion.
+ * Only TikTok serves images via the echosell CDN host that needs proxying.
+ * Other platforms serve images directly — no conversion needed.
  */
-const PLATFORM_CONFIG = {
-  tiktok:    { coverImageHosts: ["echosell-images.tos-ap-southeast-1.volces.com"] },
-  instagram: { coverImageHosts: [] },
-  twitter:   { coverImageHosts: [] },
-  youtube:   { coverImageHosts: [] },
-  threads:   { coverImageHosts: [] },
-  reddit:    { coverImageHosts: [] },
-  linkedin:  { coverImageHosts: [] },
-  facebook:  { coverImageHosts: [] },
-  amazon:    { coverImageHosts: [] },
-  pinterest: { coverImageHosts: [] },
-  google:    { coverImageHosts: [] },
+const COVER_IMAGE_HOSTS = {
+  tiktok: ["echosell-images.tos-ap-southeast-1.volces.com"],
 };
 
 function getCoverImageHosts(platform) {
-  return PLATFORM_CONFIG[platform]?.coverImageHosts ?? [];
+  return COVER_IMAGE_HOSTS[platform] ?? [];
 }
 
 // ── Help text ─────────────────────────────────────────────────────────────────
