@@ -1,6 +1,6 @@
 # TikTok Skills — KeyAPI
 
-Five AI agent skills for comprehensive TikTok data analysis, powered by the [KeyAPI](https://keyapi.ai/) MCP service.
+Five AI agent skills for comprehensive TikTok data analysis, powered by the [KeyAPI](https://keyapi.ai/) MCP service. Compatible with Claude Code, OpenClaw, and any agent that supports the OpenClaw/Claude skill format.
 
 ## Skills in This Directory
 
@@ -14,14 +14,13 @@ Five AI agent skills for comprehensive TikTok data analysis, powered by the [Key
 
 ## Quick Start
 
+Each skill is self-contained. Install a single skill or use all of them together.
+
 ```bash
-# Install dependencies
+# Install a single skill (standalone mode)
+cd keyapi-tiktok-influencer-discovery
 npm install
-
-# Set your API token
 export KEYAPI_TOKEN=your_token_here
-
-# Verify connection — list all available tools
 node scripts/run.js --list-tools
 ```
 
@@ -29,7 +28,7 @@ node scripts/run.js --list-tools
 
 All TikTok skills share these rules:
 
-- **Pagination**: `page_num` starts at `1` for all `*_analytics` endpoints
+- **Pagination**: `*_analytics` endpoints use `page_num`/`page_size` (max 10). Trending endpoints use `page`/`limit`. Never use page `0`.
 - **Cover images**: Always batch-convert images from `echosell-images.tos-ap-southeast-1.volces.com` via `batch_download_cover_images`
 - **Response check**: `code = 0` = success; retry once on `code = 500`
-- **Cache first**: Check `.keyapi-cache/` before every API call
+- **Cache first**: Check `.keyapi-cache/` before every API call (date-scoped: `YYYY-MM-DD`)

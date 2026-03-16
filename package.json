@@ -8,7 +8,8 @@
   },
   "scripts": {
     "run": "node scripts/run.js",
-    "list-tools": "node scripts/run.js --list-tools"
+    "list-tools": "node scripts/run.js --list-tools",
+    "sync": "bash scripts/sync-to-skills.sh"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.10.2"
