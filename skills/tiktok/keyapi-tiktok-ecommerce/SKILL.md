@@ -132,7 +132,7 @@ node scripts/run.js --schema product_list_analytics
 node scripts/run.js --schema get_product_id_from_share_link
 ```
 
-For analytics nodes, pay particular attention to filter parameters such as `category_id`, `category_l2_id`, `category_l3_id`, `region`, `price_min`, `price_max`, `sort_by`, `date_range`, and `page_num`/`page_size`.
+For analytics nodes, pay particular attention to filter parameters such as `category_id`, `category_l2_id`, `category_l3_id`, `region`, `min_spu_avg_price`, `max_spu_avg_price`, `product_sort_field`, `sort_type`, and `page_num`/`page_size`.
 
 ### Step 3 — Call APIs and Cache Results Locally
 
@@ -155,24 +155,24 @@ node scripts/run.js --tool <tool_name> --params '<json_args>' --no-cache
 
 ```bash
 node scripts/run.js --tool get_product_id_from_share_link \
-  --params '{"share_link":"https://vm.tiktok.com/xxxxx"}' --pretty
+  --params '{"share_url":"https://www.tiktok.com/t/ZPH7PbVhQDwt7-vS8eu/"}' --pretty
 ```
 
 **Example — get product analytics (all pages):**
 
 ```bash
 node scripts/run.js --tool product_list_analytics \
-  --params '{"keyword":"wireless earbuds","category_id":"123"}' \
-  --all-pages --page-size 50
+  --params '{"region":"US","category_id":"600001"}' \
+  --all-pages
 ```
 
 **Pagination for analytics endpoints:**
 
-All `*_analytics` endpoints use `page_num` (1-indexed) and `page_size`. `run.js` injects these automatically if not specified. Use `--all-pages` to iterate all pages automatically.
+All `*_analytics` endpoints use `page_num` (1-indexed) and `page_size` (max 10). `run.js` injects these automatically if not specified. Use `--all-pages` to iterate all pages automatically.
 
 ```
---page-num 1  --page-size 20   → first page (default)
---all-pages   --page-size 50   → all pages merged into one result
+--page-num 1  --page-size 10   → first page (default)
+--all-pages                    → all pages merged into one result
 ```
 
 **Cache directory structure:**

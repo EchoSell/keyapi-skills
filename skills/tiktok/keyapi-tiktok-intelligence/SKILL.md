@@ -107,7 +107,7 @@ Execute the required tool calls and persist all responses to the local cache. In
 node scripts/run.js --tool <tool_name> --params '<json_args>' --pretty
 
 # Fetch all pages (for list endpoints)
-node scripts/run.js --tool <tool_name> --params '<json_args>' --all-pages --page-size 50
+node scripts/run.js --tool <tool_name> --params '<json_args>' --all-pages
 
 # Force a fresh call to get the latest data
 node scripts/run.js --tool <tool_name> --params '<json_args>' --no-cache
@@ -124,14 +124,14 @@ node scripts/run.js --tool trending_hashtags \
 
 ```bash
 node scripts/run.js --tool keyword_insights \
-  --params '{"keyword":"stanley cup","region":"US"}' --pretty
+  --params '{"search_keyword":"stanley cup","region":"US"}' --pretty
 ```
 
 **Example — get top products in a category:**
 
 ```bash
 node scripts/run.js --tool top_products_insights \
-  --params '{"category_id":"xxx","region":"US"}' --all-pages --page-size 20
+  --params '{"ecom_category_id":"600001","region":"US"}' --all-pages
 ```
 
 **Cache directory structure:**
@@ -207,7 +207,8 @@ After collecting all API responses, produce a structured intelligence briefing:
 
 | Rule | Detail |
 |------|--------|
-| **Pagination** | All list endpoints use `page_num` (starts at `1`) and `page_size`. Never use page `0`. |
+| **Pagination** | Trending/insights list endpoints (`trending_hashtags`, `trending_music`, `trending_videos`, `keyword_insights`, `top_products_insights`, `top_ads_insights`) use `page` (starts at `1`) and `limit` (max 10). Never use page `0`. |
+| **Keyword param** | `keyword_insights` and `trending_music` use `search_keyword` (not `keyword`) as the search parameter. `top_products_insights` uses `ecom_category_id` (not `category_id`) for category filtering. |
 | **Cover images** | Batch-convert all image URLs from `echosell-images.tos-ap-southeast-1.volces.com` via `batch_download_cover_images` before storing or displaying. |
 | **Success check** | `code = 0` → success. Any other value → failure. Always check the response code before processing data. |
 | **Retry on 500** | If `code = 500`, retry the identical request once after a brief pause before reporting the error. |

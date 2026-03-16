@@ -66,7 +66,7 @@ node scripts/run.js --list-tools
 | Read replies to a specific comment | `get_video_comment_replies` | Deep conversation thread analysis |
 | Extract top keywords from a video's comments | `video_comment_keywords` | Audience interest signals, semantic analysis |
 | View 14-day engagement trend (views, likes, comments) | `video_interaction_trends` | Virality decay analysis, momentum tracking |
-| Get downloadable video URL (no watermark where available) | `get_video_download_url` | Content archiving, offline analysis |
+| Get downloadable video URL (no watermark where available) | `get_video_download_url` | Content archiving, offline analysis — param: `url` (the video's share URL) |
 | Search and filter videos with analytics data | `video_list_analytics` | Data-driven video discovery, benchmarking |
 | Comprehensive analytics for one or more videos | `video_detail_analytics` | Historical performance, product associations |
 | Historical trend snapshots (views, likes, ER over time) | `video_trends_analytics` | Long-term performance analysis |
@@ -78,7 +78,7 @@ node scripts/run.js --list-tools
 
 | User Need | Node(s) | Best For |
 |-----------|---------|----------|
-| Get videos under a specific hashtag | `get_hashtag_videos` | Hashtag content exploration |
+| Get videos under a specific hashtag | `get_hashtag_videos` | Hashtag content exploration — requires `hashtag_id` (not name); resolve via `search_hashtags` first |
 | Search hashtags by keyword | `search_hashtags` | Hashtag discovery, volume assessment |
 
 ### Music Nodes
@@ -91,7 +91,7 @@ node scripts/run.js --list-tools
 
 | User Need | Node(s) | Best For |
 |-----------|---------|----------|
-| Get live stream details (viewers, host, products) | `get_live_stream_detail` | Real-time live commerce monitoring |
+| Get live stream details (viewers, host, products) | `get_live_stream_detail` | Real-time live commerce monitoring — requires both `room_id` and `user_id` |
 | Search active or recent live streams by keyword | `search_live_streams` | Live stream discovery, competitive monitoring |
 
 ### Cross-Domain Search
@@ -112,7 +112,7 @@ Clarify the user's goal and map it to one or more nodes. Common research pattern
 - **Comment and sentiment analysis**: Use `get_video_comments` + `video_comment_keywords`.
 - **Hashtag research**: Use `search_hashtags` to find relevant tags, then `get_hashtag_videos` for content within the tag.
 - **Music trend research**: Use `search_music` to find tracks, cross-reference with `trending_music` (see keyapi-tiktok-intelligence skill).
-- **Live stream monitoring**: Use `search_live_streams` to find active streams, then `get_live_stream_detail` for specifics.
+- **Live stream monitoring**: Use `search_live_streams` to find active streams, then `get_live_stream_detail` with both `room_id` and `user_id` for specifics.
 - **Commerce content analysis**: Use `video_products_analytics` to correlate video content with product sales data.
 - **Cross-domain keyword research**: Use `general_search_analytics` for a unified view across products, shops, and creators.
 
@@ -141,7 +141,7 @@ Execute the required tool calls and persist all responses to the local cache.
 node scripts/run.js --tool <tool_name> --params '<json_args>' --pretty
 
 # Fetch all pages at once (auto-pagination)
-node scripts/run.js --tool <tool_name> --params '<json_args>' --all-pages --page-size 50
+node scripts/run.js --tool <tool_name> --params '<json_args>' --all-pages
 
 # Force a fresh call, skip cache
 node scripts/run.js --tool <tool_name> --params '<json_args>' --no-cache
@@ -163,11 +163,11 @@ node scripts/run.js --tool video_comment_keywords \
 
 **Pagination for analytics endpoints:**
 
-All `*_analytics` endpoints use `page_num` (1-indexed) and `page_size`. `run.js` injects these automatically if not specified.
+All `*_analytics` endpoints use `page_num` (1-indexed) and `page_size` (max 10). `run.js` injects these automatically if not specified.
 
 ```
---page-num 1  --page-size 20   → first page (default)
---all-pages   --page-size 50   → all pages merged into one result
+--page-num 1  --page-size 10   → first page (default)
+--all-pages                    → all pages merged into one result
 ```
 
 **Cache directory structure:**
@@ -185,10 +185,10 @@ All `*_analytics` endpoints use `page_num` (1-indexed) and `page_size`. `run.js`
 │       ├── products.json             # video_products_analytics
 │       └── download_url.json         # get_video_download_url
 ├── hashtags/
-│   └── {hashtag}/
+│   └── {hashtag_id}/
 │       └── videos.json               # get_hashtag_videos
 ├── live_streams/
-│   └── {stream_id}/
+│   └── {room_id}/
 │       └── detail.json               # get_live_stream_detail
 ├── searches/
 │   ├── videos/
@@ -223,10 +223,7 @@ Before every API call, check whether a cached result already exists for the give
 ```bash
 node scripts/run.js --tool batch_download_cover_images \
   --params '{
-    "image_urls": [
-      "https://echosell-images.tos-ap-southeast-1.volces.com/img/abc.jpg",
-      "https://echosell-images.tos-ap-southeast-1.volces.com/img/def.jpg"
-    ]
+    "cover_urls": "https://echosell-images.tos-ap-southeast-1.volces.com/img/abc.jpg,https://echosell-images.tos-ap-southeast-1.volces.com/img/def.jpg"
   }' --pretty
 ```
 

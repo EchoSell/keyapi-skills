@@ -83,6 +83,8 @@ Clarify the user's objective and determine which nodes to invoke. Typical entry 
 > The `creator_oecuid` is the unique identifier used by TikTok's commercial/e-commerce platform (OEC = Overseas E-Commerce system). It is **required by all nodes except `search_shop_creator`**.
 >
 > Users will typically provide a creator's `unique_id` (@handle). Always call `search_shop_creator` first to obtain the `creator_oecuid` before making any other calls.
+>
+> **All endpoints require a `region` parameter** (one of: `US`, `DE`, `TH`, `MY`, `ID`, `PH`, `VN`). Always include it in every call.
 
 ### Step 2 — Retrieve API Schema
 
@@ -113,14 +115,14 @@ node scripts/run.js --tool <tool_name> --params '<json_args>' --no-cache
 
 ```bash
 node scripts/run.js --tool search_shop_creator \
-  --params '{"unique_id":"example_creator"}' --pretty
+  --params '{"unique_id":"example_creator","region":"US"}' --pretty
 ```
 
 **Example — get creator sales data:**
 
 ```bash
 node scripts/run.js --tool get_shop_creator_sales \
-  --params '{"creator_oecuid":"7xxxxxxxxxxxxxxxxx"}' --pretty
+  --params '{"creator_oecuid":"7494008088472553296","region":"US"}' --pretty
 ```
 
 **Cache directory structure:**
@@ -146,12 +148,12 @@ Before every API call, check whether a cached result already exists. If a valid 
 **Recommended call sequence:**
 
 ```
-1. search_shop_creator(unique_id)          → obtains creator_oecuid
-2. get_shop_creator_detail(creator_oecuid) → profile overview and key KPIs
-3. get_shop_creator_sales(creator_oecuid)  → product sales and GMV breakdown
-4. get_shop_creator_audience(creator_oecuid) → audience demographics
-5. get_shop_creator_trends(creator_oecuid)   → time-series growth and sales trends
-6. get_shop_creator_videos(creator_oecuid)   → promotion video performance
+1. search_shop_creator(unique_id, region)          → obtains creator_oecuid
+2. get_shop_creator_detail(creator_oecuid, region) → profile overview and key KPIs
+3. get_shop_creator_sales(creator_oecuid, region)  → product sales and GMV breakdown
+4. get_shop_creator_audience(creator_oecuid, region) → audience demographics
+5. get_shop_creator_trends(creator_oecuid, region)   → time-series growth and sales trends
+6. get_shop_creator_videos(creator_oecuid, region)   → promotion video performance
 ```
 
 **Cover image processing:**

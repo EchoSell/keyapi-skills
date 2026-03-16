@@ -132,21 +132,32 @@ node scripts/run.js --tool search_influencers \
   --params '{"keyword":"fitness","region":"US"}' --pretty
 ```
 
-**Example — get all pages of analytics results:**
+**Example — filter influencers with analytics (all pages):**
 
 ```bash
 node scripts/run.js --tool influencer_list_analytics \
-  --params '{"keyword":"beauty","region":"US"}' --all-pages --page-size 50
+  --params '{"region":"US","influencer_category_name":"Fitness"}' --all-pages
+```
+
+**Example — get influencer's latest videos (cursor-based):**
+
+```bash
+# First page: offset=0
+node scripts/run.js --tool get_influencer_videos \
+  --params '{"unique_id":"charlidamelio","offset":"0"}' --pretty
+# Next page: use max_cursor value from previous response as offset
 ```
 
 **Pagination for analytics endpoints:**
 
-All `*_analytics` endpoints use `page_num` (1-indexed) and `page_size`. `run.js` injects these automatically if not specified. Use `--all-pages` to let `run.js` iterate all pages and merge the results.
+All `*_analytics` endpoints use `page_num` (1-indexed) and `page_size` (max 10). `run.js` injects these automatically if not specified. Use `--all-pages` to let `run.js` iterate all pages and merge the results.
 
 ```
---page-num 1  --page-size 20   → first page (default)
---all-pages   --page-size 50   → all pages merged into one result
+--page-num 1  --page-size 10   → first page (default)
+--all-pages                    → all pages merged into one result
 ```
+
+> **Note:** `get_influencer_videos`, `get_influencer_followers`, `get_influencer_following` use cursor-based pagination via an `offset` parameter — not `page_num`/`page_size`. Pass `"offset":"0"` to start, then use the `max_cursor` (or `min_time`) value from the response as the next `offset`.
 
 **Cache directory structure:**
 
