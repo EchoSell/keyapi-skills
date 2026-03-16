@@ -25,7 +25,7 @@ Use this skill when you need to:
 |-------------|---------|
 | **KEYAPI_TOKEN** | A valid API token from [keyapi.ai](https://keyapi.ai/). If you don't have one, register at the site to obtain your free token. Set it as an environment variable: `export KEYAPI_TOKEN=your_token_here` |
 | **Node.js** | v18 or higher |
-| **Dependencies** | Run `npm install` in the project root to install `@modelcontextprotocol/sdk` |
+| **Dependencies** | Run `npm install` in the skill directory to install `@modelcontextprotocol/sdk` |
 
 ---
 
