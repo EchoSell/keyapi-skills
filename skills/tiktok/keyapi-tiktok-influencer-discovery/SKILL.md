@@ -1,6 +1,7 @@
 ---
 name: keyapi-tiktok-influencer-discovery
 description: Discover, profile, and deeply analyze TikTok influencers — from keyword-based search to multi-dimensional performance intelligence covering follower trends, engagement rates, live-stream GMV, video performance, and competitive rankings.
+metadata: {"openclaw":{"requires":{"env":["KEYAPI_TOKEN"],"bins":["node"]},"primaryEnv":"KEYAPI_TOKEN","emoji":"🔍"}}
 ---
 
 # keyapi-tiktok-influencer-discovery

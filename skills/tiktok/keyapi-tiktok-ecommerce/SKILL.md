@@ -1,6 +1,7 @@
 ---
 name: keyapi-tiktok-ecommerce
 description: Comprehensive TikTok Shop market intelligence — analyze products, shops, and categories with GMV, sales trends, reviews, creator attribution, and competitive ranking data across the full e-commerce ecosystem.
+metadata: {"openclaw":{"requires":{"env":["KEYAPI_TOKEN"],"bins":["node"]},"primaryEnv":"KEYAPI_TOKEN","emoji":"🛒"}}
 ---
 
 # keyapi-tiktok-ecommerce

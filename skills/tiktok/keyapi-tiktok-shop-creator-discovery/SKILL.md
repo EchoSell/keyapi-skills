@@ -1,6 +1,7 @@
 ---
 name: keyapi-tiktok-shop-creator-discovery
 description: Discover and analyze TikTok Shop creators — identify top-performing commerce sellers, evaluate GMV and sales metrics, understand audience demographics, and track creator growth trends within the TikTok e-commerce ecosystem.
+metadata: {"openclaw":{"requires":{"env":["KEYAPI_TOKEN"],"bins":["node"]},"primaryEnv":"KEYAPI_TOKEN","emoji":"🛍️"}}
 ---
 
 # keyapi-tiktok-shop-creator-discovery

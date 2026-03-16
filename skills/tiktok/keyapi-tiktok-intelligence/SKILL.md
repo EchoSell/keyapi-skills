@@ -1,6 +1,7 @@
 ---
 name: keyapi-tiktok-intelligence
 description: Real-time TikTok trend intelligence — monitor trending hashtags, viral music, breakout videos, top-performing ads, and high-growth products to identify emerging opportunities and market movements before they become mainstream.
+metadata: {"openclaw":{"requires":{"env":["KEYAPI_TOKEN"],"bins":["node"]},"primaryEnv":"KEYAPI_TOKEN","emoji":"📈"}}
 ---
 
 # keyapi-tiktok-intelligence

@@ -1,6 +1,7 @@
 ---
 name: keyapi-tiktok-content-analysis
 description: Analyze TikTok content at scale — extract insights from videos, hashtags, music tracks, and live streams including engagement trends, comment sentiment, caption transcription, and commerce attribution data.
+metadata: {"openclaw":{"requires":{"env":["KEYAPI_TOKEN"],"bins":["node"]},"primaryEnv":"KEYAPI_TOKEN","emoji":"📊"}}
 ---
 
 # keyapi-tiktok-content-analysis
