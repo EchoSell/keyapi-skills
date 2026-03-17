@@ -47,6 +47,26 @@ node scripts/run.js --tool search_influencers \
 | [keyapi-tiktok-content-analysis](skills/tiktok/keyapi-tiktok-content-analysis/SKILL.md) | Analyze TikTok content — videos, hashtags, music, live streams, comments, and sentiment at scale |
 | [keyapi-tiktok-intelligence](skills/tiktok/keyapi-tiktok-intelligence/SKILL.md) | Real-time TikTok trend intelligence — trending topics, viral music, breakout videos, top ads, and product insights |
 
+### Instagram Platform
+
+| Skill | Description |
+|-------|-------------|
+| [keyapi-instagram-user-analysis](skills/instagram/keyapi-instagram-user-analysis/SKILL.md) | Discover and analyze Instagram users — profile, posts, Reels, Stories, Highlights, followers, following, tagged posts, reposts, similar users |
+| [keyapi-instagram-content-discovery](skills/instagram/keyapi-instagram-content-discovery/SKILL.md) | Explore Instagram content at scale — posts, comments, hashtags, music, Explore page, locations, search |
+
+### YouTube Platform
+
+| Skill | Description |
+|-------|-------------|
+| [keyapi-youtube-video-analysis](skills/youtube/keyapi-youtube-video-analysis/SKILL.md) | Analyze YouTube videos at depth — metadata, comments, sub-comments, stream formats, related videos, Shorts search, video search, trending |
+| [keyapi-youtube-channel-analysis](skills/youtube/keyapi-youtube-channel-analysis/SKILL.md) | Discover and analyze YouTube channels — channel metadata, video library, ID/URL conversion, channel search, filtered search, suggestions |
+
+### Twitter Platform
+
+| Skill | Description |
+|-------|-------------|
+| [keyapi-twitter-content-analytics](skills/twitter/keyapi-twitter-content-analytics/SKILL.md) | Explore and analyze Twitter/X content — tweets, user profiles, posts, replies, media, comments, retweets, search, trending, followers, following |
+
 ---
 
 ## Common Rules (All TikTok Skills)
