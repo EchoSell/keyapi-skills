@@ -131,15 +131,16 @@ node scripts/run.js --platform instagram --tool get_user_info \
 **Example — get user posts (first page):**
 
 ```bash
+# Use user_id to avoid the "username " (with space) schema quirk
 node scripts/run.js --platform instagram --tool get_user_posts \
-  --params '{"username":"instagram"}' --pretty
+  --params '{"user_id":"25025320"}' --pretty
 ```
 
 **Example — get next page using pagination token:**
 
 ```bash
 node scripts/run.js --platform instagram --tool get_user_posts \
-  --params '{"username":"instagram","pagination_token":"<token_from_previous_response>"}' --pretty
+  --params '{"user_id":"25025320","pagination_token":"<token_from_previous_response>"}' --pretty
 ```
 
 **Example — get Highlights, then stories in one Highlight:**
@@ -227,6 +228,7 @@ After collecting all API responses, produce a structured user intelligence repor
 | Rule | Detail |
 |------|--------|
 | **User identification** | Most endpoints accept `username` or `user_id` — pass one. `get_user_reposts_list` and `get_related_profiles` require `user_id` only; resolve it via `get_user_info` first if starting from a handle. |
+| **`get_user_posts` username quirk** | The `get_user_posts` schema has a trailing space in the parameter name: `"username "` (with space). Use `user_id` instead of `username` when calling this endpoint to avoid potential parameter rejection. |
 | **Pagination** | Use `pagination_token` for most user-list endpoints. Use `max_id` for `get_user_reposts_list`. Some endpoints (`get_user_stories`, `get_user_highlights`, `get_similar_users`, `get_related_profiles`) return all data in a single call. |
 | **Highlights workflow** | Always call `get_user_highlights` first to obtain Highlight IDs before calling `get_highlight_stories`. The `highlight_id` may or may not include the `"highlight:"` prefix — pass it exactly as returned. |
 | **Success check** | `code = 0` → success. Any other value → failure. Always check the response code before processing data. |

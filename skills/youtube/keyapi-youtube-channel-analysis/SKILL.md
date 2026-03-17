@@ -167,7 +167,7 @@ node scripts/run.js --platform youtube --tool get_channel_url_from_channel_id \
 
 ```bash
 node scripts/run.js --platform youtube --tool get_channel_videos \
-  --params '{"channel_id":"UCJHBJ7F-nAIlMGolm0Hu4vg","language_code":"en-US","country_code":"US","need_format":false}' --pretty
+  --params '{"channel_id":"UCJHBJ7F-nAIlMGolm0Hu4vg","language_code":"en-US","country_code":"US"}' --pretty
 ```
 
 **Example — paginate to next video page:**
@@ -279,7 +279,7 @@ Before every API call, check whether a cached result already exists. If valid, l
 | **`get_channel_description` two-step** | **Critical**: This endpoint requires two sequential calls. First call with `channel_id` returns basic info + `continuation_token`. Second call with that token returns advanced info. Do NOT call both simultaneously. |
 | **URL format support** | `get_channel_id_from_url` supports multiple formats: `@username`, `/channel/UCxxxxxx`, `/c/name`, `/user/name`. |
 | **`search_channels` vs `search_channel`** | `search_channels` searches across YouTube for channels by keyword. `search_channel` searches within a specific channel's content. |
-| **`need_format` parameter** | Available on `get_channel_description`, `get_channel_videos`, `search_channels`. Set to `true` for structured output; `false` for raw YouTube API data. |
+| **`need_format` parameter quirk** | The `get_channel_videos` schema has a trailing space in the parameter name: `"need_format "` (with space). However, the API accepts both forms. Omit this parameter in examples to avoid confusion. Available on `get_channel_description` and `search_channels` without the space issue. |
 | **Language / region params** | `language_code` and `country_code` influence result language and regional content bias. Use `en-US` / `US` for English-language global results. |
 | **Success check** | `code = 0` → success. Any other value → failure. Always check the response code before processing data. |
 | **Retry on 500** | If `code = 500`, retry the identical request up to 3 times with a 2–3 second pause between attempts before reporting the error. |
