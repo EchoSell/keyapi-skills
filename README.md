@@ -123,13 +123,3 @@ node scripts/run.js --tool search_influencers \
 | **Retry on 500** | If `code = 500`, retry once after a brief pause before escalating. |
 | **Cache first** | Always check `.keyapi-cache/` before making a live API call. Cache is date-scoped (`YYYY-MM-DD`). |
 
----
-
-## Adding New Platform Skills
-
-1. Create `skills/{platform}/skill-name/`
-2. Copy `scripts/run.js` and `package.json` from an existing skill as a starting point
-3. Update `package.json` `name` field
-4. Write `SKILL.md` with YAML frontmatter and workflow body
-
-Supported platforms: `tiktok`, `instagram`, `twitter`, `youtube`, `threads`, `reddit`, `linkedin`, `facebook`, `amazon`, `pinterest`, `google`
