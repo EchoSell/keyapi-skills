@@ -67,6 +67,26 @@ node scripts/run.js --tool search_influencers \
 |-------|-------------|
 | [keyapi-twitter-content-analytics](skills/twitter/keyapi-twitter-content-analytics/SKILL.md) | Explore and analyze Twitter/X content — tweets, user profiles, posts, replies, media, comments, retweets, search, trending, followers, following |
 
+### LinkedIn Platform
+
+| Skill | Description |
+|-------|-------------|
+| [keyapi-linkedin-user-analytics](skills/linkedin/keyapi-linkedin-user-analytics/SKILL.md) | Discover and analyze LinkedIn professionals — profile, contact info, posts, comments, videos, experience, education, skills, certifications, publications, honors, recommendations, interests, and people search |
+| [keyapi-linkedin-company-analysis](skills/linkedin/keyapi-linkedin-company-analysis/SKILL.md) | Explore and analyze LinkedIn companies — company profile, employee directory, posts, job listings with rich filters, job counts, and job detail |
+
+### Reddit Platform
+
+| Skill | Description |
+|-------|-------------|
+| [keyapi-reddit-content-analytics](skills/reddit/keyapi-reddit-content-analytics/SKILL.md) | Explore and analyze Reddit posts, comments, and feeds — single/batch post details, threaded comment traversal, user activity, and curated feed monitoring |
+| [keyapi-reddit-user-analysis](skills/reddit/keyapi-reddit-user-analysis/SKILL.md) | Discover and analyze Reddit users and subreddits — user profiles, active communities, trophies, subreddit rules/settings, dynamic search, and trending intelligence |
+
+### Threads Platform
+
+| Skill | Description |
+|-------|-------------|
+| [keyapi-threads-user-discovery](skills/threads/keyapi-threads-user-discovery/SKILL.md) | Discover and analyze Threads users and content — user profiles, posts, reposts, replies, post details, comments, and keyword-based search across top content, recent content, and profiles |
+
 ---
 
 ## Common Rules (All TikTok Skills)
