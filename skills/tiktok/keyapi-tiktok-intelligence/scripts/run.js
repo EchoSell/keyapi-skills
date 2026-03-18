@@ -42,10 +42,21 @@ import { parseArgs } from "util";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
 
+// ── .env loader ───────────────────────────────────────────────────────────────
+
+(function loadDotenv() {
+  const envPath = join(ROOT, ".env");
+  if (!existsSync(envPath)) return;
+  for (const line of readFileSync(envPath, "utf8").split("\n")) {
+    const m = line.match(/^\s*([A-Z_][A-Z0-9_]*)\s*=\s*(.*)$/);
+    if (m && !process.env[m[1]])
+      process.env[m[1]] = m[2].replace(/^["']|["']$/g, "").trim();
+  }
+})();
+
 // ── Config ────────────────────────────────────────────────────────────────────
 
 const SERVER_BASE = process.env.KEYAPI_SERVER_URL ?? "https://mcp.keyapi.ai";
-const TOKEN = process.env.KEYAPI_TOKEN;
 const PAGE_SIZE_MAX = 10;
 
 /**
@@ -91,6 +102,8 @@ Options:
 
 Environment:
   KEYAPI_TOKEN        Required. Get yours at https://keyapi.ai/
+                      Set via: export KEYAPI_TOKEN=your_token
+                      Or save to a .env file in the skill directory.
   KEYAPI_SERVER_URL   Optional MCP base URL override
                       (default: https://mcp.keyapi.ai)
 
@@ -224,19 +237,45 @@ async function detectPagination(client, toolName) {
 
 // ── MCP client ────────────────────────────────────────────────────────────────
 
-async function connect(serverUrl) {
-  if (!TOKEN) {
+/** Prompt for KEYAPI_TOKEN interactively and persist it to .env */
+async function promptToken() {
+  if (!process.stdin.isTTY) {
     throw new Error(
       "KEYAPI_TOKEN is not set.\n" +
-      "  → Register at https://keyapi.ai/ to obtain a free token, then run:\n" +
-      "    export KEYAPI_TOKEN=your_token_here"
+      "  → Register at https://keyapi.ai/ to obtain a free token, then either:\n" +
+      "    export KEYAPI_TOKEN=your_token_here\n" +
+      "  → Or create a .env file in the skill directory:\n" +
+      "    echo \"KEYAPI_TOKEN=your_token_here\" > .env"
     );
   }
+  const { createInterface } = await import("readline");
+  const rl = createInterface({ input: process.stdin, output: process.stderr });
+  return new Promise((resolve, reject) => {
+    process.stderr.write("\nKEYAPI_TOKEN is required. Get yours at https://keyapi.ai/\n\n");
+    rl.question("Enter your token: ", (answer) => {
+      rl.close();
+      const token = answer.trim();
+      if (!token) {
+        reject(new Error("No token entered. Set KEYAPI_TOKEN and try again."));
+        return;
+      }
+      const envPath = join(ROOT, ".env");
+      writeFileSync(envPath, `KEYAPI_TOKEN=${token}\n`, "utf8");
+      log(`[token] Saved to ${envPath} — future runs will load it automatically`);
+      process.env.KEYAPI_TOKEN = token;
+      resolve(token);
+    });
+  });
+}
+
+async function connect(serverUrl) {
+  let token = process.env.KEYAPI_TOKEN;
+  if (!token) token = await promptToken();
 
   const client = new Client({ name: "keyapi-runner", version: "1.0.0" });
   const transport = new StreamableHTTPClientTransport(
     new URL(serverUrl),
-    { requestInit: { headers: { Authorization: `Bearer ${TOKEN}` } } }
+    { requestInit: { headers: { Authorization: `Bearer ${token}` } } }
   );
   await client.connect(transport);
   return client;

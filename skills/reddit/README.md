@@ -9,15 +9,51 @@ Two AI agent skills for comprehensive Reddit data analysis, powered by the [KeyA
 | [keyapi-reddit-content-analytics](keyapi-reddit-content-analytics/SKILL.md) | Explore and analyze Reddit posts, comments, and feeds | 14 nodes — single/batch post details, comment threads, sub-comments, user posts/comments, home/popular/games/news/subreddit feeds, community highlights |
 | [keyapi-reddit-user-analysis](keyapi-reddit-user-analysis/SKILL.md) | Discover and analyze Reddit users and subreddits | 11 nodes — user profiles, active subreddits, trophies, subreddit rules/settings/channels, dynamic search, trending searches |
 
+## Installation
+
+Each skill directory contains **three required files** — all must be present:
+
+| File | Purpose |
+|------|---------|
+| `SKILL.md` | Skill definition loaded by your agent |
+| `package.json` | Node.js dependency manifest |
+| `scripts/run.js` | API execution script called by the agent |
+
+> **All three files are required.** Downloading only `SKILL.md` will not work — `scripts/run.js` and `package.json` must be included.
+
+**Claude Code** — copy to `~/.claude/skills/`:
+
+```bash
+cp -r keyapi-reddit-content-analytics ~/.claude/skills/
+cd ~/.claude/skills/keyapi-reddit-content-analytics && npm install
+```
+
+**OpenClaw** — copy to `~/.openclaw/skills/`:
+
+```bash
+cp -r keyapi-reddit-content-analytics ~/.openclaw/skills/
+cd ~/.openclaw/skills/keyapi-reddit-content-analytics && npm install
+```
+
+**API token** — required on first run. Get yours at [keyapi.ai](https://keyapi.ai/):
+
+```bash
+# Option A: environment variable (current session only)
+export KEYAPI_TOKEN=your_token_here
+
+# Option B: .env file in the skill directory (persists across sessions)
+echo "KEYAPI_TOKEN=your_token_here" > ~/.claude/skills/keyapi-reddit-content-analytics/.env
+```
+
+> If `KEYAPI_TOKEN` is not set and you run the script in a terminal, you will be prompted to enter it and it will be saved to `.env` automatically.
+
 ## Quick Start
 
 Each skill is self-contained. Install a single skill or use both together.
 
 ```bash
-# Install a single skill (standalone mode)
+# Verify connection
 cd keyapi-reddit-content-analytics
-npm install
-export KEYAPI_TOKEN=your_token_here
 node scripts/run.js --platform reddit --list-tools
 ```
 

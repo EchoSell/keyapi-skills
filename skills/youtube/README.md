@@ -9,15 +9,51 @@ Two AI agent skills for comprehensive YouTube data analysis, powered by the [Key
 | [keyapi-youtube-video-analysis](keyapi-youtube-video-analysis/SKILL.md) | Analyze YouTube videos at depth | 8 nodes — video metadata, comments, sub-comments, stream formats, related videos, Shorts search, video search, trending |
 | [keyapi-youtube-channel-analysis](keyapi-youtube-channel-analysis/SKILL.md) | Discover and analyze YouTube channels | 9 nodes — channel metadata, video library, ID/URL conversion, channel search, filtered search, suggestions |
 
+## Installation
+
+Each skill directory contains **three required files** — all must be present:
+
+| File | Purpose |
+|------|---------|
+| `SKILL.md` | Skill definition loaded by your agent |
+| `package.json` | Node.js dependency manifest |
+| `scripts/run.js` | API execution script called by the agent |
+
+> **All three files are required.** Downloading only `SKILL.md` will not work — `scripts/run.js` and `package.json` must be included.
+
+**Claude Code** — copy to `~/.claude/skills/`:
+
+```bash
+cp -r keyapi-youtube-video-analysis ~/.claude/skills/
+cd ~/.claude/skills/keyapi-youtube-video-analysis && npm install
+```
+
+**OpenClaw** — copy to `~/.openclaw/skills/`:
+
+```bash
+cp -r keyapi-youtube-video-analysis ~/.openclaw/skills/
+cd ~/.openclaw/skills/keyapi-youtube-video-analysis && npm install
+```
+
+**API token** — required on first run. Get yours at [keyapi.ai](https://keyapi.ai/):
+
+```bash
+# Option A: environment variable (current session only)
+export KEYAPI_TOKEN=your_token_here
+
+# Option B: .env file in the skill directory (persists across sessions)
+echo "KEYAPI_TOKEN=your_token_here" > ~/.claude/skills/keyapi-youtube-video-analysis/.env
+```
+
+> If `KEYAPI_TOKEN` is not set and you run the script in a terminal, you will be prompted to enter it and it will be saved to `.env` automatically.
+
 ## Quick Start
 
 Each skill is self-contained. Install a single skill or use both together.
 
 ```bash
-# Install a single skill (standalone mode)
+# Verify connection
 cd keyapi-youtube-video-analysis
-npm install
-export KEYAPI_TOKEN=your_token_here
 node scripts/run.js --platform youtube --list-tools
 ```
 

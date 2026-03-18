@@ -12,15 +12,51 @@ Five AI agent skills for comprehensive TikTok data analysis, powered by the [Key
 | [keyapi-tiktok-content-analysis](keyapi-tiktok-content-analysis/SKILL.md) | Analyze videos, hashtags, music & live streams | 21 nodes — video data, comments, captions, sentiment |
 | [keyapi-tiktok-intelligence](keyapi-tiktok-intelligence/SKILL.md) | Real-time trend & market intelligence | 10 nodes — trending, keyword insights, top ads/products |
 
+## Installation
+
+Each skill directory contains **three required files** — all must be present:
+
+| File | Purpose |
+|------|---------|
+| `SKILL.md` | Skill definition loaded by your agent |
+| `package.json` | Node.js dependency manifest |
+| `scripts/run.js` | API execution script called by the agent |
+
+> **All three files are required.** Downloading only `SKILL.md` will not work — `scripts/run.js` and `package.json` must be included.
+
+**Claude Code** — copy to `~/.claude/skills/`:
+
+```bash
+cp -r keyapi-tiktok-influencer-discovery ~/.claude/skills/
+cd ~/.claude/skills/keyapi-tiktok-influencer-discovery && npm install
+```
+
+**OpenClaw** — copy to `~/.openclaw/skills/`:
+
+```bash
+cp -r keyapi-tiktok-influencer-discovery ~/.openclaw/skills/
+cd ~/.openclaw/skills/keyapi-tiktok-influencer-discovery && npm install
+```
+
+**API token** — required on first run. Get yours at [keyapi.ai](https://keyapi.ai/):
+
+```bash
+# Option A: environment variable (current session only)
+export KEYAPI_TOKEN=your_token_here
+
+# Option B: .env file in the skill directory (persists across sessions)
+echo "KEYAPI_TOKEN=your_token_here" > ~/.claude/skills/keyapi-tiktok-influencer-discovery/.env
+```
+
+> If `KEYAPI_TOKEN` is not set and you run the script in a terminal, you will be prompted to enter it and it will be saved to `.env` automatically.
+
 ## Quick Start
 
 Each skill is self-contained. Install a single skill or use all of them together.
 
 ```bash
-# Install a single skill (standalone mode)
+# Verify connection
 cd keyapi-tiktok-influencer-discovery
-npm install
-export KEYAPI_TOKEN=your_token_here
 node scripts/run.js --list-tools
 ```
 

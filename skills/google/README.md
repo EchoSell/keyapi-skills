@@ -8,12 +8,49 @@ One AI agent skill for Google web and image search, powered by the [KeyAPI](http
 |-------|-----------------|-----------|
 | [keyapi-google-search](keyapi-google-search/SKILL.md) | Perform Google web and image searches with language and region targeting | 2 nodes — web search (up to 100 results), image search (paginated, up to 20/page) |
 
+## Installation
+
+Each skill directory contains **three required files** — all must be present:
+
+| File | Purpose |
+|------|---------|
+| `SKILL.md` | Skill definition loaded by your agent |
+| `package.json` | Node.js dependency manifest |
+| `scripts/run.js` | API execution script called by the agent |
+
+> **All three files are required.** Downloading only `SKILL.md` will not work — `scripts/run.js` and `package.json` must be included.
+
+**Claude Code** — copy to `~/.claude/skills/`:
+
+```bash
+cp -r keyapi-google-search ~/.claude/skills/
+cd ~/.claude/skills/keyapi-google-search && npm install
+```
+
+**OpenClaw** — copy to `~/.openclaw/skills/`:
+
+```bash
+cp -r keyapi-google-search ~/.openclaw/skills/
+cd ~/.openclaw/skills/keyapi-google-search && npm install
+```
+
+**API token** — required on first run. Get yours at [keyapi.ai](https://keyapi.ai/):
+
+```bash
+# Option A: environment variable (current session only)
+export KEYAPI_TOKEN=your_token_here
+
+# Option B: .env file in the skill directory (persists across sessions)
+echo "KEYAPI_TOKEN=your_token_here" > ~/.claude/skills/keyapi-google-search/.env
+```
+
+> If `KEYAPI_TOKEN` is not set and you run the script in a terminal, you will be prompted to enter it and it will be saved to `.env` automatically.
+
 ## Quick Start
 
 ```bash
+# Verify connection
 cd keyapi-google-search
-npm install
-export KEYAPI_TOKEN=your_token_here
 node scripts/run.js --platform google --list-tools
 ```
 
