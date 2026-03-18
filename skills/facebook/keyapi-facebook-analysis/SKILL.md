@@ -206,6 +206,8 @@ node scripts/run.js --platform facebook --tool get_group_future_events \
 |---|---|
 | `CHRONOLOGICAL` | Most recent posts first (default) |
 | `TOP_POSTS` | Highest engagement posts first |
+| `RECENT_ACTIVITY` | Posts with recent activity (comments/reactions) |
+| `CHRONOLOGICAL_LISTINGS` | Chronological order for listing-type posts |
 
 **Cache directory structure:**
 

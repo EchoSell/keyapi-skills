@@ -118,7 +118,7 @@ Clarify the research objective and map it to one or more nodes. Typical entry po
 
 > **`deals` Pagination**
 >
-> `deals` uses `offset` (not `page`) for pagination. Pass the `offset` value from the previous response to fetch the next batch of deals.
+> `deals` uses `offset` (not `page`) for pagination. Increment by 30 for each page: `0`, `30`, `60`, `90`, etc.
 
 > **Influencer Post Workflow**
 >
@@ -180,7 +180,7 @@ node scripts/run.js --platform amazon --tool best_seller \
 
 ```bash
 node scripts/run.js --platform amazon --tool deals \
-  --params '{"country":"us","discount_range":"20_AND_ABOVE","min_product_star_rating":"4_AND_ABOVE"}' --pretty
+  --params '{"country":"us","discount_range":"3","min_product_star_rating":"4"}' --pretty
 ```
 
 **Example — get product reviews filtered by star rating:**
@@ -220,7 +220,7 @@ node scripts/run.js --platform amazon --tool influencer_post_products \
 | `product_reviews` | `page` (int, 1-indexed) | Also supports `cookie` for session continuity |
 | `product_offers` | `page` (int, 1-indexed) | Default `limit` is 100 offers |
 | `seller_reviews`, `seller_products` | `page` (int) | Optional, starts at 1 |
-| `deals` | `offset` (int) | Use `offset` value from previous response |
+| `deals` | `offset` (int) | Multiples of 30: 0, 30, 60, 90… |
 | `influencer_posts`, `influencer_post_products` | `cursor` (string) | Pass cursor from previous response; omit for first call |
 | `product_details`, `top_product_reviews`, `seller_profile`, `promo_code_detail`, `asin_to_gtin`, `product_category_list` | — | Single-call or no pagination |
 
@@ -229,10 +229,29 @@ node scripts/run.js --platform amazon --tool influencer_post_products \
 | Value | Description |
 |---|---|
 | `RELEVANCE` | Default — most relevant results |
-| `PRICE_LOW_TO_HIGH` | Cheapest first |
-| `PRICE_HIGH_TO_LOW` | Most expensive first |
+| `LOWEST_PRICE` | Cheapest first |
+| `HIGHEST_PRICE` | Most expensive first |
 | `REVIEWS` | Most reviewed |
 | `NEWEST` | Most recently listed |
+| `BEST_SELLERS` | Best-selling products first |
+
+**`product_search` and `products_by_category` condition options (`product_condition`):**
+
+| Value | Description |
+|---|---|
+| `ALL` | All conditions (default) |
+| `NEW` | New products only |
+| `USED` | Used products only |
+| `RENEWED` | Renewed/refurbished products |
+| `COLLECTIBLE` | Collectible items |
+
+**`product_search` and `products_by_category` deals filter (`deals_and_discounts`):**
+
+| Value | Description |
+|---|---|
+| `NONE` | No filter (default) |
+| `ALL_DISCOUNTS` | Any discounted product |
+| `TODAYS_DEALS` | Today's deals only |
 
 **`product_offers` condition options (`product_condition`):**
 
@@ -321,7 +340,7 @@ After collecting all API responses, produce a structured e-commerce intelligence
 | **`country` parameter** | Defaults to `us`. Pass a two-letter country code to target other Amazon marketplaces (24 supported). |
 | **`fields` projection** | Most endpoints accept `fields` (comma-separated field names) to reduce response size. Use it to fetch only the data you need. |
 | **`best_seller` category** | Use the URL path from Amazon's Best Sellers page as the `category` value (e.g., `electronics`, `software`). |
-| **`deals` pagination** | Uses `offset` (not `page`). Pass the offset from the previous response for the next batch. |
+| **`deals` pagination** | Uses `offset` (not `page`). Increment by 30 for each page: 0, 30, 60, 90… |
 | **Influencer post type** | `influencer_post_products` only works for posts with type `list`. Check post type in `influencer_posts` response first. |
 | **`product_offers` condition** | `product_condition` accepts comma-separated values: `NEW`, `USED_LIKE_NEW`, `USED_VERY_GOOD`, `USED_GOOD`, `USED_ACCEPTABLE`. |
 | **Success check** | `code = 0` → success. Any other value → failure. Always check the response code before processing data. |
