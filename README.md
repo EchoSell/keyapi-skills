@@ -87,6 +87,30 @@ node scripts/run.js --tool search_influencers \
 |-------|-------------|
 | [keyapi-threads-user-discovery](skills/threads/keyapi-threads-user-discovery/SKILL.md) | Discover and analyze Threads users and content — user profiles, posts, reposts, replies, post details, comments, and keyword-based search across top content, recent content, and profiles |
 
+### Amazon Platform
+
+| Skill | Description |
+|-------|-------------|
+| [keyapi-amazon-ecommerce](skills/amazon/keyapi-amazon-ecommerce/SKILL.md) | Explore and analyze Amazon marketplace data — product search, category browsing, product details, best sellers, deals, reviews, offers, seller intelligence, influencer storefronts, and ASIN/GTIN conversion across 24 marketplaces |
+
+### Facebook Platform
+
+| Skill | Description |
+|-------|-------------|
+| [keyapi-facebook-analysis](skills/facebook/keyapi-facebook-analysis/SKILL.md) | Explore and analyze public Facebook profiles, pages, and groups — profile details, posts, photos, Reels, group activity, group events, and identifier resolution |
+
+### Pinterest Platform
+
+| Skill | Description |
+|-------|-------------|
+| [keyapi-pinterest-analysis](skills/pinterest/keyapi-pinterest-analysis/SKILL.md) | Discover and analyze Pinterest users, pins, boards, and social graphs — user search, profile info, pin libraries, board collections, follower and following network traversal |
+
+### Google Platform
+
+| Skill | Description |
+|-------|-------------|
+| [keyapi-google-search](skills/google/keyapi-google-search/SKILL.md) | Perform Google web and image searches — retrieve ranked web results with titles, snippets, and URLs, or search for images with country and language targeting, result count control, and page-based pagination |
+
 ---
 
 ## Common Rules (All TikTok Skills)
