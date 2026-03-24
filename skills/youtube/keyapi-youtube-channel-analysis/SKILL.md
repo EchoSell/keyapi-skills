@@ -2,6 +2,9 @@
 name: keyapi-youtube-channel-analysis
 description: Discover, profile, and analyze YouTube channels — retrieve channel metadata, video libraries, convert between channel IDs and URLs, search channels by keyword, and explore advanced search with filters.
 metadata: {"openclaw":{"requires":{"env":["KEYAPI_TOKEN"],"bins":["node"]},"primaryEnv":"KEYAPI_TOKEN","emoji":"📺"}}
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 # keyapi-youtube-channel-analysis
@@ -19,6 +22,9 @@ Use this skill when you need to:
 - Perform advanced YouTube searches with filters (upload time, duration, content type, features, sort order)
 - Get real-time search suggestions for keyword research and autocomplete
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Prerequisites
@@ -29,6 +35,9 @@ Use this skill when you need to:
 | **Node.js** | v18 or higher |
 | **Dependencies** | Run `npm install` in the skill directory to install `@modelcontextprotocol/sdk` |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## MCP Server Configuration
@@ -53,6 +62,9 @@ export KEYAPI_TOKEN=your_token_here
 node scripts/run.js --platform youtube --list-tools
 ```
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Analysis Scenarios
@@ -81,6 +93,9 @@ node scripts/run.js --platform youtube --list-tools
 | Advanced filtered search across YouTube | `general_search_with_filters` | Precision discovery — filter by upload time, duration, content type, features, sort order |
 | Get search suggestions / autocomplete | `get_search_suggestions` | Keyword research, query expansion — returns 10–20 suggestions in <1 second |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Workflow
@@ -269,6 +284,9 @@ Before every API call, check whether a cached result already exists. If valid, l
 2. **Comparative Analysis** — Side-by-side metrics for shortlisted channels.
 3. **Keyword Expansion** — Search suggestions for related queries, trending topics.
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Common Rules
@@ -285,6 +303,9 @@ Before every API call, check whether a cached result already exists. If valid, l
 | **Retry on 500** | If `code = 500`, retry the identical request up to 3 times with a 2–3 second pause between attempts before reporting the error. |
 | **Cache first** | Always check the local `.keyapi-cache/` directory before issuing a live API call. |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Error Handling

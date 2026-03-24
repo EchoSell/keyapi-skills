@@ -2,6 +2,9 @@
 name: keyapi-pinterest-analysis
 description: Discover and analyze Pinterest users, pins, boards, followers, and following — search users, retrieve profile information, explore pin libraries and board collections, and traverse follower/following networks.
 metadata: {"openclaw":{"requires":{"env":["KEYAPI_TOKEN"],"bins":["node"]},"primaryEnv":"KEYAPI_TOKEN","emoji":"📌"}}
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 # keyapi-pinterest-analysis
@@ -18,6 +21,9 @@ Use this skill when you need to:
 - Traverse a user's follower list with cursor-based pagination
 - Analyze a user's following list with bookmark-based pagination
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Prerequisites
@@ -28,6 +34,9 @@ Use this skill when you need to:
 | **Node.js** | v18 or higher |
 | **Dependencies** | Run `npm install` in the skill directory to install `@modelcontextprotocol/sdk` |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## MCP Server Configuration
@@ -52,6 +61,9 @@ export KEYAPI_TOKEN=your_token_here
 node scripts/run.js --platform pinterest --list-tools
 ```
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Analysis Scenarios
@@ -65,6 +77,9 @@ node scripts/run.js --platform pinterest --list-tools
 | Follower list with pagination | `get_followers_detail` | Audience sampling, follower network research |
 | Following list with pagination | `get_following_detail` | Interest mapping, network affinity analysis |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Workflow
@@ -239,6 +254,9 @@ After collecting all API responses, produce a structured Pinterest intelligence 
 2. **Following Footprint** — Accounts followed, category interests, brand affiliations.
 3. **Network Signals** — Follower-to-following ratio, audience quality indicators.
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Common Rules
@@ -253,6 +271,9 @@ After collecting all API responses, produce a structured Pinterest intelligence 
 | **Retry on 500** | If `code = 500`, retry the identical request up to 3 times with a 2–3 second pause between attempts before reporting the error. |
 | **Cache first** | Always check the local `.keyapi-cache/` directory before issuing a live API call. |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Error Handling

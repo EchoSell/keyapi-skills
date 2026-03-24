@@ -2,6 +2,9 @@
 name: keyapi-linkedin-user-analytics
 description: Discover, profile, and deeply analyze LinkedIn users — explore professional profiles, contact information, work experience, education, skills, publications, certifications, honors, recommendations, interests, posts, comments, and videos.
 metadata: {"openclaw":{"requires":{"env":["KEYAPI_TOKEN"],"bins":["node"]},"primaryEnv":"KEYAPI_TOKEN","emoji":"👔"}}
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 # keyapi-linkedin-user-analytics
@@ -19,6 +22,9 @@ Use this skill when you need to:
 - Map professional interests via followed groups and companies
 - Search and discover LinkedIn professionals by name, title, company, or industry
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Prerequisites
@@ -29,6 +35,9 @@ Use this skill when you need to:
 | **Node.js** | v18 or higher |
 | **Dependencies** | Run `npm install` in the skill directory to install `@modelcontextprotocol/sdk` |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## MCP Server Configuration
@@ -53,6 +62,9 @@ export KEYAPI_TOKEN=your_token_here
 node scripts/run.js --platform linkedin --list-tools
 ```
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Analysis Scenarios
@@ -78,6 +90,9 @@ node scripts/run.js --platform linkedin --list-tools
 | Followed companies | `get_user_interests_companies` | Industry focus, competitive intelligence |
 | Search professionals by name, title, or company | `search_people` | Talent discovery, prospect research |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Workflow
@@ -244,6 +259,9 @@ After collecting all API responses, produce a structured professional intelligen
 2. **Comparative Overview** — Side-by-side profile metrics for shortlisted candidates.
 3. **Actionable Recommendations** — Best-fit profiles for outreach, partnership, or hiring.
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Common Rules
@@ -260,6 +278,9 @@ After collecting all API responses, produce a structured professional intelligen
 | **Retry on 500** | If `code = 500`, retry the identical request up to 3 times with a 2–3 second pause between attempts before reporting the error. |
 | **Cache first** | Always check the local `.keyapi-cache/` directory before issuing a live API call. |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Error Handling

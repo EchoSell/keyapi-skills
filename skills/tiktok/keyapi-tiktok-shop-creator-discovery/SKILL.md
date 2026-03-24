@@ -2,6 +2,9 @@
 name: keyapi-tiktok-shop-creator-discovery
 description: Discover and analyze TikTok Shop creators — identify top-performing commerce sellers, evaluate GMV and sales metrics, understand audience demographics, and track creator growth trends within the TikTok e-commerce ecosystem.
 metadata: {"openclaw":{"requires":{"env":["KEYAPI_TOKEN"],"bins":["node"]},"primaryEnv":"KEYAPI_TOKEN","emoji":"🛍️"}}
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 # keyapi-tiktok-shop-creator-discovery
@@ -17,6 +20,9 @@ Use this skill when you need to:
 - Monitor trends in creator sales activity and follower growth over time
 - Compare multiple shop creators to select the best-fit commercial partners
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Prerequisites
@@ -27,6 +33,9 @@ Use this skill when you need to:
 | **Node.js** | v18 or higher |
 | **Dependencies** | Run `npm install` in the skill directory to install `@modelcontextprotocol/sdk` |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## MCP Server Configuration
@@ -51,6 +60,9 @@ export KEYAPI_TOKEN=your_token_here
 node scripts/run.js --list-tools
 ```
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Analysis Scenarios
@@ -66,6 +78,9 @@ Select one or more nodes based on the research objective.
 | Track a creator's growth and sales trends over time | `get_shop_creator_trends` | Trend monitoring — follower growth velocity, view and sales trajectory |
 | Review a creator's product promotion videos with sales data | `get_shop_creator_videos` | Content-commerce analysis — which videos drove conversions |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Workflow
@@ -172,6 +187,9 @@ After collecting all API responses, produce a structured creator evaluation repo
 5. **Content-Commerce Effectiveness** — Highest-converting video formats, average views per promotion video, CTR signals.
 6. **Partnership Recommendations** — Best-fit collaboration formats (product seeding, affiliate, exclusive collab), risk signals (declining trends, audience mismatch), estimated deal value benchmarks based on GMV history.
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Common Rules
@@ -185,6 +203,9 @@ After collecting all API responses, produce a structured creator evaluation repo
 | **Cache first** | Always check the local `.keyapi-cache/` directory before issuing a live API call. |
 | **ID resolution** | Users provide `unique_id` (@handle). Always call `search_shop_creator` first to resolve the `creator_oecuid` required by all other nodes. |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Error Handling

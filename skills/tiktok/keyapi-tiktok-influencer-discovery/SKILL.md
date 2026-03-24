@@ -2,6 +2,9 @@
 name: keyapi-tiktok-influencer-discovery
 description: Discover, profile, and deeply analyze TikTok influencers — from keyword-based search to multi-dimensional performance intelligence covering follower trends, engagement rates, live-stream GMV, video performance, and competitive rankings.
 metadata: {"openclaw":{"requires":{"env":["KEYAPI_TOKEN"],"bins":["node"]},"primaryEnv":"KEYAPI_TOKEN","emoji":"🔍"}}
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 # keyapi-tiktok-influencer-discovery
@@ -16,6 +19,9 @@ Use this skill when you need to:
 - Build ranked shortlists and compare multiple creators across key performance dimensions
 - Track historical trends for competitive intelligence and market positioning
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Prerequisites
@@ -26,6 +32,9 @@ Use this skill when you need to:
 | **Node.js** | v18 or higher |
 | **Dependencies** | Run `npm install` in the skill directory to install `@modelcontextprotocol/sdk` |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## MCP Server Configuration
@@ -50,6 +59,9 @@ export KEYAPI_TOKEN=your_token_here
 node scripts/run.js --list-tools
 ```
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Analysis Scenarios
@@ -74,6 +86,9 @@ Select one or more nodes based on the research objective. Multiple nodes can be 
 | Generate a shareable profile QR code | `get_influencer_qr_code` | Marketing material assets |
 | Key milestone and achievement history | `get_influencer_milestones` | Growth storytelling, historical highlights |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Workflow
@@ -205,6 +220,9 @@ After collecting all API responses (from cache or live calls), produce a structu
 
 Cross-reference multiple data sources where available — for example, correlate `influencer_trends_analytics` with `influencer_livestreams_analytics` to identify whether GMV peaks align with follower growth events.
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Common Rules
@@ -218,6 +236,9 @@ Cross-reference multiple data sources where available — for example, correlate
 | **Cache first** | Always check the local `.keyapi-cache/` directory before issuing a live API call. |
 | **ID resolution** | When a workflow requires both `user_id` and `unique_id`, call `get_influencer_detail` first with the `unique_id` to resolve both. |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Error Handling

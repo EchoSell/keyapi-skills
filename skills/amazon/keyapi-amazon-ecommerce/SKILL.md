@@ -2,6 +2,9 @@
 name: keyapi-amazon-ecommerce
 description: Explore and analyze Amazon e-commerce data at scale — product search, category browsing, product details, best sellers, deals, seller intelligence, influencer storefronts, reviews, and ASIN/GTIN conversion across 24 Amazon marketplaces.
 metadata: {"openclaw":{"requires":{"env":["KEYAPI_TOKEN"],"bins":["node"]},"primaryEnv":"KEYAPI_TOKEN","emoji":"🛒"}}
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 # keyapi-amazon-ecommerce
@@ -20,6 +23,9 @@ Use this skill when you need to:
 - Compare product offers across conditions (new, used, refurbished) and delivery options
 - Convert Amazon ASINs to Global Trade Item Numbers (GTINs)
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Prerequisites
@@ -30,6 +36,9 @@ Use this skill when you need to:
 | **Node.js** | v18 or higher |
 | **Dependencies** | Run `npm install` in the skill directory to install `@modelcontextprotocol/sdk` |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## MCP Server Configuration
@@ -54,6 +63,9 @@ export KEYAPI_TOKEN=your_token_here
 node scripts/run.js --platform amazon --list-tools
 ```
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Analysis Scenarios
@@ -80,6 +92,9 @@ node scripts/run.js --platform amazon --list-tools
 | Influencer posts (lists, photos, videos) | `influencer_posts` | Content audit, product promotion patterns |
 | Products in an influencer list post | `influencer_post_products` | Product attribution, affiliate research |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Workflow
@@ -330,6 +345,9 @@ After collecting all API responses, produce a structured e-commerce intelligence
 2. **Content Analysis** — Post type breakdown (lists, photos, videos), keyword themes, scope categories.
 3. **Product Attribution** — Products promoted, category alignment, affiliate depth.
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Common Rules
@@ -347,6 +365,9 @@ After collecting all API responses, produce a structured e-commerce intelligence
 | **Retry on 500** | If `code = 500`, retry the identical request up to 3 times with a 2–3 second pause between attempts before reporting the error. |
 | **Cache first** | Always check the local `.keyapi-cache/` directory before issuing a live API call. |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Error Handling

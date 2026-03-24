@@ -2,6 +2,9 @@
 name: keyapi-facebook-analysis
 description: Explore and analyze public Facebook data — profile details, posts, photos, Reels, group activity, group events, and identifier resolution for profiles and groups.
 metadata: {"openclaw":{"requires":{"env":["KEYAPI_TOKEN"],"bins":["node"]},"primaryEnv":"KEYAPI_TOKEN","emoji":"👥"}}
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 # keyapi-facebook-analysis
@@ -17,6 +20,9 @@ Use this skill when you need to:
 - Resolve a group URL to its numeric group ID
 - Research brand pages, public figures, or community groups on Facebook
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Prerequisites
@@ -27,6 +33,9 @@ Use this skill when you need to:
 | **Node.js** | v18 or higher |
 | **Dependencies** | Run `npm install` in the skill directory to install `@modelcontextprotocol/sdk` |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## MCP Server Configuration
@@ -51,6 +60,9 @@ export KEYAPI_TOKEN=your_token_here
 node scripts/run.js --platform facebook --list-tools
 ```
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Analysis Scenarios
@@ -68,6 +80,9 @@ node scripts/run.js --platform facebook --list-tools
 | Posts from a public group | `get_group_posts` | Group activity monitoring, content analysis |
 | Upcoming events in a group | `get_group_future_events` | Event discovery, community activity tracking |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Workflow
@@ -255,6 +270,9 @@ After collecting all API responses, produce a structured intelligence report:
 2. **Activity Profile** — Post frequency, top contributors, discussion themes.
 3. **Event Calendar** — Upcoming events, event type, organizer, date/time distribution.
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Common Rules
@@ -271,6 +289,9 @@ After collecting all API responses, produce a structured intelligence report:
 | **Retry on 500** | If `code = 500`, retry the identical request up to 3 times with a 2–3 second pause between attempts before reporting the error. |
 | **Cache first** | Always check the local `.keyapi-cache/` directory before issuing a live API call. |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Error Handling

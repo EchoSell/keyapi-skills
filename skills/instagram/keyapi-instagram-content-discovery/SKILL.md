@@ -2,6 +2,9 @@
 name: keyapi-instagram-content-discovery
 description: Explore and discover Instagram content at scale — search posts, Reels, hashtags, music, locations, and Explore sections to surface trends, audience signals, and high-engagement content opportunities.
 metadata: {"openclaw":{"requires":{"env":["KEYAPI_TOKEN"],"bins":["node"]},"primaryEnv":"KEYAPI_TOKEN","emoji":"🔎"}}
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 # keyapi-instagram-content-discovery
@@ -19,6 +22,9 @@ Use this skill when you need to:
 - Identify content popularity signals for a specific song or audio track
 - Perform geo-based location searches for hyper-local content research
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Prerequisites
@@ -29,6 +35,9 @@ Use this skill when you need to:
 | **Node.js** | v18 or higher |
 | **Dependencies** | Run `npm install` in the skill directory to install `@modelcontextprotocol/sdk` |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## MCP Server Configuration
@@ -53,6 +62,9 @@ export KEYAPI_TOKEN=your_token_here
 node scripts/run.js --platform instagram --list-tools
 ```
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Analysis Scenarios
@@ -89,6 +101,9 @@ node scripts/run.js --platform instagram --list-tools
 | Search locations near GPS coordinates | `search_locations_by_coordinates` | Hyperlocal content strategy, geo-targeted discovery |
 | Get cities / regions for a country | `get_cities_by_country` | Geographic market mapping, city-level targeting |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Workflow
@@ -276,6 +291,9 @@ After collecting all API responses, produce a structured content intelligence re
 2. **Local Content** — Top posts geotagged to target area, thematic clusters.
 3. **City / Region Map** — Available cities per country for campaign geo-targeting.
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Common Rules
@@ -293,6 +311,9 @@ After collecting all API responses, produce a structured content intelligence re
 | **Retry on 500** | If `code = 500`, retry the identical request up to 3 times with a 2–3 second pause between attempts before reporting the error. |
 | **Cache first** | Always check the local `.keyapi-cache/` directory before issuing a live API call. |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Error Handling

@@ -2,6 +2,9 @@
 name: keyapi-reddit-content-analytics
 description: Explore and analyze Reddit content at scale — retrieve post details (single, batch, or large batch), comments, sub-comment threads, user activity, and curated feeds including home, popular, games, news, subreddit, and community highlights.
 metadata: {"openclaw":{"requires":{"env":["KEYAPI_TOKEN"],"bins":["node"]},"primaryEnv":"KEYAPI_TOKEN","emoji":"📰"}}
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 # keyapi-reddit-content-analytics
@@ -18,6 +21,9 @@ Use this skill when you need to:
 - Explore subreddit-specific content streams
 - Surface community highlights and pinned content from specific subreddits
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Prerequisites
@@ -28,6 +34,9 @@ Use this skill when you need to:
 | **Node.js** | v18 or higher |
 | **Dependencies** | Run `npm install` in the skill directory to install `@modelcontextprotocol/sdk` |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## MCP Server Configuration
@@ -52,6 +61,9 @@ export KEYAPI_TOKEN=your_token_here
 node scripts/run.js --platform reddit --list-tools
 ```
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Analysis Scenarios
@@ -72,6 +84,9 @@ node scripts/run.js --platform reddit --list-tools
 | Subreddit content stream | `fetch_reddit_app_subreddit_feed` | Community-specific content monitoring |
 | Community highlights and pinned content | `fetch_reddit_app_community_highlights` | Featured posts, important announcements |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Workflow
@@ -259,6 +274,9 @@ After collecting all API responses, produce a structured content intelligence re
 2. **Content Themes** — Recurring topics, subreddit focus areas.
 3. **Engagement Style** — Comment length patterns, upvote/downvote behavior where available.
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Common Rules
@@ -274,6 +292,9 @@ After collecting all API responses, produce a structured content intelligence re
 | **Retry on 500** | If `code = 500`, retry the identical request up to 3 times with a 2–3 second pause between attempts before reporting the error. |
 | **Cache first** | Always check the local `.keyapi-cache/` directory before issuing a live API call. |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Error Handling

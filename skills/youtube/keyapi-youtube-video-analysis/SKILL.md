@@ -2,6 +2,9 @@
 name: keyapi-youtube-video-analysis
 description: Analyze YouTube videos at depth — retrieve full metadata, comments, sub-comment threads, stream formats, related video recommendations, Shorts, search results, and trending content across categories.
 metadata: {"openclaw":{"requires":{"env":["KEYAPI_TOKEN"],"bins":["node"]},"primaryEnv":"KEYAPI_TOKEN","emoji":"🎬"}}
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 # keyapi-youtube-video-analysis
@@ -19,6 +22,9 @@ Use this skill when you need to:
 - Find videos by keyword with advanced sort and recency filters
 - Monitor trending videos globally or by category (Music, Gaming, Movies)
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Prerequisites
@@ -29,6 +35,9 @@ Use this skill when you need to:
 | **Node.js** | v18 or higher |
 | **Dependencies** | Run `npm install` in the skill directory to install `@modelcontextprotocol/sdk` |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## MCP Server Configuration
@@ -53,6 +62,9 @@ export KEYAPI_TOKEN=your_token_here
 node scripts/run.js --platform youtube --list-tools
 ```
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Analysis Scenarios
@@ -75,6 +87,9 @@ node scripts/run.js --platform youtube --list-tools
 | Search regular videos by keyword | `search_video` | General video discovery with recency filter (this_week / this_month / this_year / last_hour / today) |
 | Get trending videos by category | `get_trending_videos` | Market pulse — categories: Now (default), Music, Gaming, Movies |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Workflow
@@ -241,6 +256,9 @@ Before every API call, check whether a cached result already exists. If valid, l
 2. **Shorts Landscape** — Trending Shorts topics, creator diversity, engagement patterns.
 3. **Trending Signals** — Top trending videos by category, creator names, view velocity indicators.
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Common Rules
@@ -257,6 +275,9 @@ Before every API call, check whether a cached result already exists. If valid, l
 | **Retry on 500** | If `code = 500`, retry the identical request up to 3 times with a 2–3 second pause between attempts before reporting the error. |
 | **Cache first** | Always check the local `.keyapi-cache/` directory before issuing a live API call. |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Error Handling

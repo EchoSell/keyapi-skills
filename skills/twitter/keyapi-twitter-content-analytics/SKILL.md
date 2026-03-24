@@ -2,6 +2,9 @@
 name: keyapi-twitter-content-analytics
 description: Explore and analyze Twitter/X content at scale — retrieve user profiles, tweets, comments, replies, media, search across content types, monitor trending topics, and analyze follower/following networks.
 metadata: {"openclaw":{"requires":{"env":["KEYAPI_TOKEN"],"bins":["node"]},"primaryEnv":"KEYAPI_TOKEN","emoji":"🐦"}}
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 # keyapi-twitter-content-analytics
@@ -20,6 +23,9 @@ Use this skill when you need to:
 - Explore social graphs — analyze who a user follows and who follows them
 - Identify users who retweeted a specific tweet
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Prerequisites
@@ -30,6 +36,9 @@ Use this skill when you need to:
 | **Node.js** | v18 or higher |
 | **Dependencies** | Run `npm install` in the skill directory to install `@modelcontextprotocol/sdk` |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## MCP Server Configuration
@@ -54,6 +63,9 @@ export KEYAPI_TOKEN=your_token_here
 node scripts/run.js --platform twitter --list-tools
 ```
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Analysis Scenarios
@@ -89,6 +101,9 @@ node scripts/run.js --platform twitter --list-tools
 | Users a profile is following | `user_followings` | Network affinity, brand partnership signals — requires `screen_name` only |
 | Users following a profile | `user_followers` | Audience sampling, follower demographics — requires `screen_name` only |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Workflow
@@ -287,6 +302,9 @@ Before every API call, check whether a cached result already exists. If valid, l
 2. **Trending Topics** — Current trending hashtags and topics by country, volume indicators.
 3. **Content Themes** — Common topics, hashtags, and discussion patterns.
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Common Rules
@@ -302,6 +320,9 @@ Before every API call, check whether a cached result already exists. If valid, l
 | **Retry on 500** | If `code = 500`, retry the identical request up to 3 times with a 2–3 second pause between attempts before reporting the error. |
 | **Cache first** | Always check the local `.keyapi-cache/` directory before issuing a live API call. |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Error Handling

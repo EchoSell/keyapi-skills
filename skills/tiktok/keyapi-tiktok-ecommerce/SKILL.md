@@ -2,6 +2,9 @@
 name: keyapi-tiktok-ecommerce
 description: Comprehensive TikTok Shop market intelligence — analyze products, shops, and categories with GMV, sales trends, reviews, creator attribution, and competitive ranking data across the full e-commerce ecosystem.
 metadata: {"openclaw":{"requires":{"env":["KEYAPI_TOKEN"],"bins":["node"]},"primaryEnv":"KEYAPI_TOKEN","emoji":"🛒"}}
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 # keyapi-tiktok-ecommerce
@@ -18,6 +21,9 @@ Use this skill when you need to:
 - Identify top shops and products in a category for competitive benchmarking
 - Attribute sales to specific creators or live-stream events
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Prerequisites
@@ -28,6 +34,9 @@ Use this skill when you need to:
 | **Node.js** | v18 or higher |
 | **Dependencies** | Run `npm install` in the skill directory to install `@modelcontextprotocol/sdk` |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## MCP Server Configuration
@@ -52,6 +61,9 @@ export KEYAPI_TOKEN=your_token_here
 node scripts/run.js --list-tools
 ```
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Analysis Scenarios
@@ -95,6 +107,9 @@ node scripts/run.js --list-tools
 | List subcategories under a primary category | `secondary_categories_analytics` | Drill-down to L2 categories |
 | List subcategories under a secondary category | `tertiary_categories_analytics` | Drill-down to L3 categories |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Workflow
@@ -242,6 +257,9 @@ After collecting all API responses, produce a structured market intelligence rep
 3. **Trend Analysis** — Rising vs. declining sub-categories, emerging product types.
 4. **Opportunity Signals** — Underserved niches, high-growth segments, pricing white spaces.
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Common Rules
@@ -256,6 +274,9 @@ After collecting all API responses, produce a structured market intelligence rep
 | **Category resolution** | When filtering by category, always resolve the full hierarchy (L1 → L2 → L3) using the category analytics nodes before applying category filters. |
 | **Product ID from link** | When the user provides a product share URL, always call `get_product_id_from_share_link` first to extract the `product_id`. |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Error Handling

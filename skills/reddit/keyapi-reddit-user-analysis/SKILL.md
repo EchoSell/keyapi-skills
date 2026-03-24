@@ -2,6 +2,9 @@
 name: keyapi-reddit-user-analysis
 description: Discover and analyze Reddit users and subreddits — retrieve user profiles, active communities, public trophies, subreddit rules, settings, post channels, and perform dynamic search with typeahead suggestions and trending search intelligence.
 metadata: {"openclaw":{"requires":{"env":["KEYAPI_TOKEN"],"bins":["node"]},"primaryEnv":"KEYAPI_TOKEN","emoji":"🔎"}}
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 # keyapi-reddit-user-analysis
@@ -19,6 +22,9 @@ Use this skill when you need to:
 - Search Reddit for posts, communities, users, comments, and media
 - Monitor trending search topics across the platform
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Prerequisites
@@ -29,6 +35,9 @@ Use this skill when you need to:
 | **Node.js** | v18 or higher |
 | **Dependencies** | Run `npm install` in the skill directory to install `@modelcontextprotocol/sdk` |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## MCP Server Configuration
@@ -53,6 +62,9 @@ export KEYAPI_TOKEN=your_token_here
 node scripts/run.js --platform reddit --list-tools
 ```
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Analysis Scenarios
@@ -71,6 +83,9 @@ node scripts/run.js --platform reddit --list-tools
 | Dynamic multi-type search | `fetch_reddit_app_dynamic_search_results` | Posts, communities, comments, media, user search |
 | Platform-wide trending searches | `fetch_reddit_app_trending_searches` | Trend intelligence, topic monitoring |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Workflow
@@ -251,6 +266,9 @@ After collecting all API responses, produce a structured user and community inte
 2. **Trending Topics** — Current platform-wide trending searches and emerging discussions.
 3. **Discovery Signals** — Subreddit recommendations, user suggestions from typeahead.
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Common Rules
@@ -268,6 +286,9 @@ After collecting all API responses, produce a structured user and community inte
 | **Retry on 500** | If `code = 500`, retry the identical request up to 3 times with a 2–3 second pause between attempts before reporting the error. |
 | **Cache first** | Always check the local `.keyapi-cache/` directory before issuing a live API call. |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Error Handling

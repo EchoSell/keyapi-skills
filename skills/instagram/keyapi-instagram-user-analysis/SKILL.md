@@ -2,6 +2,9 @@
 name: keyapi-instagram-user-analysis
 description: Discover, profile, and deeply analyze Instagram users — explore follower and following networks, posts, Reels, Stories, Highlights, tagged content, reposts, and similarity-based recommendations.
 metadata: {"openclaw":{"requires":{"env":["KEYAPI_TOKEN"],"bins":["node"]},"primaryEnv":"KEYAPI_TOKEN","emoji":"👤"}}
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 # keyapi-instagram-user-analysis
@@ -18,6 +21,9 @@ Use this skill when you need to:
 - Research tagged appearances and reposted content for influencer attribution
 - Build user shortlists based on Instagram's native similarity recommendations
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Prerequisites
@@ -28,6 +34,9 @@ Use this skill when you need to:
 | **Node.js** | v18 or higher |
 | **Dependencies** | Run `npm install` in the skill directory to install `@modelcontextprotocol/sdk` |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## MCP Server Configuration
@@ -52,6 +61,9 @@ export KEYAPI_TOKEN=your_token_here
 node scripts/run.js --platform instagram --list-tools
 ```
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Analysis Scenarios
@@ -73,6 +85,9 @@ node scripts/run.js --platform instagram --list-tools
 | Related / recommended profiles | `get_related_profiles` | Expanded creator discovery beyond keyword search |
 | Search users by keyword | `search_users` | Initial user discovery by name or handle fragment |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Workflow
@@ -221,6 +236,9 @@ After collecting all API responses, produce a structured user intelligence repor
 2. **Similarity Clusters** — Grouped similar accounts by niche or audience type.
 3. **Comparative Overview** — Side-by-side profile metrics for shortlisted creators.
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Common Rules
@@ -235,6 +253,9 @@ After collecting all API responses, produce a structured user intelligence repor
 | **Retry on 500** | If `code = 500`, retry the identical request up to 3 times with a 2–3 second pause between attempts before reporting the error. |
 | **Cache first** | Always check the local `.keyapi-cache/` directory before issuing a live API call. |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Error Handling

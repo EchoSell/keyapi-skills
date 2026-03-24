@@ -2,6 +2,9 @@
 name: keyapi-threads-user-discovery
 description: Discover and analyze Threads users and content — retrieve user profiles, posts, reposts, replies, post details, comments, and perform keyword-based search across top content, recent content, and user profiles.
 metadata: {"openclaw":{"requires":{"env":["KEYAPI_TOKEN"],"bins":["node"]},"primaryEnv":"KEYAPI_TOKEN","emoji":"🧵"}}
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 # keyapi-threads-user-discovery
@@ -18,6 +21,9 @@ Use this skill when you need to:
 - Search for top or recent content by keyword
 - Discover user profiles matching a search query
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Prerequisites
@@ -28,6 +34,9 @@ Use this skill when you need to:
 | **Node.js** | v18 or higher |
 | **Dependencies** | Run `npm install` in the skill directory to install `@modelcontextprotocol/sdk` |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## MCP Server Configuration
@@ -52,6 +61,9 @@ export KEYAPI_TOKEN=your_token_here
 node scripts/run.js --platform threads --list-tools
 ```
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Analysis Scenarios
@@ -69,6 +81,9 @@ node scripts/run.js --platform threads --list-tools
 | Search recent content by keyword | `search_recent_content` | Real-time content monitoring, breaking topic tracking |
 | Search user profiles by keyword | `search_profiles` | Creator discovery, influencer prospecting |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Workflow
@@ -257,6 +272,9 @@ After collecting all API responses, produce a structured user and content intell
 2. **Recent Content Results** — Latest posts for real-time topic monitoring.
 3. **Profile Discovery** — Matched user profiles with follower counts and verification status.
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Common Rules
@@ -273,6 +291,9 @@ After collecting all API responses, produce a structured user and content intell
 | **Retry on 500** | If `code = 500`, retry the identical request up to 3 times with a 2–3 second pause between attempts before reporting the error. |
 | **Cache first** | Always check the local `.keyapi-cache/` directory before issuing a live API call. |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Error Handling

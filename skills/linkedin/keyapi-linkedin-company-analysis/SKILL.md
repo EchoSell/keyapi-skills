@@ -2,6 +2,9 @@
 name: keyapi-linkedin-company-analysis
 description: Explore and analyze LinkedIn companies — retrieve company profiles, employee directories, published posts, job listings with rich filters, job counts, and individual job details.
 metadata: {"openclaw":{"requires":{"env":["KEYAPI_TOKEN"],"bins":["node"]},"primaryEnv":"KEYAPI_TOKEN","emoji":"🏢"}}
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 # keyapi-linkedin-company-analysis
@@ -18,6 +21,9 @@ Use this skill when you need to:
 - Track job posting volume as a proxy for company growth or hiring momentum
 - Retrieve detailed job descriptions including requirements and responsibilities
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Prerequisites
@@ -28,6 +34,9 @@ Use this skill when you need to:
 | **Node.js** | v18 or higher |
 | **Dependencies** | Run `npm install` in the skill directory to install `@modelcontextprotocol/sdk` |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## MCP Server Configuration
@@ -52,6 +61,9 @@ export KEYAPI_TOKEN=your_token_here
 node scripts/run.js --platform linkedin --list-tools
 ```
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Analysis Scenarios
@@ -65,6 +77,9 @@ node scripts/run.js --platform linkedin --list-tools
 | Total active job count | `get_company_job_count` | Growth proxy, hiring velocity tracking |
 | Individual job description and requirements | `get_job_detail` | Role qualification analysis, JD benchmarking |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Workflow
@@ -202,6 +217,9 @@ After collecting all API responses, produce a structured company intelligence re
 5. **Job Market Signals** — Roles with fewer than 10 applicants (opportunity windows), easy-apply availability, date-posted distribution.
 6. **Actionable Insights** — Growth indicators, talent demand patterns, competitive positioning signals.
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Common Rules
@@ -217,6 +235,9 @@ After collecting all API responses, produce a structured company intelligence re
 | **Retry on 500** | If `code = 500`, retry the identical request up to 3 times with a 2–3 second pause between attempts before reporting the error. |
 | **Cache first** | Always check the local `.keyapi-cache/` directory before issuing a live API call. |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Error Handling

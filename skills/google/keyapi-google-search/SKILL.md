@@ -2,6 +2,9 @@
 name: keyapi-google-search
 description: Perform Google web and image searches — retrieve ranked web results with titles, snippets, and URLs, or search for images with country and language targeting, result count control, and page-based pagination.
 metadata: {"openclaw":{"requires":{"env":["KEYAPI_TOKEN"],"bins":["node"]},"primaryEnv":"KEYAPI_TOKEN","emoji":"🔍"}}
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 # keyapi-google-search
@@ -17,6 +20,9 @@ Use this skill when you need to:
 - Control result count (up to 100 for web, up to 20 per page for images)
 - Paginate through image search results
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Prerequisites
@@ -27,6 +33,9 @@ Use this skill when you need to:
 | **Node.js** | v18 or higher |
 | **Dependencies** | Run `npm install` in the skill directory to install `@modelcontextprotocol/sdk` |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## MCP Server Configuration
@@ -51,6 +60,9 @@ export KEYAPI_TOKEN=your_token_here
 node scripts/run.js --platform google --list-tools
 ```
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Analysis Scenarios
@@ -60,6 +72,9 @@ node scripts/run.js --platform google --list-tools
 | Ranked web search results | `web_search` | Content research, competitive analysis, SERP monitoring |
 | Image search results | `image_search` | Visual content discovery, brand image monitoring, asset research |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Workflow
@@ -198,6 +213,9 @@ After collecting all API responses, produce a structured search intelligence rep
 2. **Visual Themes** — Common subjects, color patterns, composition styles.
 3. **Source Attribution** — Top domains providing images, licensing signals where available.
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Common Rules
@@ -213,6 +231,9 @@ After collecting all API responses, produce a structured search intelligence rep
 | **Retry on 500** | If `code = 500`, retry the identical request up to 3 times with a 2–3 second pause between attempts before reporting the error. |
 | **Cache first** | Always check the local `.keyapi-cache/` directory before issuing a live API call. |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Error Handling

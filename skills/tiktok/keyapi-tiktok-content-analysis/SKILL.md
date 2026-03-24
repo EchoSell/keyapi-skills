@@ -2,6 +2,9 @@
 name: keyapi-tiktok-content-analysis
 description: Analyze TikTok content at scale — extract insights from videos, hashtags, music tracks, and live streams including engagement trends, comment sentiment, caption transcription, and commerce attribution data.
 metadata: {"openclaw":{"requires":{"env":["KEYAPI_TOKEN"],"bins":["node"]},"primaryEnv":"KEYAPI_TOKEN","emoji":"📊"}}
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 # keyapi-tiktok-content-analysis
@@ -18,6 +21,9 @@ Use this skill when you need to:
 - Monitor live-stream activity and audience engagement patterns
 - Build content performance benchmarks for editorial or marketing strategy
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Prerequisites
@@ -28,6 +34,9 @@ Use this skill when you need to:
 | **Node.js** | v18 or higher |
 | **Dependencies** | Run `npm install` in the skill directory to install `@modelcontextprotocol/sdk` |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## MCP Server Configuration
@@ -52,6 +61,9 @@ export KEYAPI_TOKEN=your_token_here
 node scripts/run.js --list-tools
 ```
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Analysis Scenarios
@@ -101,6 +113,9 @@ node scripts/run.js --list-tools
 |-----------|---------|----------|
 | Search across products, shops, and creators simultaneously | `general_search_analytics` | Broad cross-domain discovery from a single keyword |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Workflow
@@ -255,6 +270,9 @@ After collecting all API responses, produce a structured content intelligence re
 2. **Commerce Performance** — GMV generated, conversion signals.
 3. **Engagement Quality** — Peak concurrent viewers, comment activity.
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Common Rules
@@ -268,6 +286,9 @@ After collecting all API responses, produce a structured content intelligence re
 | **Cache first** | Always check the local `.keyapi-cache/` directory before issuing a live API call. |
 | **Batch efficiency** | When processing multiple videos, collect all cover image URLs across all responses and issue a single `batch_download_cover_images` call rather than calling it per-item. |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Error Handling

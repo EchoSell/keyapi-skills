@@ -2,6 +2,9 @@
 name: keyapi-tiktok-intelligence
 description: Real-time TikTok trend intelligence — monitor trending hashtags, viral music, breakout videos, top-performing ads, and high-growth products to identify emerging opportunities and market movements before they become mainstream.
 metadata: {"openclaw":{"requires":{"env":["KEYAPI_TOKEN"],"bins":["node"]},"primaryEnv":"KEYAPI_TOKEN","emoji":"📈"}}
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 # keyapi-tiktok-intelligence
@@ -17,6 +20,9 @@ Use this skill when you need to:
 - Analyze high-performing TikTok ad creatives for inspiration and benchmarking
 - Build a real-time market intelligence dashboard for a brand, category, or audience segment
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Prerequisites
@@ -27,6 +33,9 @@ Use this skill when you need to:
 | **Node.js** | v18 or higher |
 | **Dependencies** | Run `npm install` in the skill directory to install `@modelcontextprotocol/sdk` |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## MCP Server Configuration
@@ -51,6 +60,9 @@ export KEYAPI_TOKEN=your_token_here
 node scripts/run.js --list-tools
 ```
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Analysis Scenarios
@@ -68,6 +80,9 @@ node scripts/run.js --list-tools
 | Top-performing TikTok ad creatives with engagement metrics | `top_ads_insights` | Ad creative benchmarking, industry trend analysis |
 | Detailed breakdown of a specific top-performing ad | `top_ad_insights_detail` | Creative analysis, performance metric breakdown |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Workflow
@@ -202,6 +217,9 @@ After collecting all API responses, produce a structured intelligence briefing:
 3. **Industry Benchmarks** — Engagement rates and impression volumes by industry/category.
 4. **Actionable Insights** — Creative elements to adopt, formats to test, and industries increasing ad spend.
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Common Rules
@@ -216,6 +234,9 @@ After collecting all API responses, produce a structured intelligence briefing:
 | **Cache with timestamps** | Intelligence data is time-sensitive. Always include the date in cache filenames to preserve historical snapshots. |
 | **Data freshness** | Trending data and keyword insights should be refreshed daily. Do not serve stale intelligence without surfacing the data age to the user. |
 
+author: KeyAPI
+license: MIT
+repository: https://github.com/EchoSell/keyapi-skills
 ---
 
 ## Error Handling
