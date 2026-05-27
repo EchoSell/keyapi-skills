@@ -126,6 +126,7 @@ Examples:
   # Another platform
   node scripts/run.js --platform youtube --tool search_channels \\
     --params '{"keyword":"fitness"}' --pretty
+
 `;
 
 // ── File / cache utilities ────────────────────────────────────────────────────
@@ -223,6 +224,7 @@ async function getToolSchemas(client) {
  * Returns:
  *   "analytics"  → tool accepts page_num / page_size
  *   "trending"   → tool accepts page / limit
+ *   "cursor"     → tool accepts cursor
  *   null         → tool has no recognised pagination fields
  */
 async function detectPagination(client, toolName) {
@@ -232,7 +234,20 @@ async function detectPagination(client, toolName) {
   const props = tool.inputSchema.properties;
   if ("page_num" in props && "page_size" in props) return "analytics";
   if ("page" in props && "limit" in props) return "trending";
+  if ("cursor" in props) return "cursor";
   return null;
+}
+
+function extractNextCursor(data) {
+  const d = data?.data ?? data;
+  return (
+    d?.next_cursor ??
+    d?.nextCursor ??
+    d?.cursor ??
+    data?.next_cursor ??
+    data?.nextCursor ??
+    null
+  );
 }
 
 // ── MCP client ────────────────────────────────────────────────────────────────
@@ -403,14 +418,19 @@ async function cmdRun(client, opts) {
   // ── All pages ──────────────────────────────────────────────────────────────
   const paginationType = await detectPagination(client, tool);
   const isTrending = paginationType === "trending";
+  const isCursor = paginationType === "cursor";
   let page = 1;
+  let cursor = params.cursor;
+  const seenCursors = new Set(cursor ? [cursor] : []);
   let allItems = [];
   let lastData = null;
 
   while (true) {
-    const pageParams = isTrending
-      ? { ...params, page: page, limit: safePageSize }
-      : { ...params, page_num: page, page_size: safePageSize };
+    const pageParams = isCursor
+      ? { ...params, ...(cursor ? { cursor } : {}) }
+      : isTrending
+        ? { ...params, page: page, limit: safePageSize }
+        : { ...params, page_num: page, page_size: safePageSize };
 
     const cachePath = cacheKey(tool, pageParams, cacheDir);
 
@@ -435,6 +455,15 @@ async function cmdRun(client, opts) {
     log(`[page ${page}] ${items.length} items  (total so far: ${allItems.length})`);
 
     const hasMore = data?.data?.has_more ?? data?.has_more;
+    if (isCursor) {
+      const nextCursor = extractNextCursor(data);
+      if (hasMore === false || !nextCursor || seenCursors.has(nextCursor)) break;
+      cursor = nextCursor;
+      seenCursors.add(nextCursor);
+      page++;
+      continue;
+    }
+
     if (hasMore === false || items.length < safePageSize) break;
     page++;
   }

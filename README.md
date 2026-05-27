@@ -103,7 +103,7 @@ node scripts/run.js --tool search_influencers \
 
 | Skill | Description |
 |-------|-------------|
-| [keyapi-twitter-content-analytics](skills/twitter/keyapi-twitter-content-analytics/SKILL.md) | Explore and analyze Twitter/X content — tweets, user profiles, posts, replies, media, comments, retweets, search, trending, followers, following |
+| [keyapi-twitter-content-analytics](skills/twitter/keyapi-twitter-content-analytics/SKILL.md) | Explore and analyze Twitter/X profiles, timelines, tweets, replies, media, search, trends, communities, lists, jobs, Spaces, and social graph data |
 
 ### LinkedIn Platform
 

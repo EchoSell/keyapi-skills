@@ -6,7 +6,7 @@ One AI agent skill for comprehensive Twitter/X data analysis, powered by the [Ke
 
 | Skill | Primary Use Case | Key Nodes |
 |-------|-----------------|-----------|
-| [keyapi-twitter-content-analytics](keyapi-twitter-content-analytics/SKILL.md) | Explore and analyze Twitter/X content | 11 nodes — tweets, user profiles, posts, replies, media, comments, retweets, search, trending, followers, following |
+| [keyapi-twitter-content-analytics](keyapi-twitter-content-analytics/SKILL.md) | Explore and analyze Twitter/X content | 30 tools — profiles, timelines, tweets, replies, media, retweets, search, trends, communities, lists, jobs, Spaces, followers, following |
 
 ## Installation
 
@@ -51,16 +51,19 @@ echo "KEYAPI_TOKEN=your_token_here" > ~/.claude/skills/keyapi-twitter-content-an
 ```bash
 # Verify connection
 cd keyapi-twitter-content-analytics
-node scripts/run.js --platform twitter --list-tools
+node scripts/run.js --list-tools
+node scripts/run.js --schema user_info
 ```
 
 ## Common Rules
 
 All Twitter skills share these rules:
 
-- **Pagination**: Cursor-based (`cursor` from `next_cursor`) — not numeric page numbers
-- **User identification**: Most endpoints accept `screen_name` or `rest_id` — some require `screen_name` only
+- **Pagination**: Cursor-based (`cursor` from the previous response) — not numeric page numbers
+- **User identification**: Current endpoints use `screenname`; some also accept `rest_id`
 - **Tweet ID extraction**: Extract from URL `x.com/user/status/TWEET_ID`
+- **Current parameter names**: use the schema names from `twitter.openapi.json`, including `screenname`, `id`, and `query`
 - **Response check**: `code = 0` = success; retry up to 3 times on `code = 500`
 - **Cache first**: Check `.keyapi-cache/` before every API call (date-scoped: `YYYY-MM-DD`)
 - **No cover image conversion**: Twitter images are served directly — no proxy conversion needed
+- **Local MCP testing**: set `KEYAPI_SERVER_URL=http://localhost:3000` and restart `keyapi-mcp-server` after replacing `specs/twitter.openapi.json`
