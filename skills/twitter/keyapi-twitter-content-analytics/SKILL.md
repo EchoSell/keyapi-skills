@@ -18,7 +18,7 @@ Use this skill when you need to:
 - Fetch user profiles with follower counts, bio, verification status, and account metadata
 - Analyze a user's tweet timeline, replies, and media library
 - Read comment threads under any tweet with pagination support
-- Search Twitter by keyword across multiple result types (Top, Latest, Media, People, Lists)
+- Search Twitter by query across multiple result types (Top, Latest, Media, People, Lists)
 - Monitor trending topics and hashtags by country or globally
 - Explore social graphs — analyze who a user follows and who follows them
 - Identify users who retweeted a specific tweet
@@ -74,32 +74,32 @@ repository: https://github.com/EchoSell/keyapi-skills
 
 | User Need | Node(s) | Best For |
 |-----------|---------|----------|
-| Full tweet details (metrics, media, quoted content) | `get_single_tweet_data` | Tweet audit, engagement snapshot — requires `tweet_id` from URL |
-| User profile with bio, follower counts, verification | `get_user_profile` | Profile overview — accepts `screen_name` or `rest_id` |
-| User's tweet timeline | `get_user_post` | Content inventory, posting cadence analysis — accepts `screen_name` or `rest_id` |
-| User's tweet replies | `get_user_tweet_replies` | Reply activity, conversation participation — requires `screen_name` only |
-| User's media library (photos/videos) | `get_user_media` | Visual content audit — requires `screen_name` only |
+| Full tweet details (metrics, media, quoted content) | `tweet_info` | Tweet audit, engagement snapshot — requires `id` from URL |
+| User profile with bio, follower counts, verification | `user_info` | Profile overview — requires `screenname`; accepts optional `rest_id` |
+| User's tweet timeline | `user_timeline` | Content inventory, posting cadence analysis — requires `screenname`; accepts optional `rest_id` |
+| User's tweet replies | `user_replies` | Reply activity, conversation participation — requires `screenname` |
+| User's media library (photos/videos) | `users_media` | Visual content audit — requires `screenname`; accepts optional `rest_id` |
 
 ### Comment & Engagement Nodes
 
 | User Need | Node(s) | Best For |
 |-----------|---------|----------|
-| Comments under a tweet | `get_comments` | Audience sentiment, comment volume analysis |
-| Users who retweeted a tweet | `retweet_user_list` | Amplification analysis, retweet network mapping |
+| Comments / replies under a tweet | `tweet_thread`, `latest_replies` | Audience sentiment, comment volume analysis |
+| Users who retweeted a tweet | `retweets` | Amplification analysis, retweet network mapping |
 
 ### Search & Discovery Nodes
 
 | User Need | Node(s) | Best For |
 |-----------|---------|----------|
-| Search by keyword (multi-type) | `search` | Broad discovery — filter by Top, Latest, Media, People, Lists |
-| Trending topics by country | `trending` | Real-time trend monitoring — supports 50+ countries |
+| Search by query (multi-type) | `search` | Broad discovery — filter by Top, Latest, Media, People, Lists |
+| Trending topics by country | `trends` | Real-time trend monitoring — supports 50+ countries |
 
 ### Social Graph Nodes
 
 | User Need | Node(s) | Best For |
 |-----------|---------|----------|
-| Users a profile is following | `user_followings` | Network affinity, brand partnership signals — requires `screen_name` only |
-| Users following a profile | `user_followers` | Audience sampling, follower demographics — requires `screen_name` only |
+| Users a profile is following | `following` | Network affinity, brand partnership signals — requires `screenname` |
+| Users following a profile | `followers` | Audience sampling, follower demographics — requires `screenname` |
 
 author: KeyAPI
 license: MIT
@@ -112,21 +112,21 @@ repository: https://github.com/EchoSell/keyapi-skills
 
 Clarify the research goal and map it to one or more nodes. Common patterns:
 
-- **Tweet analysis**: Extract `tweet_id` from URL → `get_single_tweet_data` → deepen with `get_comments` + `retweet_user_list`.
-- **User profile audit**: Use `get_user_profile` with `screen_name` → layer `get_user_post` + `get_user_tweet_replies` + `get_user_media`.
-- **Search research**: Use `search` with keyword and `search_type` filter → paginate with `cursor` for more results.
-- **Trend monitoring**: Use `trending` with `country` parameter → cross-reference with `search` for content depth.
-- **Social graph analysis**: Use `user_followings` + `user_followers` with `screen_name` → paginate with `cursor`.
+- **Tweet analysis**: Extract `id` from URL → `tweet_info` → deepen with `tweet_thread` / `latest_replies` + `retweets`.
+- **User profile audit**: Use `user_info` with `screenname` → layer `user_timeline` + `user_replies` + `users_media`.
+- **Search research**: Use `search` with `query` and `search_type` filter → paginate with `cursor` for more results.
+- **Trend monitoring**: Use `trends` with `country` parameter → cross-reference with `search` for content depth.
+- **Social graph analysis**: Use `following` + `followers` with `screenname` → paginate with `cursor`.
 
 > **User identification**
 >
-> Most endpoints accept either `screen_name` (e.g., `elonmusk`) or `rest_id` (numeric user ID, e.g., `44196397`) — pass one, not both.
-> - `get_user_profile` and `get_user_post` accept both `screen_name` and `rest_id`.
-> - `get_user_tweet_replies`, `get_user_media`, `user_followings`, and `user_followers` require **`screen_name` only** — no `rest_id` option.
+> Current Twitter endpoints use `screenname` (e.g., `elonmusk`) and some also accept `rest_id` (numeric user ID, e.g., `44196397`).
+> - `user_info` and `user_timeline` require `screenname`; `rest_id` can be passed where the schema exposes it.
+> - `user_replies`, `followers`, and `about_profile` require `screenname`.
 
 > **Tweet ID extraction**
 >
-> Extract the tweet ID from the URL:
+> Extract the tweet ID from the URL and pass it as `id`:
 > - `https://x.com/elonmusk/status/1808168603721650364` → `1808168603721650364`
 
 ### Step 2 — Retrieve API Schema
@@ -137,7 +137,7 @@ Before calling any node, inspect its input schema to confirm required parameters
 node scripts/run.js --platform twitter --schema <tool_name>
 
 # Examples
-node scripts/run.js --platform twitter --schema get_single_tweet_data
+node scripts/run.js --platform twitter --schema tweet_info
 node scripts/run.js --platform twitter --schema search
 ```
 
@@ -159,122 +159,122 @@ node scripts/run.js --platform twitter --tool <tool_name> \
 **Example — get tweet details:**
 
 ```bash
-node scripts/run.js --platform twitter --tool get_single_tweet_data \
-  --params '{"tweet_id":"1808168603721650364"}' --pretty
+node scripts/run.js --platform twitter --tool tweet_info \
+  --params '{"id":"1808168603721650364"}' --pretty
 ```
 
 **Example — get user profile:**
 
 ```bash
-node scripts/run.js --platform twitter --tool get_user_profile \
-  --params '{"screen_name":"elonmusk"}' --pretty
+node scripts/run.js --platform twitter --tool user_info \
+  --params '{"screenname":"elonmusk"}' --pretty
 ```
 
 **Example — get user tweets (first page):**
 
 ```bash
-node scripts/run.js --platform twitter --tool get_user_post \
-  --params '{"screen_name":"elonmusk"}' --pretty
+node scripts/run.js --platform twitter --tool user_timeline \
+  --params '{"screenname":"elonmusk"}' --pretty
 ```
 
 **Example — paginate to next page:**
 
 ```bash
-node scripts/run.js --platform twitter --tool get_user_post \
-  --params '{"screen_name":"elonmusk","cursor":"<next_cursor_from_previous_response>"}' --pretty
+node scripts/run.js --platform twitter --tool user_timeline \
+  --params '{"screenname":"elonmusk","cursor":"<next_cursor_from_previous_response>"}' --pretty
 ```
 
 **Example — get comments under a tweet:**
 
 ```bash
-node scripts/run.js --platform twitter --tool get_comments \
-  --params '{"tweet_id":"1808168603721650364"}' --pretty
+node scripts/run.js --platform twitter --tool tweet_thread \
+  --params '{"id":"1808168603721650364"}' --pretty
 ```
 
-**Example — search by keyword (Top results):**
+**Example — search by query (Top results):**
 
 ```bash
 node scripts/run.js --platform twitter --tool search \
-  --params '{"keyword":"AI","search_type":"Top"}' --pretty
+  --params '{"query":"AI","search_type":"Top"}' --pretty
 ```
 
 **Example — search for latest tweets:**
 
 ```bash
 node scripts/run.js --platform twitter --tool search \
-  --params '{"keyword":"ChatGPT","search_type":"Latest"}' --pretty
+  --params '{"query":"ChatGPT","search_type":"Latest"}' --pretty
 ```
 
 **Example — get trending topics (United States):**
 
 ```bash
-node scripts/run.js --platform twitter --tool trending \
+node scripts/run.js --platform twitter --tool trends \
   --params '{"country":"UnitedStates"}' --pretty
 ```
 
 **Example — get trending topics (Japan):**
 
 ```bash
-node scripts/run.js --platform twitter --tool trending \
+node scripts/run.js --platform twitter --tool trends \
   --params '{"country":"Japan"}' --pretty
 ```
 
 **Example — get user's followings:**
 
 ```bash
-node scripts/run.js --platform twitter --tool user_followings \
-  --params '{"screen_name":"elonmusk"}' --pretty
+node scripts/run.js --platform twitter --tool following \
+  --params '{"screenname":"elonmusk"}' --pretty
 ```
 
 **Example — get user's followers:**
 
 ```bash
-node scripts/run.js --platform twitter --tool user_followers \
-  --params '{"screen_name":"elonmusk"}' --pretty
+node scripts/run.js --platform twitter --tool followers \
+  --params '{"screenname":"elonmusk"}' --pretty
 ```
 
 **Example — get retweet user list:**
 
 ```bash
-node scripts/run.js --platform twitter --tool retweet_user_list \
-  --params '{"tweet_id":"1835124037934367098"}' --pretty
+node scripts/run.js --platform twitter --tool retweets \
+  --params '{"id":"1835124037934367098"}' --pretty
 ```
 
 **Pagination:**
 
-All paginated endpoints use `cursor` from the `next_cursor` field in the previous response.
+Paginated Twitter endpoints use `cursor` from the previous response.
 
 | Endpoint | Pagination parameter | Notes |
 |---|---|---|
-| `get_user_post`, `search`, `get_comments`, `get_user_tweet_replies`, `get_user_media`, `retweet_user_list`, `user_followings`, `user_followers` | `cursor` | Pass `next_cursor` value from previous response |
-| `get_single_tweet_data`, `get_user_profile`, `trending` | — | Single-call; no pagination |
+| `user_timeline`, `search`, `tweet_thread`, `latest_replies`, `user_replies`, `users_media`, `retweets`, `following`, `followers` | `cursor` | Pass the next cursor value from the previous response |
+| `tweet_info`, `user_info`, `trends` | — | Single-call; no pagination |
 
 **Cache directory structure:**
 
 ```
 .keyapi-cache/
 └── YYYY-MM-DD/
-    ├── get_single_tweet_data/
+    ├── tweet_info/
     │   └── {params_hash}.json
-    ├── get_user_profile/
+    ├── user_info/
     │   └── {params_hash}.json
-    ├── get_user_post/
+    ├── user_timeline/
     │   └── {params_hash}.json
     ├── search/
     │   └── {params_hash}.json
-    ├── get_comments/
+    ├── tweet_thread/
     │   └── {params_hash}.json
-    ├── get_user_tweet_replies/
+    ├── user_replies/
     │   └── {params_hash}.json
-    ├── get_user_media/
+    ├── users_media/
     │   └── {params_hash}.json
-    ├── retweet_user_list/
+    ├── retweets/
     │   └── {params_hash}.json
-    ├── trending/
+    ├── trends/
     │   └── {params_hash}.json
-    ├── user_followings/
+    ├── following/
     │   └── {params_hash}.json
-    └── user_followers/
+    └── followers/
         └── {params_hash}.json
 ```
 
@@ -311,11 +311,11 @@ repository: https://github.com/EchoSell/keyapi-skills
 
 | Rule | Detail |
 |------|--------|
-| **User identification** | `get_user_profile` and `get_user_post` accept `screen_name` or `rest_id`. `get_user_tweet_replies`, `get_user_media`, `user_followings`, and `user_followers` require **`screen_name` only**. |
-| **Tweet ID extraction** | Extract from URL: `x.com/user/status/TWEET_ID` or `twitter.com/user/status/TWEET_ID`. |
-| **Search types** | `search` supports: `Top` (default), `Latest`, `Media`, `People`, `Lists`. |
-| **Trending countries** | `trending` supports 50+ countries including: `UnitedStates`, `China`, `India`, `Japan`, `Russia`, `Germany`, `UnitedKingdom`, `France`, `Brazil`, `Canada`, `Australia`, `SouthKorea`, `Mexico`, `Spain`, `Italy`, `Turkey`, `Indonesia`, `SaudiArabia`, `Egypt`, `Argentina`, `Philippines`, `Singapore`, and more. See schema for full list. |
-| **Pagination** | All paginated endpoints use `cursor` from the `next_cursor` field in the previous response. |
+| **User identification** | Current user tools use `screenname`; `user_info`, `user_timeline`, `following`, and `users_media` also accept `rest_id` where exposed by the schema. |
+| **Tweet ID extraction** | Extract from URL and pass as `id`: `x.com/user/status/TWEET_ID` or `twitter.com/user/status/TWEET_ID`. |
+| **Search types** | `search` supports: `Top` (default), `Latest`, `Media`, `People`, `Lists`. Use `query` for the search text. |
+| **Trending countries** | `trends` supports 50+ countries including: `UnitedStates`, `China`, `India`, `Japan`, `Russia`, `Germany`, `UnitedKingdom`, `France`, `Brazil`, `Canada`, `Australia`, `SouthKorea`, `Mexico`, `Spain`, `Italy`, `Turkey`, `Indonesia`, `SaudiArabia`, `Egypt`, `Argentina`, `Philippines`, `Singapore`, and more. See schema for full list. |
+| **Pagination** | Paginated endpoints use `cursor` from the previous response. |
 | **Success check** | `code = 0` → success. Any other value → failure. Always check the response code before processing data. |
 | **Retry on 500** | If `code = 500`, retry the identical request up to 3 times with a 2–3 second pause between attempts before reporting the error. |
 | **Cache first** | Always check the local `.keyapi-cache/` directory before issuing a live API call. |
@@ -330,7 +330,7 @@ repository: https://github.com/EchoSell/keyapi-skills
 | Code | Meaning | Action |
 |------|---------|--------|
 | `0` | Success | Continue workflow normally |
-| `400` | Bad request — invalid or missing parameters | Validate input against the tool schema; check `tweet_id` format, `screen_name` vs `rest_id` requirements, and search type values |
+| `400` | Bad request — invalid or missing parameters | Validate input against the tool schema; check `id`, `screenname`, `rest_id`, and search type values |
 | `401` | Unauthorized — token missing or expired | Confirm `KEYAPI_TOKEN` is set correctly; visit [keyapi.ai](https://keyapi.ai/) to renew |
 | `403` | Forbidden — plan quota exceeded or feature restricted | Review plan limits at [keyapi.ai](https://keyapi.ai/) |
 | `404` | Resource not found — tweet or user may be deleted, suspended, or private | Verify the tweet ID or screen name; the content may no longer be available |
