@@ -1,6 +1,6 @@
 ---
 name: keyapi-google-search
-description: Perform Google web and image searches — retrieve ranked web results with titles, snippets, and URLs, or search for images with country and language targeting, result count control, and page-based pagination.
+description: Search and extract Google data - retrieve web results, images, videos, places, maps, reviews, news, shopping results, Lens lookups, scholar results, patents, autocomplete suggestions, and webpage content.
 metadata: {"openclaw":{"requires":{"env":["KEYAPI_TOKEN"],"bins":["node"]},"primaryEnv":"KEYAPI_TOKEN","emoji":"🔍"}}
 author: KeyAPI
 license: MIT
@@ -9,16 +9,19 @@ repository: https://github.com/EchoSell/keyapi-skills
 
 # keyapi-google-search
 
-> Perform Google web and image searches — retrieve ranked web results or search for images with geographic, language, and result-count controls.
+> Search and extract Google data - from general web results and images to maps, reviews, news, shopping, Lens, scholar, patents, autocomplete, and webpage content.
 
-This skill provides Google search intelligence using the KeyAPI MCP service. It enables keyword-based web search returning ranked results with titles, URLs, and snippets, and image search with country/language targeting and page-based pagination — all through a unified, cache-first workflow.
+This skill provides Google search intelligence using the KeyAPI MCP service. It enables keyword-based Google web search, image search, video search, local place search, maps lookups, place review retrieval, news discovery, shopping results, Lens lookups by image URL, scholar and patents research, autocomplete suggestions, and webpage extraction - all through a unified, cache-first workflow.
 
 Use this skill when you need to:
-- Retrieve ranked Google web search results for any keyword query
-- Search Google Images for visual content matching a keyword
-- Target searches to a specific country or language
-- Control result count (up to 100 for web, up to 20 per page for images)
-- Paginate through image search results
+- Retrieve ranked Google search results for any keyword query
+- Search Google Images or Google Videos for visual content
+- Look up places, map results, and reviews
+- Monitor Google News and Shopping results
+- Run Google Lens lookups from an image URL
+- Research scholar papers or patents
+- Fetch autocomplete suggestions for a query
+- Extract structured webpage content from a URL
 
 author: KeyAPI
 license: MIT
@@ -69,8 +72,19 @@ repository: https://github.com/EchoSell/keyapi-skills
 
 | User Need | Node(s) | Best For |
 |-----------|---------|----------|
-| Ranked web search results | `web_search` | Content research, competitive analysis, SERP monitoring |
-| Image search results | `image_search` | Visual content discovery, brand image monitoring, asset research |
+| Ranked Google web search results | `search` | Content research, competitive analysis, SERP monitoring |
+| Image search results | `images` | Visual content discovery, brand image monitoring, asset research |
+| Video search results | `videos` | Video discovery and media research |
+| Local place search | `places` | Local business discovery and location research |
+| Google Maps place lookup | `maps` | Map result lookup using query and coordinates |
+| Place reviews | `reviews` | Review analysis and sentiment research |
+| News results | `news` | News monitoring and topic tracking |
+| Shopping results | `shopping` | Product research and shopping intelligence |
+| Lens search by image URL | `image_searchlens` | Reverse image lookup |
+| Scholar search | `scholar` | Academic and research discovery |
+| Patent search | `patents` | Patent discovery and prior-art research |
+| Query suggestions | `autocomplete` | Search intent and keyword expansion |
+| Webpage extraction | `webpage` | Extract page content from a URL |
 
 author: KeyAPI
 license: MIT
@@ -79,41 +93,43 @@ repository: https://github.com/EchoSell/keyapi-skills
 
 ## Workflow
 
-### Step 1 — Select the Right Search Node
+### Step 1 - Select the Right Google Node
 
-- **Web content research**: Use `web_search` for any query requiring text results, URLs, and page snippets.
-- **Visual content research**: Use `image_search` for queries requiring image URLs and visual asset discovery.
+- **General search research**: Use `search` for standard Google web results.
+- **Visual research**: Use `images` or `videos` depending on whether you need image or video results.
+- **Local research**: Use `places`, `maps`, and `reviews` for local business and place intelligence.
+- **Monitoring**: Use `news` and `shopping` for news and product discovery.
+- **Specialized research**: Use `image_searchlens`, `scholar`, `patents`, `autocomplete`, or `webpage` for targeted workflows.
 
-> **`web_search` — No Pagination**
+> **Page-based tools**
 >
-> `web_search` returns results in a single call. Use the `num` parameter (1–100) to control how many results are returned. There is no `page` parameter — all results are delivered at once.
+> `search`, `images`, `videos`, `places`, `maps`, `news`, `shopping`, `scholar`, and `patents` support `page` for pagination.
 
-> **`image_search` — Page-Based Pagination**
+> **Token-based reviews pagination**
 >
-> `image_search` supports `page` (1-indexed) and `num` (1–20 per page) for pagination. To retrieve more results, increment the `page` value while keeping `num` consistent.
+> `reviews` uses `nextPageToken` from the previous response instead of a numeric `page`.
 
-> **Language and Region Targeting**
+> **Common parameters**
 >
-> The two endpoints use different parameter conventions for targeting:
->
-> | Endpoint | Language param | Format | Example |
-> |---|---|---|---|
-> | `web_search` | `lr` | Language-region code | `en-US`, `zh-CN`, `de-DE` |
-> | `image_search` | `lr` | Language prefix code | `lang_en`, `lang_zh-CN`, `lang_de` |
-> | `image_search` | `gl` | Two-letter country code | `us`, `cn`, `de` |
->
-> For `web_search`, `lr` controls both language and regional relevance. For `image_search`, use `gl` for country targeting and `lr` for language filtering — they are independent controls.
+> - Most search tools require `q`
+> - `gl` controls country targeting and `hl` controls language
+> - `tbs` controls date filtering where supported
+> - `images` additionally supports `num`
+> - `maps` requires `q` and `ll`
+> - `reviews` requires `fid`
+> - `image_searchlens` and `webpage` require `url`
 
-### Step 2 — Retrieve API Schema
+### Step 2 - Retrieve API Schema
 
 Before calling any node, inspect its input schema to confirm required parameters and available options:
 
 ```bash
-node scripts/run.js --platform google --schema web_search
-node scripts/run.js --platform google --schema image_search
+node scripts/run.js --platform google --schema search
+node scripts/run.js --platform google --schema reviews
+node scripts/run.js --platform google --schema webpage
 ```
 
-### Step 3 — Call APIs and Cache Results Locally
+### Step 3 - Call APIs and Cache Results Locally
 
 Execute tool calls and persist responses to the local cache to avoid redundant API calls.
 
@@ -129,89 +145,107 @@ node scripts/run.js --platform google --tool <tool_name> \
   --params '<json_args>' --no-cache --pretty
 ```
 
-**Example — web search (English, US, top 10 results):**
+**Example - web search:**
 
 ```bash
-node scripts/run.js --platform google --tool web_search \
-  --params '{"q":"best noise cancelling headphones 2025","lr":"en-US","num":10}' --pretty
+node scripts/run.js --platform google --tool search \
+  --params '{"q":"apple inc","gl":"us","hl":"en","page":1}' --pretty
 ```
 
-**Example — web search (more results in one call):**
+**Example - image search:**
 
 ```bash
-node scripts/run.js --platform google --tool web_search \
-  --params '{"q":"competitor analysis tools","lr":"en-US","num":50}' --pretty
+node scripts/run.js --platform google --tool images \
+  --params '{"q":"wireless earbuds product photography","gl":"us","hl":"en","page":1,"num":10}' --pretty
 ```
 
-**Example — image search (first page):**
+**Example - maps search:**
 
 ```bash
-node scripts/run.js --platform google --tool image_search \
-  --params '{"q":"wireless earbuds product photography","gl":"us","lr":"lang_en","num":20,"page":1}' --pretty
+node scripts/run.js --platform google --tool maps \
+  --params '{"q":"coffee shops","ll":"37.7749,-122.4194","hl":"en","page":1}' --pretty
 ```
 
-**Example — image search (next page):**
+**Example - reviews lookup:**
 
 ```bash
-node scripts/run.js --platform google --tool image_search \
-  --params '{"q":"wireless earbuds product photography","gl":"us","lr":"lang_en","num":20,"page":2}' --pretty
+node scripts/run.js --platform google --tool reviews \
+  --params '{"fid":"0x808f7e2bcd123456:0xabcdef1234567890","hl":"en","gl":"us"}' --pretty
 ```
 
-**Example — web search in a non-English market:**
+**Example - news search:**
 
 ```bash
-node scripts/run.js --platform google --tool web_search \
-  --params '{"q":"无线耳机推荐","lr":"zh-CN","num":10}' --pretty
+node scripts/run.js --platform google --tool news \
+  --params '{"q":"OpenAI","gl":"us","hl":"en","page":1}' --pretty
+```
+
+**Example - webpage extraction:**
+
+```bash
+node scripts/run.js --platform google --tool webpage \
+  --params '{"url":"https://www.apple.com/","includeMarkdown":true}' --pretty
 ```
 
 **Pagination reference:**
 
 | Endpoint | Pagination | Notes |
 |---|---|---|
-| `web_search` | None | Use `num` (1–100) to set result count. All results returned in one call. |
-| `image_search` | `page` (1-indexed) | Use `num` (1–20) per page. Increment `page` for next batch. |
+| `search`, `images`, `videos`, `places`, `maps`, `news`, `shopping`, `scholar`, `patents` | `page` | Increment `page` for the next batch |
+| `reviews` | `nextPageToken` | Pass `nextPageToken` from the previous response |
+| `autocomplete`, `image_searchlens`, `webpage` | None | Single-call tools |
 
 **Parameter reference:**
 
 | Endpoint | Parameter | Description | Example values |
 |---|---|---|---|
-| Both | `q` | Search query (required) | `"best headphones"` |
-| `web_search` | `num` | Result count (1–100, default 10) | `10`, `50`, `100` |
-| `web_search` | `lr` | Language and region (default `en-US`) | `en-US`, `zh-CN`, `de-DE`, `ja-JP` |
-| `image_search` | `num` | Results per page (1–20, default 10) | `10`, `20` |
-| `image_search` | `page` | Page number (1-indexed, default 1) | `1`, `2`, `3` |
-| `image_search` | `gl` | Country code for geo-targeting (default `us`) | `us`, `uk`, `de`, `cn` |
-| `image_search` | `lr` | Language filter (default `lang_en`) | `lang_en`, `lang_zh-CN`, `lang_de` |
+| Most search tools | `q` | Search query (required) | `"apple inc"` |
+| Most search tools | `gl` | Country code | `us`, `uk`, `de` |
+| Most search tools | `hl` | Language code | `en`, `zh-cn` |
+| Search tools with date filter | `tbs` | Date range filter | `qdr:a`, `qdr:d`, `qdr:w`, `qdr:m` |
+| `images` | `num` | Results per page | `10`, `20` |
+| Page-based tools | `page` | Page number | `1`, `2`, `3` |
+| `maps` | `ll` | Latitude and longitude | `"37.7749,-122.4194"` |
+| `reviews` | `fid` | Google feature ID | `"0x..."` |
+| `reviews` | `nextPageToken` | Token for next page | `"<token>"` |
+| `image_searchlens`, `webpage` | `url` | Target URL | `"https://example.com"` |
 
 **Cache directory structure:**
 
 ```
 .keyapi-cache/
 └── YYYY-MM-DD/
-    ├── web_search/
+    ├── search/
     │   └── {params_hash}.json
-    └── image_search/
-        └── {params_hash}.json
+    ├── images/
+    │   └── {params_hash}.json
+    ├── maps/
+    │   └── {params_hash}.json
+    └── ...
 ```
 
 **Cache-first policy:**
 
 Before every API call, check whether a cached result already exists for the given parameters. If a valid cache file exists, load from disk and skip the API call.
 
-### Step 4 — Synthesize and Report Findings
+### Step 4 - Synthesize and Report Findings
 
 After collecting all API responses, produce a structured search intelligence report:
 
-**For web search results:**
-1. **SERP Overview** — Total result count, top-ranking domains, result type distribution (organic, featured snippets, knowledge panels).
-2. **Content Analysis** — Key themes across top results, common title patterns, snippet sentiment.
-3. **Competitive Landscape** — Dominant domains, content authority signals, outranking opportunities.
-4. **Research Findings** — Synthesized answer from top results relevant to the query intent.
+**For search, news, scholar, or patents:**
+1. **Results Overview** - Total result count, top sources, ranking patterns.
+2. **Content Analysis** - Key themes, repeated entities, and notable findings.
+3. **Research Findings** - Synthesized answer from the top results relevant to the query intent.
 
-**For image search results:**
-1. **Image Inventory** — Result count, image source domains, image type distribution (product photos, infographics, logos).
-2. **Visual Themes** — Common subjects, color patterns, composition styles.
-3. **Source Attribution** — Top domains providing images, licensing signals where available.
+**For images, videos, or Lens:**
+1. **Media Inventory** - Result count, source domains, and media type distribution.
+2. **Visual Themes** - Common subjects, styles, and repeated assets.
+3. **Source Attribution** - Top domains providing the media.
+
+**For places, maps, and reviews:**
+1. **Location Overview** - Place name, location, rating, and category.
+2. **Review Analysis** - Common themes, sentiment, and standout feedback.
+3. **Operational Signals** - Hours, popularity, and notable service details when available.
 
 author: KeyAPI
 license: MIT
@@ -222,13 +256,13 @@ repository: https://github.com/EchoSell/keyapi-skills
 
 | Rule | Detail |
 |------|--------|
-| **`web_search` has no pagination** | Use `num` (max 100) to retrieve all desired results in one call. There is no `page` parameter for web search. |
-| **`image_search` pagination** | Use `page` (1-indexed) with consistent `num` to paginate through image results. |
-| **`lr` format difference** | `web_search` uses `en-US` format; `image_search` uses `lang_en` format. Do not mix them. |
-| **`gl` is image-search only** | The `gl` country-targeting parameter is available on `image_search` only, not `web_search`. |
-| **`num` limits** | `web_search`: 1–100. `image_search`: 1–20 per page. |
-| **Success check** | `code = 0` → success. Any other value → failure. Always check the response code before processing data. |
-| **Retry on 500** | If `code = 500`, retry the identical request up to 3 times with a 2–3 second pause between attempts before reporting the error. |
+| **Page-based tools** | `search`, `images`, `videos`, `places`, `maps`, `news`, `shopping`, `scholar`, and `patents` use `page`. |
+| **Review pagination** | `reviews` uses `nextPageToken`, not `page`. |
+| **Single-call tools** | `autocomplete`, `image_searchlens`, and `webpage` do not paginate. |
+| **Maps identifiers** | `maps` requires `q` and `ll`; `placeId` and `cid` are optional. |
+| **Review identifiers** | `reviews` requires `fid`; `cid` and `placeId` are optional. |
+| **Success check** | `code = 0` -> success. Any other value -> failure. Always check the response code before processing data. |
+| **Retry on 500** | If `code = 500`, retry the identical request up to 3 times with a 2-3 second pause between attempts before reporting the error. |
 | **Cache first** | Always check the local `.keyapi-cache/` directory before issuing a live API call. |
 
 author: KeyAPI
@@ -241,9 +275,10 @@ repository: https://github.com/EchoSell/keyapi-skills
 | Code | Meaning | Action |
 |------|---------|--------|
 | `0` | Success | Continue workflow normally |
-| `400` | Bad request — invalid or missing parameters | Ensure `q` is provided; check `num` range (web: 1–100, image: 1–20); verify `lr` format |
-| `401` | Unauthorized — token missing or expired | Confirm `KEYAPI_TOKEN` is set correctly; visit [keyapi.ai](https://keyapi.ai/) to renew |
-| `403` | Forbidden — plan quota exceeded or feature restricted | Review plan limits at [keyapi.ai](https://keyapi.ai/) |
+| `400` | Bad request - invalid or missing parameters | Ensure required parameters such as `q`, `fid`, `ll`, or `url` are present; check enum values such as `tbs` or `sortBy` |
+| `401` | Unauthorized - token missing or expired | Confirm `KEYAPI_TOKEN` is set correctly; visit [keyapi.ai](https://keyapi.ai/) to renew |
+| `402` | Payment required - quota not enough | Review plan quota at [keyapi.ai](https://keyapi.ai/) |
+| `403` | Forbidden - feature restricted | Review plan access at [keyapi.ai](https://keyapi.ai/) |
 | `429` | Rate limit exceeded | Wait 60 seconds, then retry |
-| `500` | Internal server error | Retry up to 3 times with a 2–3 second pause; if it persists, log the full request and response and skip this node |
+| `500` | Internal server error | Retry up to 3 times with a 2-3 second pause; if it persists, log the full request and response and skip this node |
 | Other non-0 | Unexpected error | Log the full response body and surface the error message to the user |
