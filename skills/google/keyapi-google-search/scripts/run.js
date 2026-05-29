@@ -193,7 +193,7 @@ function chunk(arr, n) {
 const LIST_KEYS = [
   "list", "items", "results", "videos", "products", "creators",
   "shops", "influencers", "hashtags", "music", "ads", "data",
-  "channels", "posts", "comments", "reviews", "users",
+  "channels", "posts", "comments", "reviews", "users", "organic", "images",
 ];
 
 function extractList(data) {
@@ -223,6 +223,7 @@ async function getToolSchemas(client) {
  * Returns:
  *   "analytics"  → tool accepts page_num / page_size
  *   "trending"   → tool accepts page / limit
+ *   "page"       → tool accepts page
  *   null         → tool has no recognised pagination fields
  */
 async function detectPagination(client, toolName) {
@@ -232,6 +233,7 @@ async function detectPagination(client, toolName) {
   const props = tool.inputSchema.properties;
   if ("page_num" in props && "page_size" in props) return "analytics";
   if ("page" in props && "limit" in props) return "trending";
+  if ("page" in props) return "page";
   return null;
 }
 
@@ -380,6 +382,11 @@ async function cmdRun(client, opts) {
     } else if (paginationType === "trending") {
       if (!("page"  in finalParams)) finalParams.page  = pageNum;
       if (!("limit" in finalParams)) finalParams.limit = safePageSize;
+    } else if (paginationType === "page") {
+      if (!("page" in finalParams)) finalParams.page = pageNum;
+      const schemas = await getToolSchemas(client);
+      const properties = schemas.get(tool)?.inputSchema?.properties ?? {};
+      if ("num" in properties && !("num" in finalParams)) finalParams.num = safePageSize;
     }
 
     const cachePath = cacheKey(tool, finalParams, cacheDir);
@@ -403,6 +410,9 @@ async function cmdRun(client, opts) {
   // ── All pages ──────────────────────────────────────────────────────────────
   const paginationType = await detectPagination(client, tool);
   const isTrending = paginationType === "trending";
+  const isPage = paginationType === "page";
+  const schemas = await getToolSchemas(client);
+  const properties = schemas.get(tool)?.inputSchema?.properties ?? {};
   let page = 1;
   let allItems = [];
   let lastData = null;
@@ -410,7 +420,13 @@ async function cmdRun(client, opts) {
   while (true) {
     const pageParams = isTrending
       ? { ...params, page: page, limit: safePageSize }
-      : { ...params, page_num: page, page_size: safePageSize };
+      : isPage
+        ? {
+            ...params,
+            page: page,
+            ...("num" in properties && !("num" in params) ? { num: safePageSize } : {}),
+          }
+        : { ...params, page_num: page, page_size: safePageSize };
 
     const cachePath = cacheKey(tool, pageParams, cacheDir);
 

@@ -4,3 +4,4 @@ package-lock.json
 .keyapi-cache/
 *.log
 .idea/
+/local-test.md
