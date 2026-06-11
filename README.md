@@ -4,7 +4,7 @@ KeyAPI Skills provides ready-to-install platform skills for Codex and Claude Cod
 
 It helps AI assistants turn natural-language social, commerce, search, and content-intelligence requests into documentation-guided KeyAPI REST workflows across Amazon, Facebook, Google, Instagram, LinkedIn, Pinterest, Reddit, Threads, TikTok, Twitter / X, and YouTube.
 
-Runtime requirement: `Node.js >= 18`
+Runtime requirement for helper scripts: `Node.js >= 18`
 
 ## Skill Layouts
 
@@ -41,7 +41,7 @@ The platform `SKILL.md` is the entrypoint. Reference modules are loaded only whe
 
 Users can install this repository from GitHub with prompts such as:
 
-- `帮我安装这个 skills: https://github.com/EchoSell/keyapi-skills`
+- `Install these KeyAPI skills: https://github.com/EchoSell/keyapi-skills`
 - `Install these skills: https://github.com/EchoSell/keyapi-skills`
 
 Manual setup:
@@ -51,7 +51,7 @@ git clone https://github.com/EchoSell/keyapi-skills.git
 cd keyapi-skills
 ```
 
-Copy the platform directories you need into your agent skills directory.
+Copy the platform directories you need into your agent skills directory. Platform skills can run standalone by reading the latest docs and using direct REST calls.
 
 Claude Code example:
 
@@ -68,9 +68,15 @@ cp -r skills/tiktok ~/.codex/skills/keyapi-tiktok
 cp -r skills/youtube ~/.codex/skills/keyapi-youtube
 ```
 
+The root-level `.mjs` files are optional helper scripts for local development and repository-root execution. If a user installs only a platform skill directory, the skill should still work by using the same documented REST method, path, headers, query, and body with the host agent's HTTP client.
+
 ## First-Time Setup
 
 Before any live KeyAPI request, configure a KeyAPI token into shell environment variables.
+
+Auth doc:
+
+- `https://docs.keyapi.ai/overview/authentication#bearer-authentication`
 
 Check current status:
 
@@ -94,6 +100,8 @@ What the setup script does:
 After setup, restart Codex or Claude Code, or open a new terminal session.
 
 ## Use The Scripts
+
+These scripts are repository-root conveniences. They do not define the API contract; the current KeyAPI docs do.
 
 ### Search KeyAPI docs
 

@@ -2,7 +2,7 @@
 
 These rules apply to every Amazon KeyAPI REST workflow.
 
-## Source of Truth
+## Source Of Truth
 
 - Documentation index: `https://docs.keyapi.ai/llms.txt`
 - API base URL: `https://api.keyapi.ai`
@@ -10,12 +10,13 @@ These rules apply to every Amazon KeyAPI REST workflow.
 - Always read the current docs page for the selected endpoint before deciding final parameters.
 - If this skill text conflicts with the official docs, follow the official docs.
 
-## Direct REST Only
+## REST Execution
 
-- Do not use a repo-local execution wrapper.
-- Do not use gateway tool schemas as the source of truth.
-- Do not navigate platform web apps as a fallback for data.
 - Use direct HTTP calls with documented method, path, query parameters, and JSON body.
+- The root-level helper scripts are convenience HTTP clients, not the API source of truth.
+- Do not fail if helper scripts are unavailable; use the host's available HTTP client with the same documented REST contract.
+- Do not use gateway tool schemas or remembered MCP tool definitions as the source of truth.
+- Do not navigate platform web apps as a fallback for API data.
 
 ## Parameter Discipline
 

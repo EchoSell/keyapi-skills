@@ -18,6 +18,10 @@ Docs index:
 
 - `https://docs.keyapi.ai/llms.txt`
 
+Auth doc:
+
+- `https://docs.keyapi.ai/overview/authentication#bearer-authentication`
+
 Dashboard:
 
 - `https://keyapi.ai/app/dashboard`
@@ -29,14 +33,14 @@ Auth header:
 ## First-Time User Flow
 
 1. Tell the user they need a KeyAPI account and token before live calls can work.
-2. Send them to the KeyAPI dashboard to register, manage access, or retrieve their token.
-3. Require them to run the local setup script before the first live request.
+2. Send them to the KeyAPI dashboard or auth doc to register, manage access, or retrieve their token.
+3. Prefer the local setup script when the repository root scripts are available.
 4. Explain that the setup script stores credentials in shell environment variables.
 5. Resume the original task only after setup is complete and a new shell/session can read the variables.
 
 ## Recommended Setup Command
 
-Preferred command:
+Preferred command when working from this repository root:
 
 ```bash
 node ./configure-keyapi-auth.mjs
@@ -60,7 +64,23 @@ Optional custom API base URL:
 node ./configure-keyapi-auth.mjs --token "your_keyapi_token" --base-url "https://api.keyapi.ai"
 ```
 
-What this command does:
+If the helper script is not available, ask the user to set these variables manually in their local shell:
+
+PowerShell:
+
+```powershell
+$env:KEYAPI_TOKEN = "your_keyapi_token"
+$env:KEYAPI_API_BASE_URL = "https://api.keyapi.ai"
+```
+
+POSIX shell:
+
+```bash
+export KEYAPI_TOKEN=your_keyapi_token
+export KEYAPI_API_BASE_URL=https://api.keyapi.ai
+```
+
+What the setup script does:
 
 - prompts the user for the KeyAPI token locally
 - writes the managed KeyAPI export block into the user's shell profile
@@ -72,17 +92,19 @@ After setup, the user should restart Codex or Claude Code, or open a new termina
 
 ## Script Contract
 
-This skill assumes these repository scripts exist:
+The repository root includes these helper scripts:
 
 - `./configure-keyapi-auth.mjs`
 - `./search-keyapi-docs.mjs`
 - `./keyapi-api.mjs`
 
-Use them in this order when possible:
+Use them in this order when they are available from the current working directory:
 
 1. check auth status with `node ./configure-keyapi-auth.mjs --status`
 2. search current docs with `node ./search-keyapi-docs.mjs --platform amazon --query "<entity action>"`
 3. execute live requests with `node ./keyapi-api.mjs`
+
+If the scripts are unavailable because the user installed only this platform skill, continue with direct REST calls using the documented method, path, headers, query, and body.
 
 ## Direct REST Request Template
 
@@ -130,7 +152,7 @@ Use short, direct wording such as:
 
 - "To execute live KeyAPI requests, I first need your KeyAPI token configured locally."
 - "Run `node ./configure-keyapi-auth.mjs` in this repository, then restart Codex or Claude Code."
-- "The setup script stores the token in shell environment variables, so you do not need to paste it into chat."
+- "If the helper script is not available, set `KEYAPI_TOKEN` locally and I can continue with direct REST calls."
 
 ## Security Rules
 
@@ -151,6 +173,6 @@ If credentials are missing, pause live execution and say:
 
 1. what is missing
 2. where to get it
-3. the setup command to run
+3. the setup command or manual environment-variable fallback
 4. that a restart or new terminal session may be needed
 5. that the original request can continue after setup

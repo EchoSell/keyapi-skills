@@ -17,18 +17,18 @@ queries, images, videos, places, maps, reviews, news, shopping results, Lens URL
 ## Docs Search Strategy
 
 1. Search `llms.txt` for the platform slug `google` plus the entity and action from the user's request.
-2. Prefer docs pages whose title and description both match the entity family.
-3. If multiple pages match, choose the one with the narrowest endpoint that satisfies the user request.
-4. For broad reports, compose a small workflow from detail, list/search, trend/ranking, and related-entity endpoints.
-5. For freshness-sensitive requests, prefer pages that describe realtime/current lookup when available.
+2. Prefer docs pages whose title and description match the requested entity family and workflow.
+3. If multiple pages match, choose the narrowest endpoint that satisfies the request with the least post-processing.
+4. For broad reports, compose a small workflow from detail, search/list, ranking/trend, resolver, and related-entity endpoints only when the docs support them.
+5. For freshness-sensitive requests, search for docs terms such as `latest`, `recent`, `current`, `trend`, or `realtime` only when those variants exist for Google.
 
 ## User Input Compression
 
 Compress parameter-heavy tasks into:
 
-- Goal: search, detail, ranking, comparison, monitoring, report
+- Goal: search, detail, enrichment, ranking, comparison, monitoring, or report
 - Entity: queries, images, videos, places, maps, reviews, news, shopping results, Lens URLs, scholar results, patents, webpages
-- Scope: country/region/language/date/category/query as applicable
-- Sort or metric: newest, top, relevance, sales, growth, engagement, rating, comments, views
-- Pagination depth: one page, top N, all available, or until enough evidence
-- Output format: raw JSON, table, concise summary, or report
+- Scope: query, result surface, country, language, location, time filter, page depth, and source type
+- Sort or metric: relevance, freshness, location proximity, rating, review count, result type, source authority
+- Pagination depth: one page, top N, until enough evidence, or all available within the user's approved scope
+- Output format: raw JSON, table, concise summary, or structured report
