@@ -1,163 +1,211 @@
-# KeyAPI Agent Skills
+# KeyAPI Skills
 
-A collection of agent skills for the [KeyAPI](https://keyapi.ai/) MCP service, organized by platform. Compatible with Claude Code, OpenClaw, and any agent that supports the standard skill format.
+KeyAPI Skills provides ready-to-install platform skills for Codex and Claude Code.
 
-## What Are Skills?
+It helps AI assistants turn natural-language social, commerce, search, and content-intelligence requests into documentation-guided KeyAPI REST workflows across Amazon, Facebook, Google, Instagram, LinkedIn, Pinterest, Reddit, Threads, TikTok, Twitter / X, and YouTube.
 
-Each skill is a **self-contained directory** containing a `SKILL.md` that instructs an AI agent how to:
-1. Select the right API nodes for a given analysis objective
-2. Authenticate and call the KeyAPI MCP server via `scripts/run.js`
-3. Cache results locally for reuse and efficiency
-4. Synthesize data into actionable insights
+Runtime requirement: `Node.js >= 18`
 
-Each skill bundles its own `scripts/run.js` and `package.json` — no shared dependencies, no monorepo tooling required.
+## Skill Layouts
 
----
+This project keeps each platform as a standalone skill directory:
 
-## Installation
+- Amazon: `skills/amazon/SKILL.md`
+- Facebook: `skills/facebook/SKILL.md`
+- Google: `skills/google/SKILL.md`
+- Instagram: `skills/instagram/SKILL.md`
+- LinkedIn: `skills/linkedin/SKILL.md`
+- Pinterest: `skills/pinterest/SKILL.md`
+- Reddit: `skills/reddit/SKILL.md`
+- Threads: `skills/threads/SKILL.md`
+- TikTok: `skills/tiktok/SKILL.md`
+- Twitter / X: `skills/twitter/SKILL.md`
+- YouTube: `skills/youtube/SKILL.md`
 
-Each skill directory contains **three required files** — all must be present:
+Each platform skill follows the same layout:
 
-| File | Purpose |
-|------|---------|
-| `SKILL.md` | Skill definition loaded by your agent |
-| `package.json` | Node.js dependency manifest |
-| `scripts/run.js` | API execution script called by the agent |
-
-> **All three files are required.** Downloading only `SKILL.md` will not work — `scripts/run.js` and `package.json` must be included.
-
-**Claude Code** — copy to `~/.claude/skills/`:
-
-```bash
-# Example: install the TikTok influencer discovery skill
-cp -r skills/tiktok/keyapi-tiktok-influencer-discovery ~/.claude/skills/
-cd ~/.claude/skills/keyapi-tiktok-influencer-discovery && npm install
+```text
+skills/tiktok/
+  SKILL.md
+  references/
+    global-rules.md
+    routing-policy.md
+    scenarios.md
+    setup-and-auth.md
+    tiktok-rules.md
 ```
 
-**OpenClaw** — copy to `~/.openclaw/skills/`:
+The platform `SKILL.md` is the entrypoint. Reference modules are loaded only when needed for routing, auth setup, platform-specific rules, and endpoint selection.
+
+## Install
+
+Users can install this repository from GitHub with prompts such as:
+
+- `帮我安装这个 skills: https://github.com/EchoSell/keyapi-skills`
+- `Install these skills: https://github.com/EchoSell/keyapi-skills`
+
+Manual setup:
 
 ```bash
-# Example: install the TikTok influencer discovery skill
-cp -r skills/tiktok/keyapi-tiktok-influencer-discovery ~/.openclaw/skills/
-cd ~/.openclaw/skills/keyapi-tiktok-influencer-discovery && npm install
+git clone https://github.com/EchoSell/keyapi-skills.git
+cd keyapi-skills
 ```
 
-**API token** — required on first run. Get yours at [keyapi.ai](https://keyapi.ai/):
+Copy the platform directories you need into your agent skills directory.
+
+Claude Code example:
 
 ```bash
-# Option A: environment variable (current session only)
-export KEYAPI_TOKEN=your_token_here
-
-# Option B: .env file in the skill directory (persists across sessions)
-echo "KEYAPI_TOKEN=your_token_here" > ~/.claude/skills/keyapi-tiktok-influencer-discovery/.env
+cp -r skills/tiktok ~/.claude/skills/keyapi-tiktok
+cp -r skills/google ~/.claude/skills/keyapi-google
 ```
 
-> If `KEYAPI_TOKEN` is not set and you run the script in a terminal, you will be prompted to enter it and it will be saved to `.env` automatically.
-
----
-
-## Quick Start
+Codex example:
 
 ```bash
-# Verify connection
-cd skills/tiktok/keyapi-tiktok-influencer-discovery
-node scripts/run.js --list-tools
-
-# Run a tool
-node scripts/run.js --tool search_influencers \
-  --params '{"keyword":"fitness","region":"US"}' --pretty
+mkdir -p ~/.codex/skills
+cp -r skills/tiktok ~/.codex/skills/keyapi-tiktok
+cp -r skills/youtube ~/.codex/skills/keyapi-youtube
 ```
 
-**MCP Server:** `https://mcp.keyapi.ai`
-**Auth:** `Authorization: Bearer $KEYAPI_TOKEN`
+## First-Time Setup
 
----
+Before any live KeyAPI request, configure a KeyAPI token into shell environment variables.
 
-## Skills Index
+Check current status:
 
-### TikTok Platform
+```bash
+node ./configure-keyapi-auth.mjs --status
+```
 
-| Skill | Description |
-|-------|-------------|
-| [keyapi-tiktok-influencer-discovery](skills/tiktok/keyapi-tiktok-influencer-discovery/SKILL.md) | Discover, profile, and analyze TikTok influencers — search, analytics, trends, live commerce, and rankings |
-| [keyapi-tiktok-shop-creator-discovery](skills/tiktok/keyapi-tiktok-shop-creator-discovery/SKILL.md) | Analyze TikTok Shop creators — sales metrics, GMV, audience demographics, and content performance |
-| [keyapi-tiktok-ecommerce](skills/tiktok/keyapi-tiktok-ecommerce/SKILL.md) | Comprehensive TikTok Shop market intelligence — products, shops, categories, GMV, reviews, and competitive dynamics |
-| [keyapi-tiktok-content-analysis](skills/tiktok/keyapi-tiktok-content-analysis/SKILL.md) | Analyze TikTok content — videos, hashtags, music, live streams, comments, and sentiment at scale |
-| [keyapi-tiktok-intelligence](skills/tiktok/keyapi-tiktok-intelligence/SKILL.md) | Real-time TikTok trend intelligence — trending topics, viral music, breakout videos, top ads, and product insights |
+Run the guided setup:
 
-### Instagram Platform
+```bash
+node ./configure-keyapi-auth.mjs
+```
 
-| Skill | Description |
-|-------|-------------|
-| [keyapi-instagram-user-analysis](skills/instagram/keyapi-instagram-user-analysis/SKILL.md) | Discover and analyze Instagram users — profile, posts, Reels, Stories, Highlights, followers, following, tagged posts, reposts, similar users |
-| [keyapi-instagram-content-discovery](skills/instagram/keyapi-instagram-content-discovery/SKILL.md) | Explore Instagram content at scale — posts, comments, hashtags, music, Explore page, locations, search |
+What the setup script does:
 
-### YouTube Platform
+- prompts for the KeyAPI token locally
+- writes a managed KeyAPI export block into the user's shell profile
+- stores `KEYAPI_TOKEN` and `KEYAPI_API_BASE_URL` in environment variables for future sessions
+- supports PowerShell profiles on Windows and POSIX shell profiles on macOS/Linux
 
-| Skill | Description |
-|-------|-------------|
-| [keyapi-youtube-video-analysis](skills/youtube/keyapi-youtube-video-analysis/SKILL.md) | Analyze YouTube videos at depth — metadata, comments, sub-comments, stream formats, related videos, Shorts search, video search, trending |
-| [keyapi-youtube-channel-analysis](skills/youtube/keyapi-youtube-channel-analysis/SKILL.md) | Discover and analyze YouTube channels — channel metadata, video library, ID/URL conversion, channel search, filtered search, suggestions |
+After setup, restart Codex or Claude Code, or open a new terminal session.
 
-### Twitter Platform
+## Use The Scripts
 
-| Skill | Description |
-|-------|-------------|
-| [keyapi-twitter-content-analytics](skills/twitter/keyapi-twitter-content-analytics/SKILL.md) | Explore and analyze Twitter/X profiles, timelines, tweets, replies, media, search, trends, communities, lists, jobs, Spaces, and social graph data |
+### Search KeyAPI docs
 
-### LinkedIn Platform
+```bash
+node ./search-keyapi-docs.mjs --platform tiktok --query "creator detail"
+```
 
-| Skill | Description |
-|-------|-------------|
-| [keyapi-linkedin-user-analytics](skills/linkedin/keyapi-linkedin-user-analytics/SKILL.md) | Discover and analyze LinkedIn professionals — profile, contact info, posts, comments, videos, experience, education, skills, certifications, publications, honors, recommendations, interests, and people search |
-| [keyapi-linkedin-company-analysis](skills/linkedin/keyapi-linkedin-company-analysis/SKILL.md) | Explore and analyze LinkedIn companies — company profile, employee directory, posts, job listings with rich filters, job counts, and job detail |
+### Execute a live KeyAPI REST request
 
-### Reddit Platform
+```bash
+node ./keyapi-api.mjs \
+  --path /v1/google/search \
+  --query '{"q":"apple inc","gl":"us","hl":"en","page":1}'
+```
 
-| Skill | Description |
-|-------|-------------|
-| [keyapi-reddit-content-analytics](skills/reddit/keyapi-reddit-content-analytics/SKILL.md) | Explore and analyze Reddit posts, comments, and feeds — single/batch post details, threaded comment traversal, user activity, and curated feed monitoring |
-| [keyapi-reddit-user-analysis](skills/reddit/keyapi-reddit-user-analysis/SKILL.md) | Discover and analyze Reddit users and subreddits — user profiles, active communities, trophies, subreddit rules/settings, dynamic search, and trending intelligence |
+### Execute a POST request
 
-### Threads Platform
+```bash
+node ./keyapi-api.mjs \
+  --path /v1/some/post/endpoint \
+  --method POST \
+  --body '{"example":"value"}'
+```
 
-| Skill | Description |
-|-------|-------------|
-| [keyapi-threads-user-discovery](skills/threads/keyapi-threads-user-discovery/SKILL.md) | Discover and analyze Threads users and content — user profiles, posts, reposts, replies, post details, comments, and keyword-based search across top content, recent content, and profiles |
+## What The Skills Cover
 
-### Amazon Platform
+The skills are designed for these common business tasks:
 
-| Skill | Description |
-|-------|-------------|
-| [keyapi-amazon-ecommerce](skills/amazon/keyapi-amazon-ecommerce/SKILL.md) | Explore and analyze Amazon marketplace data — product search, category browsing, product details, best sellers, deals, reviews, offers, seller intelligence, influencer storefronts, and ASIN/GTIN conversion across 24 marketplaces |
+- discover and benchmark creators, channels, profiles, pages, shops, sellers, and communities
+- research products, categories, reviews, offers, deals, shops, storefronts, and commerce trends
+- analyze videos, posts, comments, replies, Reels, Shorts, live streams, hashtags, music, and media
+- search web results, images, places, maps, news, shopping, and other Google surfaces
+- inspect companies, employees, jobs, professional profiles, posts, and contact signals
+- assemble multi-step workflows and reports from the latest documented KeyAPI endpoints
 
-### Facebook Platform
+The main skill behavior lives in each platform entrypoint:
 
-| Skill | Description |
-|-------|-------------|
-| [keyapi-facebook-analysis](skills/facebook/keyapi-facebook-analysis/SKILL.md) | Explore and analyze public Facebook profiles, pages, and groups — profile details, posts, photos, Reels, group activity, group events, and identifier resolution |
+- `skills/<platform>/SKILL.md`
 
-### Pinterest Platform
+Core reference modules included in every platform skill:
 
-| Skill | Description |
-|-------|-------------|
-| [keyapi-pinterest-analysis](skills/pinterest/keyapi-pinterest-analysis/SKILL.md) | Discover and analyze Pinterest users, pins, boards, and social graphs — user search, profile info, pin libraries, board collections, follower and following network traversal |
+- `references/global-rules.md`
+- `references/scenarios.md`
+- `references/routing-policy.md`
+- `references/setup-and-auth.md`
+- `references/<platform>-rules.md`
 
-### Google Platform
+## Project Scripts
 
-| Skill | Description |
-|-------|-------------|
-| [keyapi-google-search](skills/google/keyapi-google-search/SKILL.md) | Perform Google web and image searches — retrieve ranked web results with titles, snippets, and URLs, or search for images with country and language targeting, result count control, and page-based pagination |
+### `configure-keyapi-auth.mjs`
 
----
+Guided local setup for KeyAPI environment variables.
 
-## Common Rules (All TikTok Skills)
+Supported flags:
 
-| Rule | Detail |
-|------|--------|
-| **Pagination** | `*_analytics` endpoints use `page_num`/`page_size` (starts at `1`, max `10`). Trending endpoints (`trending_*`, `keyword_insights`, `top_*_insights`) use `page`/`limit`. Never use page `0`. |
-| **Cover images** | Batch-convert all image URLs with host `echosell-images.tos-ap-southeast-1.volces.com` via `batch_download_cover_images` before storing or displaying. |
-| **Success check** | `code = 0` → success. Any other code → failure. Always check before processing data. |
-| **Retry on 500** | If `code = 500`, retry once after a brief pause before escalating. |
-| **Cache first** | Always check `.keyapi-cache/` before making a live API call. Cache is date-scoped (`YYYY-MM-DD`). |
+- `--status`
+- `--profile`
+- `--token`
+- `--base-url`
 
+### `search-keyapi-docs.mjs`
+
+Looks up matching lines from the KeyAPI docs index at:
+
+- `https://docs.keyapi.ai/llms.txt`
+
+Supported flags:
+
+- `--query`
+- `--platform`
+- `--limit`
+
+### `keyapi-api.mjs`
+
+Executes KeyAPI REST requests with configured environment variables.
+
+Supported flags:
+
+- `--path`
+- `--method`
+- `--query`
+- `--body`
+- `--base-url`
+- `--timeout-ms`
+
+## Runtime Model
+
+These skills do not depend on platform-local runners. For live API work, the assistant should:
+
+1. Read the relevant platform `SKILL.md`.
+2. Load only the needed reference files under `references/`.
+3. Search `https://docs.keyapi.ai/llms.txt` for the latest endpoint docs.
+4. Extract method, path, params, examples, and pagination from the linked OpenAPI block.
+5. Execute REST directly against `https://api.keyapi.ai`.
+6. Return analytical results in user-facing language.
+
+## Authentication
+
+KeyAPI uses Bearer token authentication.
+
+Supported environment variables:
+
+- `KEYAPI_TOKEN`
+- `KEYAPI_API_BASE_URL` optional, defaults to `https://api.keyapi.ai`
+
+See:
+
+- `skills/<platform>/references/setup-and-auth.md`
+
+## Security
+
+- never commit real credentials
+- prefer local environment variables for secrets
+- avoid pasting credentials into shared chat unless the user explicitly accepts that risk
+- do not print `KEYAPI_TOKEN` in command output or final answers
