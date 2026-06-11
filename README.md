@@ -8,24 +8,24 @@ Runtime requirement for helper scripts: `Node.js >= 18`
 
 ## Skill Layouts
 
-This project keeps each platform as a standalone skill directory:
+This project keeps each platform as a standalone `keyapi-{platform}` skill directory:
 
-- Amazon: `skills/amazon/SKILL.md`
-- Facebook: `skills/facebook/SKILL.md`
-- Google: `skills/google/SKILL.md`
-- Instagram: `skills/instagram/SKILL.md`
-- LinkedIn: `skills/linkedin/SKILL.md`
-- Pinterest: `skills/pinterest/SKILL.md`
-- Reddit: `skills/reddit/SKILL.md`
-- Threads: `skills/threads/SKILL.md`
-- TikTok: `skills/tiktok/SKILL.md`
-- Twitter / X: `skills/twitter/SKILL.md`
-- YouTube: `skills/youtube/SKILL.md`
+- Amazon: `skills/keyapi-amazon/SKILL.md`
+- Facebook: `skills/keyapi-facebook/SKILL.md`
+- Google: `skills/keyapi-google/SKILL.md`
+- Instagram: `skills/keyapi-instagram/SKILL.md`
+- LinkedIn: `skills/keyapi-linkedin/SKILL.md`
+- Pinterest: `skills/keyapi-pinterest/SKILL.md`
+- Reddit: `skills/keyapi-reddit/SKILL.md`
+- Threads: `skills/keyapi-threads/SKILL.md`
+- TikTok: `skills/keyapi-tiktok/SKILL.md`
+- Twitter / X: `skills/keyapi-twitter/SKILL.md`
+- YouTube: `skills/keyapi-youtube/SKILL.md`
 
 Each platform skill follows the same layout:
 
 ```text
-skills/tiktok/
+skills/keyapi-tiktok/
   SKILL.md
   references/
     global-rules.md
@@ -51,21 +51,28 @@ git clone https://github.com/EchoSell/keyapi-skills.git
 cd keyapi-skills
 ```
 
-Copy the platform directories you need into your agent skills directory. Platform skills can run standalone by reading the latest docs and using direct REST calls.
+Copy one platform directory, several platform directories, or all platform directories into your agent skills directory. Platform skills can run standalone by reading the latest docs and using direct REST calls.
 
 Claude Code example:
 
 ```bash
-cp -r skills/tiktok ~/.claude/skills/keyapi-tiktok
-cp -r skills/google ~/.claude/skills/keyapi-google
+cp -r skills/keyapi-tiktok ~/.claude/skills/
+cp -r skills/keyapi-google ~/.claude/skills/
 ```
 
 Codex example:
 
 ```bash
 mkdir -p ~/.codex/skills
-cp -r skills/tiktok ~/.codex/skills/keyapi-tiktok
-cp -r skills/youtube ~/.codex/skills/keyapi-youtube
+cp -r skills/keyapi-tiktok ~/.codex/skills/
+cp -r skills/keyapi-youtube ~/.codex/skills/
+```
+
+Install all platform skills:
+
+```bash
+mkdir -p ~/.codex/skills
+cp -r skills/keyapi-* ~/.codex/skills/
 ```
 
 The root-level `.mjs` files are optional helper scripts for local development and repository-root execution. If a user installs only a platform skill directory, the skill should still work by using the same documented REST method, path, headers, query, and body with the host agent's HTTP client.
@@ -139,7 +146,7 @@ The skills are designed for these common business tasks:
 
 The main skill behavior lives in each platform entrypoint:
 
-- `skills/<platform>/SKILL.md`
+- `skills/keyapi-<platform>/SKILL.md`
 
 Core reference modules included in every platform skill:
 
@@ -209,7 +216,7 @@ Supported environment variables:
 
 See:
 
-- `skills/<platform>/references/setup-and-auth.md`
+- `skills/keyapi-<platform>/references/setup-and-auth.md`
 
 ## Security
 
