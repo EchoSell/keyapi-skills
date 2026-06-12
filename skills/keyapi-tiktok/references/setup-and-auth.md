@@ -1,6 +1,6 @@
 # Setup And Auth
 
-Use this guide whenever the user has not configured KeyAPI credentials yet.
+Use this guide whenever the user has not configured KeyAPI credentials yet. When auth is missing, the assistant must proactively show the setup script command instead of only saying to configure `KEYAPI_TOKEN`.
 
 ## Goal
 
@@ -34,7 +34,7 @@ Auth header:
 
 1. Tell the user they need a KeyAPI account and token before live calls can work.
 2. Send them to the KeyAPI dashboard or auth doc to register, manage access, or retrieve their token.
-3. Prefer the local setup script when script execution is available.
+3. Prefer the local setup script when script execution is available, and show the exact command `node scripts/configure-keyapi-auth.mjs`.
 4. Explain that the setup script stores credentials in shell environment variables.
 5. Resume the original task only after setup is complete and a new shell/session can read the variables.
 
@@ -153,8 +153,9 @@ Invoke-RestMethod -Method Post -Uri "https://api.keyapi.ai/v1/tiktok/..." -Heade
 Use short, direct wording such as:
 
 - "To execute live KeyAPI requests, I first need your KeyAPI token configured locally."
-- "Run `node scripts/configure-keyapi-auth.mjs` in this repository, then restart Codex or Claude Code."
-- "If the helper script is not available, set `KEYAPI_TOKEN` locally and I can continue with direct REST calls."
+- "From this installed skill directory, run `node scripts/configure-keyapi-auth.mjs`, then restart Codex or Claude Code."
+- "You can check whether the current session sees the token with `node scripts/configure-keyapi-auth.mjs --status`."
+- "If script execution is not available, set `KEYAPI_TOKEN` locally and I can continue with direct REST calls."
 
 ## Security Rules
 
@@ -175,6 +176,6 @@ If credentials are missing, pause live execution and say:
 
 1. what is missing
 2. where to get it
-3. the setup command or manual environment-variable fallback
+3. the exact setup command `node scripts/configure-keyapi-auth.mjs`, plus the `--status` check command
 4. that a restart or new terminal session may be needed
 5. that the original request can continue after setup

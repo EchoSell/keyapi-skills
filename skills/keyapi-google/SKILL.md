@@ -19,7 +19,7 @@ Turn natural-language Google requests into documentation-guided KeyAPI REST work
 
 1. Apply `references/global-rules.md` as the base execution contract.
 2. Check auth with `node scripts/configure-keyapi-auth.mjs --status` when script execution is available and setup state is unknown.
-3. If credentials are missing, stop live execution and route to `references/setup-and-auth.md`.
+3. If credentials are missing, stop live execution, load `references/setup-and-auth.md`, and tell the user the exact setup command: `node scripts/configure-keyapi-auth.mjs`. Do not only say "set KEYAPI_TOKEN".
 4. Identify the user's goal, entity, scope, metric, pagination depth, and desired output.
 5. Use `references/scenarios.md` to map the request to a Google scenario.
 6. Use `references/routing-policy.md` to choose search/list, detail, resolver, ranking/trend, related-entity, or composed workflow patterns.
@@ -60,11 +60,14 @@ Compress parameter-heavy APIs into these decision fields:
 
 ## Onboarding Rule
 
-When the user has not set up credentials yet:
+When the user has not set up credentials yet, proactively provide the setup script command. Do not answer only with "configure KEYAPI_TOKEN".
+
+When credentials are missing:
 
 - explain that KeyAPI uses Bearer token authentication with `KEYAPI_TOKEN`
 - point them to the KeyAPI dashboard and auth docs
 - require local setup with `node scripts/configure-keyapi-auth.mjs` when script execution is available
+- also mention `node scripts/configure-keyapi-auth.mjs --status` for checking whether setup is already visible to the current session
 - explain that setup writes credentials into shell environment variables
 - ask them to restart Codex or Claude Code, or open a new terminal session after setup
 - continue live requests only after setup is complete

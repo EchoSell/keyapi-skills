@@ -13,7 +13,7 @@ These rules apply to every Twitter / X KeyAPI REST workflow.
 ## REST Execution
 
 - Use direct HTTP calls with documented method, path, query parameters, and JSON body.
-- The root-level helper scripts are convenience HTTP clients, not the API source of truth.
+- The skill-local helper scripts under `scripts/` are convenience HTTP clients, not the API source of truth.
 - Do not fail if helper scripts are unavailable; use the host's available HTTP client with the same documented REST contract.
 - Do not use gateway tool schemas or remembered MCP tool definitions as the source of truth.
 - Do not navigate platform web apps as a fallback for API data.
@@ -31,7 +31,7 @@ These rules apply to every Twitter / X KeyAPI REST workflow.
 - Then check KeyAPI response envelope when present:
   - `code = 0`: success
   - non-zero `code`: API-level error; report the message and adjust inputs if appropriate
-- For `401`, ask the user to configure `KEYAPI_TOKEN`.
+- For missing credentials or `401`, load `references/setup-and-auth.md` and give the exact setup command `node scripts/configure-keyapi-auth.mjs`; also mention `node scripts/configure-keyapi-auth.mjs --status` for checking current visibility.
 - For `402` or quota messages, explain that the request needs available credits or plan access.
 - For `429`, wait or reduce request rate.
 - For `500`, retry once for idempotent requests before reporting failure.

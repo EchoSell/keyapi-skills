@@ -55,10 +55,13 @@ What each part does:
 
 ## Install
 
-Users can install this repository from GitHub with prompts such as:
+You can install one platform skill, several platform skills, or the full KeyAPI skill set.
+
+Install from GitHub with prompts such as:
 
 - `Install these KeyAPI skills: https://github.com/EchoSell/keyapi-skills`
 - `Install keyapi-tiktok from https://github.com/EchoSell/keyapi-skills`
+- `帮我安装关于Tiktok的skill skills: https://github.com/EchoSell/keyapi-skills`
 
 Manual setup:
 
@@ -102,21 +105,21 @@ Each installed skill includes its own `scripts/` directory. The root-level `.mjs
 
 Before live KeyAPI requests, configure a KeyAPI token in local environment variables.
 
-Auth doc:
+From an installed skill directory, run guided setup:
 
-- `https://docs.keyapi.ai/overview/authentication#bearer-authentication`
+```bash
+node scripts/configure-keyapi-auth.mjs
+```
 
-From an installed skill directory, check current status:
+Check whether the current session can see the token:
 
 ```bash
 node scripts/configure-keyapi-auth.mjs --status
 ```
 
-Run guided setup:
+Auth doc:
 
-```bash
-node scripts/configure-keyapi-auth.mjs
-```
+- `https://docs.keyapi.ai/overview/authentication#bearer-authentication`
 
 The setup script:
 
