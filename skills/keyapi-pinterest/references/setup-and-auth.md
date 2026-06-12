@@ -10,9 +10,7 @@ Convert first-time users into successfully authenticated users with the least fr
 
 KeyAPI REST requests use Bearer token authentication. Live requests must send the token in the HTTP `Authorization` header.
 
-API base URL:
-
-- `https://api.keyapi.ai`
+API base URL: `https://api.keyapi.ai`
 
 Docs index:
 
@@ -58,11 +56,6 @@ Non-interactive setup when the user is already in a private local shell:
 node scripts/configure-keyapi-auth.mjs --token "your_keyapi_token"
 ```
 
-Optional custom API base URL:
-
-```bash
-node scripts/configure-keyapi-auth.mjs --token "your_keyapi_token" --base-url "https://api.keyapi.ai"
-```
 
 If the helper script is not available, ask the user to set these variables manually in their local shell:
 
@@ -70,21 +63,19 @@ PowerShell:
 
 ```powershell
 $env:KEYAPI_TOKEN = "your_keyapi_token"
-$env:KEYAPI_API_BASE_URL = "https://api.keyapi.ai"
 ```
 
 POSIX shell:
 
 ```bash
 export KEYAPI_TOKEN=your_keyapi_token
-export KEYAPI_API_BASE_URL=https://api.keyapi.ai
 ```
 
 What the setup script does:
 
 - prompts the user for the KeyAPI token locally
 - writes the managed KeyAPI export block into the user's shell profile
-- keeps `KEYAPI_TOKEN` and `KEYAPI_API_BASE_URL` in environment variables instead of asking the user to keep passing secrets on the command line
+- keeps `KEYAPI_TOKEN` in environment variables instead of asking the user to keep passing secrets on the command line
 - supports PowerShell profiles on Windows and POSIX shell profiles on macOS/Linux
 - prepares future Codex or Claude Code sessions to use the API
 
@@ -168,7 +159,6 @@ Use short, direct wording such as:
 ## Supported Environment Variables
 
 - `KEYAPI_TOKEN`
-- `KEYAPI_API_BASE_URL` optional, defaults to `https://api.keyapi.ai`
 
 ## Response Pattern
 

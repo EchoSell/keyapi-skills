@@ -125,7 +125,7 @@ What the setup script does:
 
 - prompts for the KeyAPI token locally
 - writes a managed KeyAPI export block into the user's shell profile
-- stores `KEYAPI_TOKEN` and `KEYAPI_API_BASE_URL` for future sessions
+- stores `KEYAPI_TOKEN` for future sessions
 - supports PowerShell profiles on Windows and POSIX shell profiles on macOS/Linux
 
 After setup, restart Codex or Claude Code, or open a new terminal session.
@@ -199,7 +199,6 @@ Supported flags:
 - `--status`
 - `--profile`
 - `--token`
-- `--base-url`
 
 ### `scripts/search-keyapi-docs.mjs`
 
@@ -223,7 +222,6 @@ Supported flags:
 - `--method`
 - `--query`
 - `--body`
-- `--base-url`
 - `--timeout-ms`
 
 ## Security

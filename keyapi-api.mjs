@@ -38,7 +38,6 @@ function parseArgs(argv) {
     else if (key === "method") args.method = nextValue.toUpperCase();
     else if (key === "query") args.query = nextValue;
     else if (key === "body") args.body = nextValue;
-    else if (key === "base-url") args.baseUrl = nextValue;
     else if (key === "timeout-ms") args.timeoutMs = Number(nextValue);
     else throw new Error(`Unsupported argument: --${key}`);
   }
@@ -111,7 +110,7 @@ async function main() {
     throw new Error("--path must start with /v1/");
   }
 
-  const baseUrl = args.baseUrl || process.env.KEYAPI_API_BASE_URL || defaultBaseUrl;
+  const baseUrl = defaultBaseUrl;
   const authHeader = buildAuthHeader();
   const query = parseJsonFlag("--query", args.query);
   const body = parseJsonFlag("--body", args.body);

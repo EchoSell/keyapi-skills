@@ -8,7 +8,6 @@ import { stdin as input, stdout as output } from "node:process";
 const minNodeMajor = 18;
 const managedBlockStart = "# >>> keyapi-skills >>>";
 const managedBlockEnd = "# <<< keyapi-skills <<<";
-const defaultApiBaseUrl = "https://api.keyapi.ai";
 
 function requireSupportedNodeVersion() {
   const major = Number(process.versions.node.split(".")[0]);
@@ -46,7 +45,6 @@ function parseArgs(argv) {
 
     if (key === "profile") args.profilePath = path.resolve(nextValue);
     else if (key === "token") args.token = nextValue;
-    else if (key === "base-url") args.baseUrl = nextValue;
     else throw new Error(`Unsupported argument: --${key}`);
   }
 
@@ -116,8 +114,8 @@ function powershellQuote(value) {
 }
 
 function stripManagedBlock(contents) {
-  const escapedStart = managedBlockStart.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const escapedEnd = managedBlockEnd.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const escapedStart = managedBlockStart.replace(/[.*+?^${}()|[]\\]/g, "\\$&");
+  const escapedEnd = managedBlockEnd.replace(/[.*+?^${}()|[]\\]/g, "\\$&");
   const pattern = new RegExp(`${escapedStart}[\\s\\S]*?${escapedEnd}\\n?`, "g");
   return contents.replace(pattern, "").trimEnd();
 }
@@ -127,7 +125,6 @@ function buildManagedBlock(values, profileKind) {
     return [
       managedBlockStart,
       `$env:KEYAPI_TOKEN = ${powershellQuote(values.token)}`,
-      `$env:KEYAPI_API_BASE_URL = ${powershellQuote(values.baseUrl)}`,
       managedBlockEnd,
       ""
     ].join("\n");
@@ -136,7 +133,6 @@ function buildManagedBlock(values, profileKind) {
   return [
     managedBlockStart,
     `export KEYAPI_TOKEN=${shellQuote(values.token)}`,
-    `export KEYAPI_API_BASE_URL=${shellQuote(values.baseUrl)}`,
     managedBlockEnd,
     ""
   ].join("\n");
@@ -153,29 +149,25 @@ function currentSessionStatus() {
   const hasToken = !isPlaceholder(process.env.KEYAPI_TOKEN);
   return {
     configured: hasToken,
-    credentialMode: hasToken ? "bearer_token" : "missing",
-    apiBaseUrl: process.env.KEYAPI_API_BASE_URL || defaultApiBaseUrl
+    credentialMode: hasToken ? "bearer_token" : "missing"
   };
 }
 
 async function collectCredentials(args) {
   const token = args.token ? requireRealValue("KEYAPI_TOKEN", args.token) : undefined;
-  const baseUrl = args.baseUrl ? String(args.baseUrl).trim() : defaultApiBaseUrl;
 
   if (token) {
-    return { token, baseUrl };
+    return { token };
   }
 
   const rl = createInterface({ input, output });
 
   try {
-    output.write("KeyAPI setup will save credentials into your shell environment variables.\n");
+    output.write("KeyAPI setup will save KEYAPI_TOKEN into your shell environment variables.\n");
     const enteredToken = await rl.question("Paste KEYAPI_TOKEN: ");
-    const enteredBaseUrl = await rl.question(`API base URL [${defaultApiBaseUrl}]: `);
 
     return {
-      token: requireRealValue("KEYAPI_TOKEN", enteredToken),
-      baseUrl: enteredBaseUrl.trim() || defaultApiBaseUrl
+      token: requireRealValue("KEYAPI_TOKEN", enteredToken)
     };
   } finally {
     rl.close();
@@ -204,8 +196,7 @@ function printStatus(profilePath) {
         profileKind,
         configuredInProfile: profileConfigured,
         configuredInCurrentSession: current.configured,
-        credentialModeInCurrentSession: current.credentialMode,
-        apiBaseUrlInCurrentSession: current.apiBaseUrl
+        credentialModeInCurrentSession: current.credentialMode
       },
       null,
       2
@@ -234,7 +225,7 @@ async function main() {
       `- shell profile: ${profilePath}`,
       `- profile kind: ${profileKind}`,
       "- auth mode: bearer_token",
-      `- API base URL: ${credentials.baseUrl}`,
+      "- API base URL: https://api.keyapi.ai",
       "- Next step: restart Codex or Claude Code, or open a new terminal session.",
       `- If you want to use this shell immediately, run: ${reloadHint}`
     ].join("\n") + "\n"
