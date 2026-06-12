@@ -34,34 +34,34 @@ Auth header:
 
 1. Tell the user they need a KeyAPI account and token before live calls can work.
 2. Send them to the KeyAPI dashboard or auth doc to register, manage access, or retrieve their token.
-3. Prefer the local setup script when the repository root scripts are available.
+3. Prefer the local setup script when script execution is available.
 4. Explain that the setup script stores credentials in shell environment variables.
 5. Resume the original task only after setup is complete and a new shell/session can read the variables.
 
 ## Recommended Setup Command
 
-Preferred command when working from this repository root:
+Preferred command when script execution is available:
 
 ```bash
-node ./configure-keyapi-auth.mjs
+node scripts/configure-keyapi-auth.mjs
 ```
 
 Check current status:
 
 ```bash
-node ./configure-keyapi-auth.mjs --status
+node scripts/configure-keyapi-auth.mjs --status
 ```
 
 Non-interactive setup when the user is already in a private local shell:
 
 ```bash
-node ./configure-keyapi-auth.mjs --token "your_keyapi_token"
+node scripts/configure-keyapi-auth.mjs --token "your_keyapi_token"
 ```
 
 Optional custom API base URL:
 
 ```bash
-node ./configure-keyapi-auth.mjs --token "your_keyapi_token" --base-url "https://api.keyapi.ai"
+node scripts/configure-keyapi-auth.mjs --token "your_keyapi_token" --base-url "https://api.keyapi.ai"
 ```
 
 If the helper script is not available, ask the user to set these variables manually in their local shell:
@@ -92,19 +92,21 @@ After setup, the user should restart Codex or Claude Code, or open a new termina
 
 ## Script Contract
 
-The repository root includes these helper scripts:
+This skill includes these helper scripts under `scripts/`:
 
-- `./configure-keyapi-auth.mjs`
-- `./search-keyapi-docs.mjs`
-- `./keyapi-api.mjs`
+- `scripts/configure-keyapi-auth.mjs`
+- `scripts/search-keyapi-docs.mjs`
+- `scripts/keyapi-api.mjs`
 
-Use them in this order when they are available from the current working directory:
+Run script commands from this skill directory. If the host agent uses a different current working directory, resolve `scripts/...` relative to this `SKILL.md`.
 
-1. check auth status with `node ./configure-keyapi-auth.mjs --status`
-2. search current docs with `node ./search-keyapi-docs.mjs --platform instagram --query "<entity action>"`
-3. execute live requests with `node ./keyapi-api.mjs`
+Use them in this order when script execution is available:
 
-If the scripts are unavailable because the user installed only this platform skill, continue with direct REST calls using the documented method, path, headers, query, and body.
+1. check auth status with `node scripts/configure-keyapi-auth.mjs --status`
+2. search current docs with `node scripts/search-keyapi-docs.mjs --query "<entity action>"`
+3. execute live requests with `node scripts/keyapi-api.mjs`
+
+If script execution is unavailable in the host agent, continue with direct REST calls using the documented method, path, headers, query, and body.
 
 ## Direct REST Request Template
 
@@ -113,7 +115,7 @@ Use the docs page to determine the exact method, path, query parameters, request
 GET example for Instagram:
 
 ```bash
-node ./keyapi-api.mjs \
+node scripts/keyapi-api.mjs \
   --path /v1/instagram/... \
   --query '{"example":"value"}'
 ```
@@ -121,7 +123,7 @@ node ./keyapi-api.mjs \
 POST example for Instagram:
 
 ```bash
-node ./keyapi-api.mjs \
+node scripts/keyapi-api.mjs \
   --path /v1/instagram/... \
   --method POST \
   --body '{"example":"value"}'
@@ -151,7 +153,7 @@ Invoke-RestMethod -Method Post -Uri "https://api.keyapi.ai/v1/instagram/..." -He
 Use short, direct wording such as:
 
 - "To execute live KeyAPI requests, I first need your KeyAPI token configured locally."
-- "Run `node ./configure-keyapi-auth.mjs` in this repository, then restart Codex or Claude Code."
+- "Run `node scripts/configure-keyapi-auth.mjs` in this repository, then restart Codex or Claude Code."
 - "If the helper script is not available, set `KEYAPI_TOKEN` locally and I can continue with direct REST calls."
 
 ## Security Rules

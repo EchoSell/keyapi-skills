@@ -18,16 +18,16 @@ Turn natural-language Threads requests into documentation-guided KeyAPI REST wor
 ## Workflow
 
 1. Apply `references/global-rules.md` as the base execution contract.
-2. Check auth with `node ./configure-keyapi-auth.mjs --status` when working from this repository root and setup state is unknown.
+2. Check auth with `node scripts/configure-keyapi-auth.mjs --status` when script execution is available and setup state is unknown.
 3. If credentials are missing, stop live execution and route to `references/setup-and-auth.md`.
 4. Identify the user's goal, entity, scope, metric, pagination depth, and desired output.
 5. Use `references/scenarios.md` to map the request to a Threads scenario.
 6. Use `references/routing-policy.md` to choose search/list, detail, resolver, ranking/trend, related-entity, or composed workflow patterns.
 7. Apply `references/threads-rules.md` for Threads-specific identifiers, pagination, and reporting rules.
-8. Search current docs with `node ./search-keyapi-docs.mjs --platform threads --query "<entity action>"` when the helper script is available; otherwise open `https://docs.keyapi.ai/llms.txt` directly.
+8. Search current docs with `node scripts/search-keyapi-docs.mjs --query "<entity action>"` when the helper script is available; otherwise open `https://docs.keyapi.ai/llms.txt` directly.
 9. Open the selected docs page and extract the current OpenAPI method, path, parameters, examples, and response contract.
 10. Ask only for missing high-value inputs that cannot be safely defaulted.
-11. Execute with `node ./keyapi-api.mjs` when available, or call the same documented REST endpoint with the host's HTTP client.
+11. Execute with `node scripts/keyapi-api.mjs` when available, or call the same documented REST endpoint with the host's HTTP client.
 12. Check HTTP status and KeyAPI response envelope. `code = 0` means success; non-zero `code` is an API-level failure.
 13. Return the result in user-facing analytical language, separating observed API facts from inference.
 
@@ -64,45 +64,47 @@ When the user has not set up credentials yet:
 
 - explain that KeyAPI uses Bearer token authentication with `KEYAPI_TOKEN`
 - point them to the KeyAPI dashboard and auth docs
-- require local setup with `node ./configure-keyapi-auth.mjs` when the repository scripts are available
+- require local setup with `node scripts/configure-keyapi-auth.mjs` when script execution is available
 - explain that setup writes credentials into shell environment variables
 - ask them to restart Codex or Claude Code, or open a new terminal session after setup
 - continue live requests only after setup is complete
 
 ## Script Contract
 
-The repository root includes helper scripts for reliable local execution:
+This skill includes helper scripts under `scripts/` for reliable local execution:
 
-- `./configure-keyapi-auth.mjs`
-- `./search-keyapi-docs.mjs`
-- `./keyapi-api.mjs`
+- `scripts/configure-keyapi-auth.mjs`
+- `scripts/search-keyapi-docs.mjs`
+- `scripts/keyapi-api.mjs`
 
-Use them in this order when they are available from the current working directory:
+Run script commands from this skill directory. If the host agent uses a different current working directory, resolve `scripts/...` relative to this `SKILL.md`.
+
+Use them in this order when script execution is available:
 
 1. auth status
 2. docs lookup when endpoint details are unclear
 3. live REST call
 
-If this platform skill has been installed without the repository root scripts, do not fail the task. Use the same documented REST method, path, headers, query, and body with the host's available HTTP client.
+If script execution is unavailable in the host agent, do not fail the task. Use the same documented REST method, path, headers, query, and body with the host's available HTTP client.
 
 ## Script Examples
 
 Search docs for this platform:
 
 ```bash
-node ./search-keyapi-docs.mjs --platform threads --query "<entity action>"
+node scripts/search-keyapi-docs.mjs --query "<entity action>"
 ```
 
 Execute a documented GET endpoint:
 
 ```bash
-node ./keyapi-api.mjs --path /v1/threads/... --query '{"example":"value"}'
+node scripts/keyapi-api.mjs --path /v1/threads/... --query '{"example":"value"}'
 ```
 
 Execute a documented POST endpoint:
 
 ```bash
-node ./keyapi-api.mjs --path /v1/threads/... --method POST --body '{"example":"value"}'
+node scripts/keyapi-api.mjs --path /v1/threads/... --method POST --body '{"example":"value"}'
 ```
 
 ## References
