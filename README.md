@@ -101,27 +101,27 @@ cp -r skills/keyapi-tiktok ~/.claude/skills/
 
 Each installed skill includes its own `scripts/` directory. The root-level `.mjs` files are development copies for repository-root testing, not runtime dependencies for installed skills.
 
-## Authentication
+## First-Time Setup
 
-Before live KeyAPI requests, configure a KeyAPI token in local environment variables.
-
-From an installed skill directory, run guided setup:
-
-```bash
-node scripts/configure-keyapi-auth.mjs
-```
-
-Check whether the current session can see the token:
-
-```bash
-node scripts/configure-keyapi-auth.mjs --status
-```
+Before any live KeyAPI request, configure a KeyAPI token into shell environment variables.
 
 Auth doc:
 
 - `https://docs.keyapi.ai/overview/authentication#bearer-authentication`
 
-The setup script:
+From an installed skill directory, check current status:
+
+```bash
+node scripts/configure-keyapi-auth.mjs --status
+```
+
+Run the guided setup:
+
+```bash
+node scripts/configure-keyapi-auth.mjs
+```
+
+What the setup script does:
 
 - prompts for the KeyAPI token locally
 - writes a managed KeyAPI export block into the user's shell profile
