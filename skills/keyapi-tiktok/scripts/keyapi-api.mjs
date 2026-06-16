@@ -132,6 +132,16 @@ function stripDataUrlPrefix(value) {
   return typeof value === "string" ? value.replace(/^data:[^,]*;base64,/, "") : value;
 }
 
+function hasKeyApiEnvelopeFailure(value) {
+  return Boolean(
+    value &&
+      typeof value === "object" &&
+      !Array.isArray(value) &&
+      typeof value.code === "number" &&
+      value.code !== 0
+  );
+}
+
 async function loadBody(args) {
   if (args.body && args.bodyFile) {
     throw new Error("Use either --body or --body-file, not both.");
@@ -210,7 +220,7 @@ async function main() {
     data: parsed
   };
 
-  if (!response.ok) {
+  if (!response.ok || hasKeyApiEnvelopeFailure(parsed)) {
     process.stderr.write(`${JSON.stringify(result, null, 2)}\n`);
     process.exitCode = 1;
     return;
