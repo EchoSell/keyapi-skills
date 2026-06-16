@@ -226,7 +226,7 @@ async function main() {
       `- profile kind: ${profileKind}`,
       "- auth mode: bearer_token",
       "- API base URL: https://api.keyapi.ai",
-      "- Next step: restart Codex or Claude Code, or open a new terminal session.",
+      "- Next step: retry the KeyAPI request. keyapi-api.mjs can read this managed profile if the current session is missing KEYAPI_TOKEN.",
       `- If you want to use this shell immediately, run: ${reloadHint}`
     ].join("\n") + "\n"
   );

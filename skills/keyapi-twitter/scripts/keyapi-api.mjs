@@ -1,10 +1,15 @@
+import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
+import os from "node:os";
+import path from "node:path";
 import process from "node:process";
 
 const platform = "twitter";
 const defaultBaseUrl = "https://api.keyapi.ai";
 const defaultTimeoutMs = 30000;
 const minNodeMajor = 18;
+const managedBlockStart = "# >>> keyapi-skills >>>";
+const managedBlockEnd = "# <<< keyapi-skills <<<";
 
 function requireSupportedNodeVersion() {
   const major = Number(process.versions.node.split(".")[0]);
@@ -69,12 +74,85 @@ function isPlaceholder(value) {
   ]).has(String(value).trim().toLowerCase());
 }
 
-function buildAuthHeader() {
-  if (!isPlaceholder(process.env.KEYAPI_TOKEN)) {
-    return `Bearer ${String(process.env.KEYAPI_TOKEN).trim()}`;
+function detectProfilePath() {
+  const homeDir = os.homedir();
+  const shell = process.env.SHELL || "";
+
+  if (process.platform === "win32") {
+    return path.join(homeDir, "Documents", "PowerShell", "Microsoft.PowerShell_profile.ps1");
   }
+  if (shell.includes("zsh")) {
+    return path.join(homeDir, ".zshrc");
+  }
+  if (shell.includes("bash")) {
+    const bashrc = path.join(homeDir, ".bashrc");
+    return existsSync(bashrc) ? bashrc : path.join(homeDir, ".bash_profile");
+  }
+
+  return path.join(homeDir, ".profile");
+}
+
+function extractManagedBlock(contents) {
+  const startIndex = contents.indexOf(managedBlockStart);
+  if (startIndex === -1) {
+    return undefined;
+  }
+  const endIndex = contents.indexOf(managedBlockEnd, startIndex + managedBlockStart.length);
+  if (endIndex === -1) {
+    return undefined;
+  }
+  return contents.slice(startIndex + managedBlockStart.length, endIndex);
+}
+
+function parseManagedValue(rawValue, profilePath) {
+  const value = rawValue.trim();
+  if (value.startsWith("'") && value.endsWith("'")) {
+    const inner = value.slice(1, -1);
+    if (profilePath.toLowerCase().endsWith(".ps1")) {
+      return inner.replace(/''/g, "'");
+    }
+    return inner.split("'\\''").join("'");
+  }
+  if (value.startsWith('"') && value.endsWith('"')) {
+    return value.slice(1, -1);
+  }
+  return value;
+}
+
+async function readTokenFromManagedProfile() {
+  const profilePath = detectProfilePath();
+  if (!existsSync(profilePath)) {
+    return undefined;
+  }
+
+  const block = extractManagedBlock(await readFile(profilePath, "utf8"));
+  if (!block) {
+    return undefined;
+  }
+
+  const powershellMatch = block.match(/^\s*\$env:KEYAPI_TOKEN\s*=\s*(.+?)\s*$/m);
+  const posixMatch = block.match(/^\s*export\s+KEYAPI_TOKEN=(.+?)\s*$/m);
+  const rawValue = powershellMatch?.[1] ?? posixMatch?.[1];
+  if (!rawValue) {
+    return undefined;
+  }
+
+  const token = parseManagedValue(rawValue, profilePath).trim();
+  return isPlaceholder(token) ? undefined : token;
+}
+
+async function buildAuthHeader() {
+  if (!isPlaceholder(process.env.KEYAPI_TOKEN)) {
+    return "Bearer " + String(process.env.KEYAPI_TOKEN).trim();
+  }
+
+  const profileToken = await readTokenFromManagedProfile();
+  if (!isPlaceholder(profileToken)) {
+    return "Bearer " + profileToken;
+  }
+
   throw new Error(
-    "KEYAPI_TOKEN is not configured. Run node scripts/configure-keyapi-auth.mjs first, then restart Codex or Claude Code."
+    "KEYAPI_TOKEN is not configured in the current session or managed shell profile. Run node scripts/configure-keyapi-auth.mjs, then retry. Restart Codex only if needed."
   );
 }
 
@@ -178,7 +256,7 @@ async function main() {
   const args = parseArgs(process.argv);
   const requestPath = resolvePath(args);
   const baseUrl = defaultBaseUrl;
-  const authHeader = buildAuthHeader();
+  const authHeader = await buildAuthHeader();
   const query = parseJsonFlag("--query", args.query);
   const body = await loadBody(args);
 

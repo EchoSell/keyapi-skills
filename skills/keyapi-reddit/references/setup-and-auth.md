@@ -34,7 +34,7 @@ Auth header:
 2. Send them to the KeyAPI dashboard or auth doc to register, manage access, or retrieve their token.
 3. Prefer the local setup script when script execution is available, and show the exact command `node scripts/configure-keyapi-auth.mjs`.
 4. Explain that the setup script stores credentials in shell environment variables.
-5. Resume the original task only after setup is complete and a new shell/session can read the variables.
+5. Resume the original task after setup. `keyapi-api.mjs` checks both the current session and the managed shell profile, so a restart is only needed if both are unavailable.
 
 ## Recommended Setup Command
 
@@ -79,7 +79,7 @@ What the setup script does:
 - supports PowerShell profiles on Windows and POSIX shell profiles on macOS/Linux
 - prepares future Codex or Claude Code sessions to use the API
 
-After setup, the user should restart Codex or Claude Code, or open a new terminal session.
+After setup, `keyapi-api.mjs` can read `KEYAPI_TOKEN` from the current session or the managed shell profile. Restart Codex or Claude Code only if live calls still cannot see the token.
 
 ## Script Contract
 
@@ -153,8 +153,8 @@ Invoke-RestMethod -Method Post -Uri "https://api.keyapi.ai/v1/reddit/..." -Heade
 Use short, direct wording such as:
 
 - "To execute live KeyAPI requests, I first need your KeyAPI token configured locally."
-- "From this installed skill directory, run `node scripts/configure-keyapi-auth.mjs`, then restart Codex or Claude Code."
-- "You can check whether the current session sees the token with `node scripts/configure-keyapi-auth.mjs --status`."
+- "From this installed skill directory, run `node scripts/configure-keyapi-auth.mjs`, then retry the request."
+- "You can check whether the current session or managed profile has the token with `node scripts/configure-keyapi-auth.mjs --status`."
 - "If script execution is not available, set `KEYAPI_TOKEN` locally and I can continue with direct REST calls."
 
 ## Security Rules
@@ -176,5 +176,5 @@ If credentials are missing, pause live execution and say:
 1. what is missing
 2. where to get it
 3. the exact setup command `node scripts/configure-keyapi-auth.mjs`, plus the `--status` check command
-4. that a restart or new terminal session may be needed
+4. that `keyapi-api.mjs` also checks the managed shell profile, and a restart is only needed if retrying still fails
 5. that the original request can continue after setup

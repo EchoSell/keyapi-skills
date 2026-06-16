@@ -134,7 +134,7 @@ What the setup script does:
 - stores `KEYAPI_TOKEN` for future sessions
 - supports PowerShell profiles on Windows and POSIX shell profiles on macOS/Linux
 
-After setup, restart Codex or Claude Code, or open a new terminal session.
+After setup, retry the KeyAPI request. `keyapi-api.mjs` can read `KEYAPI_TOKEN` from the current session or the managed shell profile; restart Codex or Claude Code only if live calls still cannot see the token.
 
 ## Use A Skill
 

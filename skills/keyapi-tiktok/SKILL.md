@@ -76,7 +76,7 @@ When credentials are missing:
 - require local setup with `node scripts/configure-keyapi-auth.mjs` when script execution is available
 - also mention `node scripts/configure-keyapi-auth.mjs --status` for checking whether setup is already visible to the current session
 - explain that setup writes credentials into shell environment variables
-- ask them to restart Codex or Claude Code, or open a new terminal session after setup
+- explain that `keyapi-api.mjs` also checks the managed shell profile, so retrying may work without restarting; restart Codex or Claude Code only if needed
 - continue live requests only after setup is complete
 
 ## Script Contract
