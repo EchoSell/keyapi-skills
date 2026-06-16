@@ -35,6 +35,11 @@ skills/keyapi-tiktok/
     scenarios.md
     setup-and-auth.md
     tiktok-rules.md
+    tiktok-influencer-rules.md
+    tiktok-shop-creator-rules.md
+    tiktok-shop-rules.md
+    tiktok-content-rules.md
+    tiktok-intelligence-rules.md
   scripts/
     configure-keyapi-auth.mjs
     search-keyapi-docs.mjs
@@ -49,6 +54,7 @@ What each part does:
 - `references/routing-policy.md`: endpoint selection and multi-step workflow policy.
 - `references/setup-and-auth.md`: first-time token setup, KeyAPI auth docs, and REST fallback examples.
 - `references/<platform>-rules.md`: platform-specific identifiers, pagination, freshness, and output guidance.
+- Additional scenario modules, when present, split large platforms into focused business domains. For example, TikTok includes Influencer, Shop Creator, Shop, Content, and Intelligence modules.
 - `scripts/configure-keyapi-auth.mjs`: local KeyAPI token setup.
 - `scripts/search-keyapi-docs.mjs`: searches `https://docs.keyapi.ai/llms.txt` for this skill's platform.
 - `scripts/keyapi-api.mjs`: executes REST requests for this skill's platform only.

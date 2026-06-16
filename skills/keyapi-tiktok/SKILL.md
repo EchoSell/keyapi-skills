@@ -24,12 +24,18 @@ Turn natural-language TikTok requests into documentation-guided KeyAPI REST work
 5. Use `references/scenarios.md` to map the request to a TikTok scenario.
 6. Use `references/routing-policy.md` to choose search/list, detail, resolver, ranking/trend, related-entity, or composed workflow patterns.
 7. Apply `references/tiktok-rules.md` for TikTok-specific identifiers, pagination, and reporting rules.
-8. Search current docs with `node scripts/search-keyapi-docs.mjs --query "<entity action>"` when the helper script is available; otherwise open `https://docs.keyapi.ai/llms.txt` directly.
-9. Open the selected docs page and extract the current OpenAPI method, path, parameters, examples, and response contract.
-10. Ask only for missing high-value inputs that cannot be safely defaulted.
-11. Execute with `node scripts/keyapi-api.mjs` when available, or call the same documented REST endpoint with the host's HTTP client.
-12. Check HTTP status and KeyAPI response envelope. `code = 0` means success; non-zero `code` is an API-level failure.
-13. Return the result in user-facing analytical language, separating observed API facts from inference.
+8. Load the relevant scenario module before endpoint selection:
+   - `references/tiktok-influencer-rules.md` for TikTok Influencer workflows.
+   - `references/tiktok-shop-creator-rules.md` for TikTok Shop Creator workflows.
+   - `references/tiktok-shop-rules.md` for TikTok Shop product, shop, seller, category, review, and commerce workflows.
+   - `references/tiktok-content-rules.md` for video, comments, hashtags, music, live, captions, downloads, and content search workflows.
+   - `references/tiktok-intelligence-rules.md` for trend, insight, ad, keyword, top product, hashtag, music, and viral intelligence workflows.
+9. Search current docs with `node scripts/search-keyapi-docs.mjs --query "<entity action>"` when the helper script is available; otherwise open `https://docs.keyapi.ai/llms.txt` directly.
+10. Open the selected docs page and extract the current OpenAPI method, path, parameters, examples, and response contract.
+11. Ask only for missing high-value inputs that cannot be safely defaulted.
+12. Execute with `node scripts/keyapi-api.mjs` when available, or call the same documented REST endpoint with the host's HTTP client.
+13. Check HTTP status and KeyAPI response envelope. `code = 0` means success; non-zero `code` is an API-level failure.
+14. Return the result in user-facing analytical language, separating observed API facts from inference.
 
 ## Input Model
 
@@ -44,11 +50,11 @@ Compress parameter-heavy APIs into these decision fields:
 
 ## Scenario Families
 
-- Find and benchmark creators or shop creators
-- Analyze creator profile, growth, videos, products, live history, audience, and rankings
-- Research TikTok Shop products, shops, categories, reviews, related creators, videos, and live sessions
-- Analyze videos, comments, hashtags, music, and live streams
-- Monitor trending hashtags, music, videos, ads, products, and keyword insights
+- TikTok Influencer: creator discovery, profile detail, followers/following, videos, products, live history, region, milestones, trend, and rankings.
+- TikTok Shop Creator: Shop creator lookup, profile, audience, sales, videos, and commerce trends.
+- TikTok Shop: products, shops, categories, reviews, rankings, product creators, videos, livestreams, image search, and seller analysis.
+- TikTok Content: videos, comments, replies, captions, downloads, hashtags, music, live streams, covers, and general content search.
+- TikTok Intelligence: trending videos, hashtags, music, ad insights, keyword insights, top products, and market intelligence.
 
 ## KeyAPI-Specific Usage
 
@@ -56,6 +62,7 @@ Compress parameter-heavy APIs into these decision fields:
 - If multiple endpoints could solve the task, choose the one with the least user input burden and strongest documented filtering.
 - For broad reports, confirm the requested sections before launching a multi-endpoint workflow.
 - For TikTok reporting, distinguish creator, shop creator, product, shop, category, video, hashtag, music, live, ad, and trend signals.
+- Use the scenario-specific reference module as the endpoint shortlist, then verify the final method/path/params in the live docs page.
 - If the user asks about integration details, answer with method, path, auth, required params, and a minimal request example from the current docs.
 
 ## Onboarding Rule
@@ -116,4 +123,9 @@ node scripts/keyapi-api.mjs --path /v1/tiktok/... --method POST --body '{"exampl
 - `references/scenarios.md`
 - `references/routing-policy.md`
 - `references/tiktok-rules.md`
+- `references/tiktok-influencer-rules.md`
+- `references/tiktok-shop-creator-rules.md`
+- `references/tiktok-shop-rules.md`
+- `references/tiktok-content-rules.md`
+- `references/tiktok-intelligence-rules.md`
 - `references/setup-and-auth.md`

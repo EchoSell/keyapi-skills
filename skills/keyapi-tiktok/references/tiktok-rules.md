@@ -11,6 +11,15 @@ influencers, shop creators, products, shops, categories, videos, hashtags, music
 - When both realtime and analytics/offline variants exist, ask the user which data freshness mode they need.
 - Convert echosell image URLs only when the official docs still expose a cover conversion endpoint; otherwise report image URL limitations.
 
+## Scenario Module Routing
+
+- Use `tiktok-influencer-rules.md` for `/tiktok/influencer/` creator discovery, profile, ranking, trends, followers, videos, products, live history, milestones, and region tasks.
+- Use `tiktok-shop-creator-rules.md` for `/tiktok/shop-creator/` commerce creator lookup, detail, sales, videos, audience, and trend tasks.
+- Use `tiktok-shop-rules.md` for `/tiktok/shop/` product, seller/shop, category, review, ranking, image search, product creator, product video, product live, and shop analysis tasks.
+- Use `tiktok-content-rules.md` for `/tiktok/content/` video, comment, caption, hashtag, music, live, cover, download, and content search tasks.
+- Use `tiktok-intelligence-rules.md` for `/tiktok/intelligence/` trend, ad, keyword, top product, hashtag detail, music detail, and viral intelligence tasks.
+- If a request spans multiple modules, load the smallest set of scenario modules needed and confirm report scope before broad multi-endpoint execution.
+
 ## Documentation Hints
 
 - Filter `https://docs.keyapi.ai/llms.txt` for links under `https://docs.keyapi.ai/tiktok/`.
