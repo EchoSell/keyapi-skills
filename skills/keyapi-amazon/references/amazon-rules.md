@@ -10,6 +10,13 @@ products, categories, sellers, reviews, deals, offers, influencers, ASINs, GTINs
 - Batch product detail and offer endpoints may have per-call ASIN limits; verify limits from the current endpoint docs.
 - For review workflows, preserve star rating, verified purchase, sort, and pagination filters when available.
 
+## Scenario Module Routing
+
+- Use `amazon-product-rules.md` for product search, detail, categories, best sellers, deals, offers, reviews, promo codes, and ASIN/GTIN conversion.
+- Use `amazon-seller-rules.md` for seller profile, seller products, seller reviews, and offer comparison workflows.
+- Use `amazon-influencer-rules.md` for Amazon Influencer profile, posts, and featured post products.
+- If a request spans multiple modules, load the smallest set of scenario modules needed and confirm report scope before broad multi-endpoint execution.
+
 ## Documentation Hints
 
 - Filter `https://docs.keyapi.ai/llms.txt` for links under `https://docs.keyapi.ai/amazon/`.

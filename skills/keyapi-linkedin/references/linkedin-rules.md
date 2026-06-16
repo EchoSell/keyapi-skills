@@ -10,6 +10,13 @@ people, profiles, companies, posts, comments, videos, images, experience, educat
 - Use canonical public profile or company identifiers when docs require them.
 - For job workflows, resolve job list/count before job detail when only a company is provided.
 
+## Scenario Module Routing
+
+- Use `linkedin-user-rules.md` for people search, user profile/about/contact, career background, credentials, posts, comments, media, interests, and follower/connection signals.
+- Use `linkedin-company-rules.md` for company profile, company people, and company posts.
+- Use `linkedin-jobs-rules.md` for company job count, company jobs, and job detail.
+- If a request spans multiple modules, load the smallest set of scenario modules needed and confirm report scope before broad multi-endpoint execution.
+
 ## Documentation Hints
 
 - Filter `https://docs.keyapi.ai/llms.txt` for links under `https://docs.keyapi.ai/linkedin/`.

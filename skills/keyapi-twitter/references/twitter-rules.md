@@ -10,6 +10,13 @@ tweets, threads, replies, profiles, users, timelines, media, trends, communities
 - Search modes such as top/latest/media/people are not interchangeable; confirm enum names in docs.
 - For timelines and social graph endpoints, follow cursor fields returned by the prior response.
 
+## Scenario Module Routing
+
+- Use `twitter-profile-social-rules.md` for profile/about lookup, batch profile IDs, followers, following, follow checks, affiliates, retweets, user media, and user live workflows.
+- Use `twitter-content-rules.md` for tweet info, tweet thread, timelines, replies, search, trends, inspiration posts, and jobs search.
+- Use `twitter-community-rules.md` for communities, community posts/search/members, lists, list timelines, list members/followers, and Spaces info.
+- If a request spans multiple modules, load the smallest set of scenario modules needed and confirm report scope before broad multi-endpoint execution.
+
 ## Documentation Hints
 
 - Filter `https://docs.keyapi.ai/llms.txt` for links under `https://docs.keyapi.ai/twitter/`.

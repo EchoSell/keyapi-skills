@@ -10,6 +10,11 @@ profiles, pages, groups, posts, photos, reels, events, profile IDs, group IDs
 - Resolve IDs first when downstream endpoints require numeric identifiers.
 - For group workflows, distinguish group ID resolution, group details, group posts, and future events.
 
+## Scenario Module Routing
+
+- Use `facebook-public-data-rules.md` for public profile/page details, posts, photos, Reels, group details, group posts, group future events, and ID resolution.
+- If a request spans profile/page and group surfaces, load the same module and keep profile/page evidence separate from group evidence.
+
 ## Documentation Hints
 
 - Filter `https://docs.keyapi.ai/llms.txt` for links under `https://docs.keyapi.ai/facebook/`.

@@ -10,6 +10,11 @@ users, pins, boards, followers, following, usernames
 - Pinterest pagination can be cursor-style; inspect docs and first response before fetching more pages.
 - Separate user search from user detail workflows.
 
+## Scenario Module Routing
+
+- Use `pinterest-user-board-rules.md` for user search, user information, pins, boards, followers, and following.
+- If a request spans content and network data, load the same module and keep profile, content, and relationship evidence separate.
+
 ## Documentation Hints
 
 - Filter `https://docs.keyapi.ai/llms.txt` for links under `https://docs.keyapi.ai/pinterest/`.

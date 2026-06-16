@@ -10,6 +10,11 @@ users, profiles, posts, reposts, replies, comments, search keywords
 - Use post IDs from search/detail responses for comments and thread analysis.
 - Apply cursor or pagination fields exactly as documented.
 
+## Scenario Module Routing
+
+- Use `threads-social-rules.md` for profile search, user info, user posts/replies/reposts, post detail, comments, and top/recent content search.
+- If a request spans profile and content search, load the same module and keep account-level facts separate from post-level facts.
+
 ## Documentation Hints
 
 - Filter `https://docs.keyapi.ai/llms.txt` for links under `https://docs.keyapi.ai/threads/`.

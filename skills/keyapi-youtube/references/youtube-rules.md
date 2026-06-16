@@ -10,6 +10,13 @@ videos, comments, sub-comments, streams, related videos, shorts, channels, chann
 - Channel URL, channel ID, and handle conversion are separate workflows.
 - Continuation tokens often drive YouTube pagination; do not invent numeric pages if docs use tokens.
 
+## Scenario Module Routing
+
+- Use `youtube-video-rules.md` for video detail, comments, sub-comments, related videos, streams info, and Shorts search.
+- Use `youtube-channel-rules.md` for channel search, channel ID/URL conversion, channel description, and channel videos.
+- Use `youtube-search-trends-rules.md` for video search, general filtered search, suggestions, trending videos, and query-led channel discovery.
+- If a request spans multiple modules, load the smallest set of scenario modules needed and confirm report scope before broad multi-endpoint execution.
+
 ## Documentation Hints
 
 - Filter `https://docs.keyapi.ai/llms.txt` for links under `https://docs.keyapi.ai/youtube/`.

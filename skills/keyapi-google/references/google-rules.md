@@ -10,6 +10,11 @@ queries, images, videos, places, maps, reviews, news, shopping results, Lens URL
 - Reviews often use token pagination rather than numeric page pagination.
 - For time filtering, confirm supported tbs values from the current docs before use.
 
+## Scenario Module Routing
+
+- Use `google-search-extraction-rules.md` for web search, images, videos, Lens, places, maps, reviews, news, shopping, scholar, patents, autocomplete, and webpage extraction.
+- If a request spans multiple Google surfaces, load the same module and choose the narrowest vertical endpoint before falling back to generic search.
+
 ## Documentation Hints
 
 - Filter `https://docs.keyapi.ai/llms.txt` for links under `https://docs.keyapi.ai/google/`.

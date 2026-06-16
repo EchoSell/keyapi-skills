@@ -10,6 +10,13 @@ users, profiles, posts, reels, stories, highlights, followers, following, tags, 
 - Stories are freshness-sensitive and may expire; use realtime expectations.
 - Use pagination cursors or page fields exactly as documented for each endpoint.
 
+## Scenario Module Routing
+
+- Use `instagram-user-rules.md` for user search, profiles, user posts/Reels/stories/highlights/tagged/reposts, followers/following, related profiles, and similar users.
+- Use `instagram-content-rules.md` for post detail, comments, replies, likes, hashtag posts, music posts, Reels, Explore, and shortcode/media ID conversion.
+- Use `instagram-discovery-rules.md` for general search, hashtag/music/place search, city lookup, and coordinate-based location search.
+- If a request spans multiple modules, load the smallest set of scenario modules needed and confirm report scope before broad multi-endpoint execution.
+
 ## Documentation Hints
 
 - Filter `https://docs.keyapi.ai/llms.txt` for links under `https://docs.keyapi.ai/instagram/`.

@@ -10,6 +10,13 @@ posts, comments, sub-comments, users, subreddits, feeds, rules, settings, channe
 - Nested comment traversal requires parent comment or cursor fields from prior responses.
 - Do not treat app feed endpoints as subreddit-specific unless the docs say so.
 
+## Scenario Module Routing
+
+- Use `reddit-post-comment-rules.md` for post detail, post batch detail, post comments, comment replies, user posts, and user comments.
+- Use `reddit-community-rules.md` for subreddit info, feed, highlights, rules/style, settings, channels, muted status, and active communities.
+- Use `reddit-discovery-rules.md` for dynamic search, typeahead, trending searches, app feeds, user profile, and public trophies.
+- If a request spans multiple modules, load the smallest set of scenario modules needed and confirm report scope before broad multi-endpoint execution.
+
 ## Documentation Hints
 
 - Filter `https://docs.keyapi.ai/llms.txt` for links under `https://docs.keyapi.ai/reddit/`.

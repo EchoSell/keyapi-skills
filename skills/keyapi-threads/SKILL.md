@@ -24,12 +24,13 @@ Turn natural-language Threads requests into documentation-guided KeyAPI REST wor
 5. Use `references/scenarios.md` to map the request to a Threads scenario.
 6. Use `references/routing-policy.md` to choose search/list, detail, resolver, ranking/trend, related-entity, or composed workflow patterns.
 7. Apply `references/threads-rules.md` for Threads-specific identifiers, pagination, and reporting rules.
-8. Search current docs with `node scripts/search-keyapi-docs.mjs --query "<entity action>"` when the helper script is available; otherwise open `https://docs.keyapi.ai/llms.txt` directly.
-9. Open the selected docs page and extract the current OpenAPI method, path, parameters, examples, and response contract.
-10. Ask only for missing high-value inputs that cannot be safely defaulted.
-11. Execute with `node scripts/keyapi-api.mjs` when available, or call the same documented REST endpoint with the host's HTTP client.
-12. Check HTTP status and KeyAPI response envelope. `code = 0` means success; non-zero `code` is an API-level failure.
-13. Return the result in user-facing analytical language, separating observed API facts from inference.
+8. Load the scenario reference named in `references/scenarios.md` when the request maps to a curated scenario.
+9. Search current docs with `node scripts/search-keyapi-docs.mjs --query "<entity action>"` when the helper script is available; otherwise open `https://docs.keyapi.ai/llms.txt` directly.
+10. Open the selected docs page and extract the current OpenAPI method, path, parameters, examples, and response contract.
+11. Ask only for missing high-value inputs that cannot be safely defaulted.
+12. Execute with `node scripts/keyapi-api.mjs` when available, or call the same documented REST endpoint with the host's HTTP client.
+13. Check HTTP status and KeyAPI response envelope. `code = 0` means success; non-zero `code` is an API-level failure.
+14. Return the result in user-facing analytical language, separating observed API facts from inference.
 
 ## Input Model
 
@@ -116,4 +117,5 @@ node scripts/keyapi-api.mjs --path /v1/threads/... --method POST --body '{"examp
 - `references/scenarios.md`
 - `references/routing-policy.md`
 - `references/threads-rules.md`
+- `references/threads-social-rules.md`
 - `references/setup-and-auth.md`
