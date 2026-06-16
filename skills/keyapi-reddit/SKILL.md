@@ -28,7 +28,7 @@ Turn natural-language Reddit requests into documentation-guided KeyAPI REST work
 9. Search current docs with `node scripts/search-keyapi-docs.mjs --query "<entity action>"` when the helper script is available; otherwise open `https://docs.keyapi.ai/llms.txt` directly.
 10. Open the selected docs page and extract the current OpenAPI method, path, parameters, examples, and response contract.
 11. Ask only for missing high-value inputs that cannot be safely defaulted.
-12. Execute with `node scripts/keyapi-api.mjs` when available, or call the same documented REST endpoint with the host's HTTP client.
+12. Prefer `node scripts/keyapi-api.mjs` for live REST calls when script execution is available. Use the host's HTTP client only when scripts are unavailable or the helper cannot express the documented request.
 13. Check HTTP status and KeyAPI response envelope. `code = 0` means success; non-zero `code` is an API-level failure.
 14. Return the result in user-facing analytical language, separating observed API facts from inference.
 
@@ -81,15 +81,15 @@ This skill includes helper scripts under `scripts/` for reliable local execution
 - `scripts/search-keyapi-docs.mjs`
 - `scripts/keyapi-api.mjs`
 
-Run script commands from this skill directory. If the host agent uses a different current working directory, resolve `scripts/...` relative to this `SKILL.md`.
+Run script commands from this skill directory. If the host agent uses a different current working directory, resolve `scripts/...` relative to this `SKILL.md`. For large JSON bodies, especially base64 image payloads, prefer `--body-file` or `--image-file` instead of inline `--body`.
 
-Use them in this order when script execution is available:
+Prefer them in this order when script execution is available:
 
 1. auth status
 2. docs lookup when endpoint details are unclear
 3. live REST call
 
-If script execution is unavailable in the host agent, do not fail the task. Use the same documented REST method, path, headers, query, and body with the host's available HTTP client.
+If script execution is unavailable in the host agent, or if the helper cannot express the documented request, do not fail the task. Use the same documented REST method, path, headers, query, and body with the host's available HTTP client.
 
 ## Script Examples
 
@@ -109,6 +109,18 @@ Execute a documented POST endpoint:
 
 ```bash
 node scripts/keyapi-api.mjs --path /v1/reddit/... --method POST --body '{"example":"value"}'
+```
+
+Execute a documented POST endpoint with a large JSON body:
+
+```bash
+node scripts/keyapi-api.mjs --path /v1/reddit/... --method POST --body-file request.json
+```
+
+Execute an image JSON endpoint from a local file:
+
+```bash
+node scripts/keyapi-api.mjs --path /v1/reddit/... --method POST --image-file ./image.jpg --image-field image_base64
 ```
 
 ## References

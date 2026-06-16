@@ -12,9 +12,9 @@ These rules apply to every Google KeyAPI REST workflow.
 
 ## REST Execution
 
-- Use direct HTTP calls with documented method, path, query parameters, and JSON body.
-- The skill-local helper scripts under `scripts/` are convenience HTTP clients, not the API source of truth.
-- Do not fail if helper scripts are unavailable; use the host's available HTTP client with the same documented REST contract.
+- Use the documented method, path, query parameters, and JSON body from the current docs page.
+- Prefer the skill-local helper scripts under `scripts/` for local execution; the current KeyAPI docs remain the API source of truth.
+- Use the host's available HTTP client only when helper scripts are unavailable or cannot express the documented request.
 - Do not use gateway tool schemas or remembered MCP tool definitions as the source of truth.
 - Do not navigate platform web apps as a fallback for API data.
 

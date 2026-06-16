@@ -89,15 +89,15 @@ This skill includes these helper scripts under `scripts/`:
 - `scripts/search-keyapi-docs.mjs`
 - `scripts/keyapi-api.mjs`
 
-Run script commands from this skill directory. If the host agent uses a different current working directory, resolve `scripts/...` relative to this `SKILL.md`.
+Run script commands from this skill directory. If the host agent uses a different current working directory, resolve `scripts/...` relative to this `SKILL.md`. For large JSON bodies, especially base64 image payloads, prefer `--body-file` or `--image-file` instead of inline `--body`.
 
-Use them in this order when script execution is available:
+Prefer them in this order when script execution is available:
 
 1. check auth status with `node scripts/configure-keyapi-auth.mjs --status`
 2. search current docs with `node scripts/search-keyapi-docs.mjs --query "<entity action>"`
 3. execute live requests with `node scripts/keyapi-api.mjs`
 
-If script execution is unavailable in the host agent, continue with direct REST calls using the documented method, path, headers, query, and body.
+If script execution is unavailable in the host agent, or if the helper cannot express the documented request, continue with direct REST calls using the documented method, path, headers, query, and body.
 
 ## Direct REST Request Template
 
@@ -118,6 +118,15 @@ node scripts/keyapi-api.mjs \
   --path /v1/facebook/... \
   --method POST \
   --body '{"example":"value"}'
+```
+
+Large JSON body example for Facebook:
+
+```bash
+node scripts/keyapi-api.mjs \
+  --path /v1/facebook/... \
+  --method POST \
+  --body-file request.json
 ```
 
 PowerShell direct GET fallback:

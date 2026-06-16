@@ -1,3 +1,4 @@
+import { readFile } from "node:fs/promises";
 import process from "node:process";
 
 const platform = "linkedin";
@@ -24,7 +25,9 @@ function parseArgs(argv) {
       throw new Error(`Unexpected argument: ${token}`);
     }
 
-    const [rawKey, inlineValue] = token.split("=", 2);
+    const equalsIndex = token.indexOf("=");
+    const rawKey = equalsIndex === -1 ? token : token.slice(0, equalsIndex);
+    const inlineValue = equalsIndex === -1 ? undefined : token.slice(equalsIndex + 1);
     const key = rawKey.slice(2);
     const nextValue = inlineValue ?? argv[index + 1];
 
@@ -40,6 +43,9 @@ function parseArgs(argv) {
     else if (key === "method") args.method = nextValue.toUpperCase();
     else if (key === "query") args.query = nextValue;
     else if (key === "body") args.body = nextValue;
+    else if (key === "body-file") args.bodyFile = nextValue;
+    else if (key === "image-file") args.imageFile = nextValue;
+    else if (key === "image-field") args.imageField = nextValue;
     else if (key === "timeout-ms") args.timeoutMs = Number(nextValue);
     else throw new Error(`Unsupported argument: --${key}`);
   }
@@ -77,7 +83,7 @@ function parseJsonFlag(label, value) {
     return undefined;
   }
   try {
-    return JSON.parse(value);
+    return JSON.parse(String(value).replace(/^\uFEFF/, ""));
   } catch (error) {
     throw new Error(`Invalid JSON for ${label}: ${error instanceof Error ? error.message : String(error)}`);
   }
@@ -122,6 +128,41 @@ function resolvePath(args) {
   return args.path;
 }
 
+function stripDataUrlPrefix(value) {
+  return typeof value === "string" ? value.replace(/^data:[^,]*;base64,/, "") : value;
+}
+
+async function loadBody(args) {
+  if (args.body && args.bodyFile) {
+    throw new Error("Use either --body or --body-file, not both.");
+  }
+
+  let body;
+  if (args.bodyFile) {
+    body = parseJsonFlag("--body-file", await readFile(args.bodyFile, "utf8"));
+  } else {
+    body = parseJsonFlag("--body", args.body);
+  }
+
+  if (args.imageFile) {
+    const imageField = args.imageField || "image_base64";
+    if (body === undefined) {
+      body = {};
+    }
+    if (!body || typeof body !== "object" || Array.isArray(body)) {
+      throw new Error("--image-file can only be merged into a JSON object body.");
+    }
+    body[imageField] = (await readFile(args.imageFile)).toString("base64");
+  }
+
+  const imageField = args.imageField || "image_base64";
+  if (body && typeof body === "object" && !Array.isArray(body) && typeof body[imageField] === "string") {
+    body[imageField] = stripDataUrlPrefix(body[imageField]);
+  }
+
+  return body;
+}
+
 async function main() {
   requireSupportedNodeVersion();
   const args = parseArgs(process.argv);
@@ -129,7 +170,7 @@ async function main() {
   const baseUrl = defaultBaseUrl;
   const authHeader = buildAuthHeader();
   const query = parseJsonFlag("--query", args.query);
-  const body = parseJsonFlag("--body", args.body);
+  const body = await loadBody(args);
 
   const url = new URL(requestPath, baseUrl);
   appendQuery(url, query);

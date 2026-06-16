@@ -154,7 +154,7 @@ Correct runtime behavior:
 2. Load only needed files from `references/`.
 3. Search the latest docs index: `https://docs.keyapi.ai/llms.txt`.
 4. Open the selected endpoint docs and extract method, `/v1/...` path, params, pagination, examples, and response shape.
-5. Execute REST with the skill-local script when available, or with the host HTTP client.
+5. Prefer the skill-local script for REST execution when available, or use the host HTTP client when scripts are unavailable or cannot express the documented request.
 6. Return user-facing analysis rather than raw endpoint jargon.
 
 ## Use The Scripts
@@ -192,7 +192,24 @@ node scripts/keyapi-api.mjs \
   --body '{"example":"value"}'
 ```
 
-The scripts are convenience clients. They do not define the API contract; the current KeyAPI docs do.
+For large JSON bodies, especially base64 image payloads, prefer `--body-file` or `--image-file` instead of inline `--body`.
+
+```bash
+node scripts/keyapi-api.mjs \
+  --endpoint /... \
+  --method POST \
+  --body-file request.json
+```
+
+```bash
+node scripts/keyapi-api.mjs \
+  --endpoint /... \
+  --method POST \
+  --image-file ./image.jpg \
+  --image-field image_base64
+```
+
+The scripts are preferred local execution clients. They do not define the API contract; the current KeyAPI docs do.
 
 ## Script Reference
 
@@ -228,6 +245,9 @@ Supported flags:
 - `--method`
 - `--query`
 - `--body`
+- `--body-file`
+- `--image-file`
+- `--image-field`
 - `--timeout-ms`
 
 ## Security

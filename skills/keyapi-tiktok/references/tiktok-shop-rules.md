@@ -224,6 +224,7 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 ### Rules
 
 - Use this first for realtime image search.
+- For large base64 image payloads, prefer `scripts/keyapi-api.mjs --image-file ./image.jpg --image-field image_base64` or `--body-file request.json` instead of inline `--body`.
 - Preserve returned `image_uri`, `box_detection`, or equivalent tokens exactly when present.
 
 ## 17. Product Image Search Page
