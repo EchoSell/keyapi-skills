@@ -81,7 +81,7 @@ This skill includes helper scripts under `scripts/` for reliable local execution
 - `scripts/search-keyapi-docs.mjs`
 - `scripts/keyapi-api.mjs`
 
-Run script commands from this skill directory. If the host agent uses a different current working directory, resolve `scripts/...` relative to this `SKILL.md`. For large JSON bodies, especially base64 image payloads, prefer `--body-file` or `--image-file` instead of inline `--body`. `keyapi-api.mjs` caches successful exact same requests for 60 seconds under `.keyapi-cache/YYYY-MM-DD/`; the cache key includes method, full URL/query, and body, so different parameters do not share a cache entry. Large responses automatically save there and stdout returns a preview with `savedTo`. When `savedTo` is present, prefer reading that file for deeper analysis instead of repeating the same API request. Use `--no-cache` when fresh live data matters, and use `--stdout full` only when the user explicitly needs raw JSON in stdout.
+Run script commands from this skill directory. If the host agent uses a different current working directory, resolve `scripts/...` relative to this `SKILL.md`. For large JSON bodies, especially base64 image payloads, prefer `--body-file` or `--image-file` instead of inline `--body`. `keyapi-api.mjs` caches successful exact same requests for 60 seconds under `.keyapi-cache/YYYY-MM-DD/`; the cache key includes method, full URL/query, and body, so different parameters do not share a cache entry. Large responses automatically save there and stdout returns a preview with `savedTo`. When `savedTo` is present, prefer reading that file for deeper analysis instead of repeating the same API request. Use `--no-cache` when fresh live data matters, and use `--stdout full` only when the user explicitly needs raw JSON in stdout. For query strings, prefer repeated `--query-param key=value` or `--param key=value`; use `--query-file query.json` or `--query` only when structured array/object query values are needed. Query sources merge in this order: `--query`, `--query-file`, then repeated query params, with later values overriding earlier ones; empty query-param values are not sent.
 
 Prefer them in this order when script execution is available:
 
@@ -102,13 +102,19 @@ node scripts/search-keyapi-docs.mjs --query "<entity action>" --resolve
 Execute a documented GET endpoint:
 
 ```bash
-node scripts/keyapi-api.mjs --path /v1/facebook/... --query '{"example":"value"}'
+node scripts/keyapi-api.mjs --path /v1/facebook/... --query-param example=value
+```
+
+Execute query parameters from a JSON file:
+
+```bash
+node scripts/keyapi-api.mjs --path /v1/facebook/... --query-file query.json
 ```
 
 Execute a large response with preview and local file output:
 
 ```bash
-node scripts/keyapi-api.mjs --path /v1/facebook/... --query '{"example":"value"}' --stdout preview
+node scripts/keyapi-api.mjs --path /v1/facebook/... --query-param example=value --stdout preview
 ```
 
 Execute a documented POST endpoint:
@@ -126,7 +132,7 @@ node scripts/keyapi-api.mjs --path /v1/facebook/... --method POST --body-file re
 Execute an image JSON endpoint from a local file:
 
 ```bash
-node scripts/keyapi-api.mjs --path /v1/facebook/... --method POST --image-file ./image.jpg --image-field image_base64
+node scripts/keyapi-api.mjs --path /v1/facebook/... --method POST --query-param example=value --image-file ./image.jpg --image-field image_base64
 ```
 
 ## References

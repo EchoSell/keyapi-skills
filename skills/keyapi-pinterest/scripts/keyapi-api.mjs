@@ -29,6 +29,7 @@ function requireSupportedNodeVersion() {
 function parseArgs(argv) {
   const args = {
     method: "GET",
+    queryParams: [],
     timeoutMs: defaultTimeoutMs,
     cache: true,
     cacheTtlSeconds: defaultCacheTtlSeconds,
@@ -74,6 +75,8 @@ function parseArgs(argv) {
     else if (key === "endpoint") args.endpoint = nextValue;
     else if (key === "method") args.method = nextValue.toUpperCase();
     else if (key === "query") args.query = nextValue;
+    else if (key === "query-file") args.queryFile = nextValue;
+    else if (key === "query-param" || key === "param") args.queryParams.push(nextValue);
     else if (key === "body") args.body = nextValue;
     else if (key === "body-file") args.bodyFile = nextValue;
     else if (key === "image-file") args.imageFile = nextValue;
@@ -241,6 +244,51 @@ function appendQuery(url, query) {
       url.searchParams.set(key, String(value));
     }
   }
+}
+
+async function loadQuery(args) {
+  const merged = {};
+
+  if (args.query) {
+    Object.assign(merged, parseQueryObject("--query", args.query));
+  }
+  if (args.queryFile) {
+    Object.assign(merged, parseQueryObject("--query-file", await readFile(args.queryFile, "utf8")));
+  }
+  for (const entry of args.queryParams) {
+    const [key, value] = parseQueryParam(entry);
+    if (value === "") {
+      continue;
+    }
+    merged[key] = value;
+  }
+
+  return Object.keys(merged).length > 0 ? merged : undefined;
+}
+
+function parseQueryObject(label, value) {
+  const parsed = parseJsonFlag(label, value);
+  if (parsed === undefined) {
+    return {};
+  }
+  if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+    throw new Error(`${label} must be a JSON object.`);
+  }
+  return parsed;
+}
+
+function parseQueryParam(value) {
+  const equalsIndex = String(value).indexOf("=");
+  if (equalsIndex <= 0) {
+    throw new Error("--query-param must use key=value.");
+  }
+
+  const key = String(value).slice(0, equalsIndex).trim();
+  if (!key) {
+    throw new Error("--query-param key cannot be empty.");
+  }
+
+  return [key, String(value).slice(equalsIndex + 1)];
 }
 
 function resolvePath(args) {
@@ -511,7 +559,7 @@ async function main() {
   const requestPath = resolvePath(args);
   const baseUrl = defaultBaseUrl;
   const authHeader = await buildAuthHeader();
-  const query = parseJsonFlag("--query", args.query);
+  const query = await loadQuery(args);
   const body = await loadBody(args);
 
   const url = new URL(requestPath, baseUrl);
