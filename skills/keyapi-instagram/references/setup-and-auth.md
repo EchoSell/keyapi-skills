@@ -34,7 +34,7 @@ Auth header:
 2. Send them to the KeyAPI dashboard or auth doc to register, manage access, or retrieve their token.
 3. Prefer the local setup script when script execution is available, and show the exact command `node scripts/configure-keyapi-auth.mjs`.
 4. Explain that the setup script stores credentials in shell environment variables.
-5. Resume the original task after setup. `keyapi-api.mjs` checks both the current session and the managed shell profile, so a restart is only needed if both are unavailable.
+5. Resume the original task after `node scripts/configure-keyapi-auth.mjs --status` reports `authStatus: "available"`.
 
 ## Recommended Setup Command
 
@@ -79,7 +79,7 @@ What the setup script does:
 - supports PowerShell profiles on Windows and POSIX shell profiles on macOS/Linux
 - prepares future Codex or Claude Code sessions to use the API
 
-After setup, `keyapi-api.mjs` can read `KEYAPI_TOKEN` from the current session or the managed shell profile. Restart Codex or Claude Code only if live calls still cannot see the token.
+After setup, run `node scripts/configure-keyapi-auth.mjs --status`. If it reports `authStatus: "available"`, live helper calls can run.
 
 ## Script Contract
 
@@ -93,7 +93,7 @@ Run script commands from this skill directory. If the host agent uses a differen
 
 Prefer them in this order when script execution is available:
 
-1. check auth status with `node scripts/configure-keyapi-auth.mjs --status`
+1. check auth status with `node scripts/configure-keyapi-auth.mjs --status`; continue when it reports `authStatus: "available"`
 2. search current docs with `node scripts/search-keyapi-docs.mjs --query "<entity action>"`
 3. execute live requests with `node scripts/keyapi-api.mjs`
 
@@ -154,7 +154,7 @@ Use short, direct wording such as:
 
 - "To execute live KeyAPI requests, I first need your KeyAPI token configured locally."
 - "From this installed skill directory, run `node scripts/configure-keyapi-auth.mjs`, then retry the request."
-- "You can check whether the current session or managed profile has the token with `node scripts/configure-keyapi-auth.mjs --status`."
+- "You can check whether KeyAPI authentication is available with `node scripts/configure-keyapi-auth.mjs --status`."
 - "If script execution is not available, set `KEYAPI_TOKEN` locally and I can continue with direct REST calls."
 
 ## Security Rules
@@ -171,10 +171,10 @@ Use short, direct wording such as:
 
 ## Response Pattern
 
-If credentials are missing, pause live execution and say:
+If `authStatus` is `unavailable`, pause live execution and say:
 
 1. what is missing
 2. where to get it
 3. the exact setup command `node scripts/configure-keyapi-auth.mjs`, plus the `--status` check command
-4. that `keyapi-api.mjs` also checks the managed shell profile, and a restart is only needed if retrying still fails
+4. that `--status` reports `available` when live helper calls can run and `unavailable` when setup is still needed
 5. that the original request can continue after setup

@@ -138,19 +138,56 @@ function buildManagedBlock(values, profileKind) {
   ].join("\n");
 }
 
-function profileContainsBlock(profilePath) {
-  if (!fs.existsSync(profilePath)) {
-    return false;
+function extractManagedBlock(contents) {
+  const startIndex = contents.indexOf(managedBlockStart);
+  if (startIndex === -1) {
+    return undefined;
   }
-  return fs.readFileSync(profilePath, "utf8").includes(managedBlockStart);
+  const endIndex = contents.indexOf(managedBlockEnd, startIndex + managedBlockStart.length);
+  if (endIndex === -1) {
+    return undefined;
+  }
+  return contents.slice(startIndex + managedBlockStart.length, endIndex);
 }
 
-function currentSessionStatus() {
-  const hasToken = !isPlaceholder(process.env.KEYAPI_TOKEN);
-  return {
-    configured: hasToken,
-    credentialMode: hasToken ? "bearer_token" : "missing"
-  };
+function parseManagedValue(rawValue, profilePath) {
+  const value = rawValue.trim();
+  if (value.startsWith("'") && value.endsWith("'")) {
+    const inner = value.slice(1, -1);
+    if (profilePath.toLowerCase().endsWith(".ps1")) {
+      return inner.replace(/''/g, "'");
+    }
+    return inner.split("'\\''").join("'");
+  }
+  if (value.startsWith('"') && value.endsWith('"')) {
+    return value.slice(1, -1);
+  }
+  return value;
+}
+
+function readTokenFromManagedProfile(profilePath) {
+  if (!fs.existsSync(profilePath)) {
+    return undefined;
+  }
+
+  const block = extractManagedBlock(fs.readFileSync(profilePath, "utf8"));
+  if (!block) {
+    return undefined;
+  }
+
+  const powershellMatch = block.match(/^\s*\$env:KEYAPI_TOKEN\s*=\s*(.+?)\s*$/m);
+  const posixMatch = block.match(/^\s*export\s+KEYAPI_TOKEN=(.+?)\s*$/m);
+  const rawValue = powershellMatch?.[1] ?? posixMatch?.[1];
+  if (!rawValue) {
+    return undefined;
+  }
+
+  const token = parseManagedValue(rawValue, profilePath).trim();
+  return isPlaceholder(token) ? undefined : token;
+}
+
+function authIsAvailable(profilePath) {
+  return !isPlaceholder(process.env.KEYAPI_TOKEN) || !isPlaceholder(readTokenFromManagedProfile(profilePath));
 }
 
 async function collectCredentials(args) {
@@ -187,16 +224,17 @@ function writeProfile(profilePath, credentials) {
 
 function printStatus(profilePath) {
   const profileKind = detectProfileKind(profilePath);
-  const profileConfigured = profileContainsBlock(profilePath);
-  const current = currentSessionStatus();
+  const available = authIsAvailable(profilePath);
   process.stdout.write(
     `${JSON.stringify(
       {
+        authStatus: available ? "available" : "unavailable",
+        available,
         profilePath,
         profileKind,
-        configuredInProfile: profileConfigured,
-        configuredInCurrentSession: current.configured,
-        credentialModeInCurrentSession: current.credentialMode
+        message: available
+          ? "KeyAPI credentials are available. You can run keyapi-api.mjs requests now."
+          : "KeyAPI credentials are unavailable. Run node scripts/configure-keyapi-auth.mjs."
       },
       null,
       2
@@ -226,8 +264,9 @@ async function main() {
       `- profile kind: ${profileKind}`,
       "- auth mode: bearer_token",
       "- API base URL: https://api.keyapi.ai",
-      "- Next step: retry the KeyAPI request. keyapi-api.mjs can read this managed profile if the current session is missing KEYAPI_TOKEN.",
-      `- If you want to use this shell immediately, run: ${reloadHint}`
+      "- status: available",
+      "- Next step: retry the KeyAPI request.",
+      `- To refresh this shell manually, run: ${reloadHint}`
     ].join("\n") + "\n"
   );
 }

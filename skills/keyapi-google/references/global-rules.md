@@ -33,7 +33,7 @@ These rules apply to every Google KeyAPI REST workflow.
 - Then check KeyAPI response envelope when present:
   - `code = 0`: success
   - non-zero `code`: API-level error; report the message and adjust inputs if appropriate
-- For missing credentials or `401`, load `references/setup-and-auth.md` and give the exact setup command `node scripts/configure-keyapi-auth.mjs`; also mention `node scripts/configure-keyapi-auth.mjs --status` for checking current visibility.
+- For missing credentials or `401`, load `references/setup-and-auth.md` and give the exact setup command `node scripts/configure-keyapi-auth.mjs`; also mention `node scripts/configure-keyapi-auth.mjs --status` and continue only when it reports `authStatus: "available"`.
 - For `402` or quota messages, explain that the request needs available credits or plan access.
 - For `429`, wait or reduce request rate.
 - For `500`, retry once for idempotent requests before reporting failure.

@@ -18,8 +18,8 @@ Turn natural-language Pinterest requests into documentation-guided KeyAPI REST w
 ## Workflow
 
 1. Apply `references/global-rules.md` as the base execution contract.
-2. Check auth with `node scripts/configure-keyapi-auth.mjs --status` when script execution is available and setup state is unknown.
-3. If credentials are missing, stop live execution, load `references/setup-and-auth.md`, and tell the user the exact setup command: `node scripts/configure-keyapi-auth.mjs`. Do not only say "set KEYAPI_TOKEN".
+2. Check auth with `node scripts/configure-keyapi-auth.mjs --status` when script execution is available and setup state is unknown; treat `authStatus: "available"` as ready and `authStatus: "unavailable"` as missing credentials.
+3. If `authStatus` is `unavailable`, stop live execution, load `references/setup-and-auth.md`, and tell the user the exact setup command: `node scripts/configure-keyapi-auth.mjs`. Do not only say "set KEYAPI_TOKEN".
 4. Identify the user's goal, entity, scope, metric, pagination depth, and desired output.
 5. Use `references/scenarios.md` to map the request to a Pinterest scenario.
 6. Use `references/routing-policy.md` to choose search/list, detail, resolver, ranking/trend, related-entity, or composed workflow patterns.
@@ -63,14 +63,14 @@ Compress parameter-heavy APIs into these decision fields:
 
 When the user has not set up credentials yet, proactively provide the setup script command. Do not answer only with "configure KEYAPI_TOKEN".
 
-When credentials are missing:
+When `authStatus` is `unavailable`:
 
 - explain that KeyAPI uses Bearer token authentication with `KEYAPI_TOKEN`
 - point them to the KeyAPI dashboard and auth docs
 - require local setup with `node scripts/configure-keyapi-auth.mjs` when script execution is available
-- also mention `node scripts/configure-keyapi-auth.mjs --status` for checking whether setup is already visible to the current session
+- also mention `node scripts/configure-keyapi-auth.mjs --status` for checking whether authentication is available
 - explain that setup writes credentials into shell environment variables
-- explain that `keyapi-api.mjs` also checks the managed shell profile, so retrying may work without restarting; restart Codex or Claude Code only if needed
+- explain that `--status` reports `available` or `unavailable`; continue live requests when it reports `available`
 - continue live requests only after setup is complete
 
 ## Script Contract
