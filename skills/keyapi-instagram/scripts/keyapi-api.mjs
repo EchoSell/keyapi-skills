@@ -1,15 +1,23 @@
+import { createHash } from "node:crypto";
 import { existsSync } from "node:fs";
-import { readFile } from "node:fs/promises";
+import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import process from "node:process";
+import { fileURLToPath } from "node:url";
 
 const platform = "instagram";
 const defaultBaseUrl = "https://api.keyapi.ai";
 const defaultTimeoutMs = 30000;
+const defaultCacheTtlSeconds = 60;
+const defaultMaxStdoutBytes = 100000;
+const defaultPreviewItems = 5;
 const minNodeMajor = 18;
 const managedBlockStart = "# >>> keyapi-skills >>>";
 const managedBlockEnd = "# <<< keyapi-skills <<<";
+const scriptDir = path.dirname(fileURLToPath(import.meta.url));
+const skillDir = path.dirname(scriptDir);
+const cacheRootDir = path.join(skillDir, ".keyapi-cache");
 
 function requireSupportedNodeVersion() {
   const major = Number(process.versions.node.split(".")[0]);
@@ -21,7 +29,13 @@ function requireSupportedNodeVersion() {
 function parseArgs(argv) {
   const args = {
     method: "GET",
-    timeoutMs: defaultTimeoutMs
+    timeoutMs: defaultTimeoutMs,
+    cache: true,
+    cacheTtlSeconds: defaultCacheTtlSeconds,
+    maxStdoutBytes: defaultMaxStdoutBytes,
+    previewItems: defaultPreviewItems,
+    stdout: "auto",
+    saveResponse: false
   };
 
   for (let index = 2; index < argv.length; index += 1) {
@@ -34,8 +48,21 @@ function parseArgs(argv) {
     const rawKey = equalsIndex === -1 ? token : token.slice(0, equalsIndex);
     const inlineValue = equalsIndex === -1 ? undefined : token.slice(equalsIndex + 1);
     const key = rawKey.slice(2);
-    const nextValue = inlineValue ?? argv[index + 1];
 
+    if (key === "cache") {
+      args.cache = inlineValue === undefined ? true : parseBoolean(inlineValue, key);
+      continue;
+    }
+    if (key === "no-cache") {
+      args.cache = inlineValue === undefined ? false : !parseBoolean(inlineValue, key);
+      continue;
+    }
+    if (key === "save-response") {
+      args.saveResponse = inlineValue === undefined ? true : parseBoolean(inlineValue, key);
+      continue;
+    }
+
+    const nextValue = inlineValue ?? argv[index + 1];
     if (!nextValue || nextValue.startsWith("--")) {
       throw new Error(`Missing value for --${key}`);
     }
@@ -52,10 +79,40 @@ function parseArgs(argv) {
     else if (key === "image-file") args.imageFile = nextValue;
     else if (key === "image-field") args.imageField = nextValue;
     else if (key === "timeout-ms") args.timeoutMs = Number(nextValue);
+    else if (key === "cache-ttl") args.cacheTtlSeconds = Number(nextValue);
+    else if (key === "max-stdout-bytes") args.maxStdoutBytes = Number(nextValue);
+    else if (key === "preview-items") args.previewItems = Number(nextValue);
+    else if (key === "stdout") args.stdout = nextValue;
+    else if (key === "output-file") args.outputFile = nextValue;
     else throw new Error(`Unsupported argument: --${key}`);
   }
 
+  validateArgs(args);
   return args;
+}
+
+function validateArgs(args) {
+  if (!Number.isFinite(args.timeoutMs)) {
+    throw new Error("--timeout-ms must be a number");
+  }
+  if (!Number.isFinite(args.cacheTtlSeconds) || args.cacheTtlSeconds < 0) {
+    throw new Error("--cache-ttl must be a non-negative number of seconds");
+  }
+  if (!Number.isInteger(args.maxStdoutBytes) || args.maxStdoutBytes < 0) {
+    throw new Error("--max-stdout-bytes must be a non-negative integer");
+  }
+  if (!Number.isInteger(args.previewItems) || args.previewItems < 0) {
+    throw new Error("--preview-items must be a non-negative integer");
+  }
+  if (!["auto", "full", "preview", "none"].includes(args.stdout)) {
+    throw new Error("--stdout must be one of: auto, full, preview, none");
+  }
+}
+
+function parseBoolean(value, key) {
+  if (value === "true" || value === "1") return true;
+  if (value === "false" || value === "0") return false;
+  throw new Error(`--${key} must be true or false when a value is provided`);
 }
 
 function isPlaceholder(value) {
@@ -251,6 +308,203 @@ async function loadBody(args) {
   return body;
 }
 
+function stableStringify(value) {
+  if (value === null || typeof value !== "object") {
+    return JSON.stringify(value);
+  }
+  if (Array.isArray(value)) {
+    return `[${value.map(stableStringify).join(",")}]`;
+  }
+  return `{${Object.keys(value)
+    .sort()
+    .map((key) => `${JSON.stringify(key)}:${stableStringify(value[key])}`)
+    .join(",")}}`;
+}
+
+function buildRequestCacheKey({ method, url, body }) {
+  return createHash("sha256")
+    .update(stableStringify({ method, url: url.toString(), body: body ?? null }))
+    .digest("hex");
+}
+
+function localDateParts(date) {
+  const pad = (value) => String(value).padStart(2, "0");
+  return {
+    date: `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`,
+    time: `${pad(date.getHours())}-${pad(date.getMinutes())}-${pad(date.getSeconds())}`
+  };
+}
+
+function cacheDayDir(date = new Date()) {
+  return path.join(cacheRootDir, localDateParts(date).date);
+}
+
+function cacheFileName(cacheKey, date = new Date()) {
+  const parts = localDateParts(date);
+  return `${parts.date}T${parts.time}-${cacheKey.slice(0, 12)}.json`;
+}
+
+async function findCachedResult(cacheKey, ttlSeconds) {
+  if (ttlSeconds <= 0 || !existsSync(cacheRootDir)) {
+    return undefined;
+  }
+
+  const now = Date.now();
+  const shortKey = cacheKey.slice(0, 12);
+  const dayDirs = await readdir(cacheRootDir, { withFileTypes: true });
+
+  for (const dayDir of dayDirs.filter((entry) => entry.isDirectory()).sort((a, b) => b.name.localeCompare(a.name))) {
+    const dir = path.join(cacheRootDir, dayDir.name);
+    const files = await readdir(dir, { withFileTypes: true });
+    const candidates = files
+      .filter((entry) => entry.isFile() && entry.name.endsWith(`-${shortKey}.json`))
+      .sort((a, b) => b.name.localeCompare(a.name));
+
+    for (const file of candidates) {
+      const filePath = path.join(dir, file.name);
+      try {
+        const payload = JSON.parse(await readFile(filePath, "utf8"));
+        if (payload?.cache?.key !== cacheKey || !payload?.cache?.createdAt || !payload?.result) {
+          continue;
+        }
+        const ageMs = now - Date.parse(payload.cache.createdAt);
+        if (ageMs >= 0 && ageMs <= ttlSeconds * 1000) {
+          return {
+            result: payload.result,
+            savedTo: filePath,
+            cache: payload.cache
+          };
+        }
+      } catch {
+        continue;
+      }
+    }
+  }
+
+  return undefined;
+}
+
+async function writeResultFile(result, cacheKey, args, explicitOutputFile) {
+  const now = new Date();
+  const outputPath = explicitOutputFile
+    ? path.resolve(explicitOutputFile)
+    : path.join(cacheDayDir(now), cacheFileName(cacheKey, now));
+
+  await mkdir(path.dirname(outputPath), { recursive: true });
+  const payload = {
+    cache: {
+      key: cacheKey,
+      createdAt: now.toISOString(),
+      ttlSeconds: args.cacheTtlSeconds,
+      platform,
+      method: result.method,
+      url: result.url
+    },
+    result
+  };
+  await writeFile(outputPath, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
+  return outputPath;
+}
+
+function byteLength(value) {
+  return Buffer.byteLength(value, "utf8");
+}
+
+function summarizeResult(result, { savedTo, cached, cacheKey, fullResultBytes, args }) {
+  const data = result.data;
+  const envelope = data && typeof data === "object" && !Array.isArray(data) ? data : undefined;
+  return {
+    ok: result.ok,
+    status: result.status,
+    code: typeof envelope?.code === "number" ? envelope.code : undefined,
+    message: typeof envelope?.message === "string" ? envelope.message : undefined,
+    url: result.url,
+    method: result.method,
+    platform: result.platform,
+    cached: Boolean(cached),
+    cacheKey: cacheKey.slice(0, 12),
+    savedTo,
+    fullResultBytes,
+    stdoutMode: result.stdoutMode,
+    preview: makePreview(data, args.previewItems)
+  };
+}
+
+function makePreview(value, maxItems, depth = 0) {
+  if (depth >= 5) {
+    return summarizeScalar(value);
+  }
+  if (Array.isArray(value)) {
+    const items = value.slice(0, maxItems).map((item) => makePreview(item, maxItems, depth + 1));
+    if (value.length > maxItems) {
+      items.push({ truncated: value.length - maxItems });
+    }
+    return items;
+  }
+  if (value && typeof value === "object") {
+    const entries = Object.entries(value);
+    const preview = {};
+    for (const [key, item] of entries.slice(0, 30)) {
+      preview[key] = makePreview(item, maxItems, depth + 1);
+    }
+    if (entries.length > 30) {
+      preview.__truncatedKeys = entries.length - 30;
+    }
+    return preview;
+  }
+  return summarizeScalar(value);
+}
+
+function summarizeScalar(value) {
+  if (typeof value === "string" && value.length > 500) {
+    return `${value.slice(0, 500)}... [truncated ${value.length - 500} chars]`;
+  }
+  return value;
+}
+
+async function emitSuccess(result, args, cacheKey, cachedInfo) {
+  const fullText = JSON.stringify(result, null, 2);
+  const fullResultBytes = byteLength(fullText);
+  const outputRequiresFile =
+    Boolean(cachedInfo?.savedTo) ||
+    Boolean(args.outputFile) ||
+    args.saveResponse ||
+    (args.stdout === "auto" && fullResultBytes > args.maxStdoutBytes) ||
+    args.stdout === "preview" ||
+    args.stdout === "none";
+  const shouldSave = args.cache || outputRequiresFile;
+
+  let savedTo = cachedInfo?.savedTo;
+  if (!savedTo && shouldSave) {
+    savedTo = await writeResultFile(result, cacheKey, args, args.outputFile);
+  }
+
+  if (args.stdout === "none") {
+    return;
+  }
+
+  if (
+    args.stdout === "full" ||
+    (args.stdout === "auto" &&
+      fullResultBytes <= args.maxStdoutBytes &&
+      !args.outputFile &&
+      !args.saveResponse)
+  ) {
+    process.stdout.write(`${fullText}\n`);
+    return;
+  }
+
+  result.stdoutMode = savedTo ? "preview-with-saved-result" : "preview";
+  const summary = summarizeResult(result, {
+    savedTo,
+    cached: Boolean(cachedInfo),
+    cacheKey,
+    fullResultBytes,
+    args
+  });
+  process.stdout.write(`${JSON.stringify(summary, null, 2)}\n`);
+}
+
 async function main() {
   requireSupportedNodeVersion();
   const args = parseArgs(process.argv);
@@ -262,6 +516,15 @@ async function main() {
 
   const url = new URL(requestPath, baseUrl);
   appendQuery(url, query);
+
+  const cacheKey = buildRequestCacheKey({ method: args.method, url, body });
+  if (args.cache) {
+    const cachedInfo = await findCachedResult(cacheKey, args.cacheTtlSeconds);
+    if (cachedInfo) {
+      await emitSuccess(cachedInfo.result, args, cacheKey, cachedInfo);
+      return;
+    }
+  }
 
   const headers = {
     Accept: "application/json",
@@ -304,7 +567,7 @@ async function main() {
     return;
   }
 
-  process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
+  await emitSuccess(result, args, cacheKey);
 }
 
 try {

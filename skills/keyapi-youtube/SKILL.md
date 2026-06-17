@@ -81,7 +81,7 @@ This skill includes helper scripts under `scripts/` for reliable local execution
 - `scripts/search-keyapi-docs.mjs`
 - `scripts/keyapi-api.mjs`
 
-Run script commands from this skill directory. If the host agent uses a different current working directory, resolve `scripts/...` relative to this `SKILL.md`. For large JSON bodies, especially base64 image payloads, prefer `--body-file` or `--image-file` instead of inline `--body`.
+Run script commands from this skill directory. If the host agent uses a different current working directory, resolve `scripts/...` relative to this `SKILL.md`. For large JSON bodies, especially base64 image payloads, prefer `--body-file` or `--image-file` instead of inline `--body`. `keyapi-api.mjs` caches successful exact same requests for 60 seconds under `.keyapi-cache/YYYY-MM-DD/`; the cache key includes method, full URL/query, and body, so different parameters do not share a cache entry. Large responses automatically save there and stdout returns a preview with `savedTo`. When `savedTo` is present, prefer reading that file for deeper analysis instead of repeating the same API request. Use `--no-cache` when fresh live data matters, and use `--stdout full` only when the user explicitly needs raw JSON in stdout.
 
 Prefer them in this order when script execution is available:
 
@@ -103,6 +103,12 @@ Execute a documented GET endpoint:
 
 ```bash
 node scripts/keyapi-api.mjs --path /v1/youtube/... --query '{"example":"value"}'
+```
+
+Execute a large response with preview and local file output:
+
+```bash
+node scripts/keyapi-api.mjs --path /v1/youtube/... --query '{"example":"value"}' --stdout preview
 ```
 
 Execute a documented POST endpoint:
