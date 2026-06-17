@@ -25,8 +25,8 @@ Turn natural-language Facebook requests into documentation-guided KeyAPI REST wo
 6. Use `references/routing-policy.md` to choose search/list, detail, resolver, ranking/trend, related-entity, or composed workflow patterns.
 7. Apply `references/facebook-rules.md` for Facebook-specific identifiers, pagination, and reporting rules.
 8. Load the scenario reference named in `references/scenarios.md` when the request maps to a curated scenario.
-9. Search current docs with `node scripts/search-keyapi-docs.mjs --query "<entity action>"` when the helper script is available; otherwise open `https://docs.keyapi.ai/llms.txt` directly.
-10. Open the selected docs page and extract the current OpenAPI method, path, parameters, examples, and response contract.
+9. Resolve current docs with `node scripts/search-keyapi-docs.mjs --query "<entity action>" --resolve` when the helper script is available; otherwise open `https://docs.keyapi.ai/llms.txt` and the selected endpoint page directly.
+10. Use the resolver output or opened docs page to extract the current OpenAPI method, `/v1/...` path, required query/body parameters, examples, and response contract before any live API call. Never infer API paths from docs URLs, scenario names, endpoint titles, remembered routes, or a previous 404.
 11. Ask only for missing high-value inputs that cannot be safely defaulted.
 12. Prefer `node scripts/keyapi-api.mjs` for live REST calls when script execution is available. Use the host's HTTP client only when scripts are unavailable or the helper cannot express the documented request.
 13. Check HTTP status and KeyAPI response envelope. `code = 0` means success; non-zero `code` is an API-level failure.
@@ -86,17 +86,17 @@ Run script commands from this skill directory. If the host agent uses a differen
 Prefer them in this order when script execution is available:
 
 1. auth status
-2. docs lookup when endpoint details are unclear
+2. docs resolution before live REST calls
 3. live REST call
 
 If script execution is unavailable in the host agent, or if the helper cannot express the documented request, do not fail the task. Use the same documented REST method, path, headers, query, and body with the host's available HTTP client.
 
 ## Script Examples
 
-Search docs for this platform:
+Resolve current docs for this platform:
 
 ```bash
-node scripts/search-keyapi-docs.mjs --query "<entity action>"
+node scripts/search-keyapi-docs.mjs --query "<entity action>" --resolve
 ```
 
 Execute a documented GET endpoint:

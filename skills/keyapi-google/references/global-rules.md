@@ -7,12 +7,14 @@ These rules apply to every Google KeyAPI REST workflow.
 - Documentation index: `https://docs.keyapi.ai/llms.txt`
 - API base URL: `https://api.keyapi.ai`
 - Authentication: `Authorization: Bearer $KEYAPI_TOKEN`
-- Always read the current docs page for the selected endpoint before deciding final parameters.
+- Before any live API request, resolve or read the current docs page for the selected endpoint and decide the final method, `/v1/...` path, required parameters, body shape, and pagination from that page.
+- Never infer API paths from docs URLs, scenario names, endpoint titles, remembered routes, or 404 responses.
 - If this skill text conflicts with the official docs, follow the official docs.
 
 ## REST Execution
 
 - Use the documented method, path, query parameters, and JSON body from the current docs page.
+- Do not execute a live REST call until the current docs page or resolver output has produced the endpoint method and `/v1/...` path.
 - Prefer the skill-local helper scripts under `scripts/` for local execution; the current KeyAPI docs remain the API source of truth.
 - Use the host's available HTTP client only when helper scripts are unavailable or cannot express the documented request.
 - Do not use gateway tool schemas or remembered MCP tool definitions as the source of truth.
