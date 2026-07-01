@@ -2,58 +2,84 @@
 
 ## 1. Module Scope
 
-Use this module for YouTube video search, general search with filters, search suggestions, trending videos, and channel search when the user's starting point is a query.
+Use this module for YouTube general search with filters, video search, Shorts search, trending videos, channel search, and search suggestions.
 
-These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before execution, always open the linked endpoint docs page and use the current method, path, parameters, pagination, and response schema.
+These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before execution, always resolve the selected endpoint docs page and use the current method, path, parameters, pagination, and response schema.
 
-## 2. Video Search And General Search
+## 2. Search suggestions and query expansion
+
+- Documentation: `https://docs.keyapi.ai/youtube/get-search-suggestions.md`
+- Purpose: Generate YouTube search suggestions from a seed query.
+
+### Best Suited For
+
+- keyword expansion
+- topic ideation
+- search intent exploration
+
+### Routing Rules
+
+- Use before search when the user asks for query ideas or wants a broader topic map.
+- Do not present suggestions as ranking evidence.
+
+## 3. Video and filtered search
 
 - Documentation: `https://docs.keyapi.ai/youtube/search-video.md`
 - Documentation: `https://docs.keyapi.ai/youtube/general-search-with-filters.md`
-- Purpose: search YouTube videos or run filtered YouTube search.
-- Best suited for topic research, filtered discovery, and collecting candidate videos.
+- Purpose: Search YouTube videos or run advanced filtered search.
 
-### Rules
+### Best Suited For
 
-- Use filtered search when the user asks for upload time, duration, content type, features, or sort constraints.
-- Enrich selected videos with video information and comments.
+- video discovery
+- topic research
+- filtered search by upload time/duration/type/features/sort
+- candidate video collection
 
-## 3. Search Suggestions
+### Routing Rules
 
-- Documentation: `https://docs.keyapi.ai/youtube/get-search-suggestions.md`
-- Purpose: retrieve YouTube autocomplete suggestions.
-- Best suited for keyword expansion, content ideation, and query planning.
+- Use search video for simple video queries.
+- Use general search with filters when the user specifies upload time, duration, content type, features, or sort.
+- Enrich selected videos through video rules.
 
-### Rules
+## 4. Shorts-specific discovery
 
-- Use before search when the user asks for keyword ideas or wants query expansion.
-- Do not treat suggestions as search results.
+- Documentation: `https://docs.keyapi.ai/youtube/youtube-shorts-search.md`
+- Purpose: Search YouTube Shorts using the native Shorts search surface.
 
-## 4. Trending Videos
+### Best Suited For
+
+- short-form video research
+- Shorts creator/content discovery
+- short-video trend examples
+
+### Routing Rules
+
+- Use this when the user explicitly asks for Shorts.
+- Follow continuation guidance because first responses may include mixed content.
+- Enrich selected Shorts through video rules when details/comments are needed.
+
+## 5. Trending videos and channel discovery
 
 - Documentation: `https://docs.keyapi.ai/youtube/get-trending-videos.md`
-- Purpose: retrieve trending YouTube videos.
-- Best suited for trend monitoring and current popular video discovery.
-
-### Rules
-
-- Use when the user asks what is trending.
-- State region/category/time context when available from docs or response.
-
-## 5. Channel Search From Query
-
 - Documentation: `https://docs.keyapi.ai/youtube/search-channel.md`
 - Documentation: `https://docs.keyapi.ai/youtube/search-channels.md`
-- Purpose: search YouTube channels from a user query.
-- Best suited for creator/channel discovery before channel profile enrichment.
+- Purpose: Retrieve trending videos or search channels.
 
-### Rules
+### Best Suited For
 
-- Use when the user asks to find channels rather than videos.
-- Route selected channels to `youtube-channel-rules.md`.
+- market trend scan
+- current popular video monitoring
+- creator/channel discovery
+
+### Routing Rules
+
+- Use trending videos for current market attention.
+- Use channel search endpoints for creator/channel discovery.
+- Route selected videos to video rules and selected channels to channel rules.
 
 ## 6. Common Workflows
 
-- Topic research: suggestions -> filtered/general/video search -> selected video detail.
-- Trend report: trending videos -> video detail/comments for selected results.
+- Topic research: suggestions -> video/filtered search -> selected video detail/comments.
+- Shorts research: Shorts search -> selected video information/comments.
+- Trend scan: trending videos -> selected video detail -> channel enrichment if needed.
 - Channel discovery: channel search -> channel description/videos.

@@ -2,67 +2,96 @@
 
 ## 1. Module Scope
 
-Use this module for Instagram user search, profile detail, followers, following, related profiles, similar users, stories, highlights, tagged posts, reposts, and user content lists.
+Use this module for Instagram user discovery, profile qualification, user content portfolios, Stories, Highlights, tagged/reposted content, followers/following, related profiles, and similar users.
 
-These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before execution, always open the linked endpoint docs page and use the current method, path, parameters, pagination, and response schema.
+These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before execution, always resolve the selected endpoint docs page and use the current method, path, parameters, pagination, and response schema.
 
-## 2. User Search And Profile Detail
+## 2. User discovery and profile qualification
 
 - Documentation: `https://docs.keyapi.ai/instagram/search-users.md`
+- Documentation: `https://docs.keyapi.ai/instagram/general-search.md`
 - Documentation: `https://docs.keyapi.ai/instagram/get-user-info.md`
 - Documentation: `https://docs.keyapi.ai/instagram/get-user-info-by-user-id.md`
-- Purpose: resolve Instagram users and retrieve profile information.
-- Best suited for profile lookup, creator validation, and username/user ID normalization.
+- Purpose: Find candidate accounts and retrieve a stable profile baseline.
 
-### Rules
+### Best Suited For
 
-- Use search when the exact username or user ID is unknown.
-- Use user-info-by-ID when a workflow starts from an Instagram user ID.
-- Preserve user IDs and usernames for downstream user content, network, and story calls.
+- creator discovery
+- brand/profile validation
+- username to user-ID normalization
+- shortlist enrichment
 
-## 3. User Content Lists
+### Routing Rules
+
+- Use search users for explicit profile discovery.
+- Use general search when the user wants a broader Instagram search surface.
+- Use get user info when username or URL-like input is available.
+- Use get user info by user ID when a workflow starts from an ID.
+- Preserve username and user ID for all downstream user content and graph calls.
+
+## 3. Profile content portfolio audit
 
 - Documentation: `https://docs.keyapi.ai/instagram/get-user-posts.md`
 - Documentation: `https://docs.keyapi.ai/instagram/get-user-reels.md`
 - Documentation: `https://docs.keyapi.ai/instagram/get-user-tagged-posts.md`
 - Documentation: `https://docs.keyapi.ai/instagram/get-user-reposts-list.md`
-- Purpose: retrieve posts, Reels, tagged posts, or reposts for a user.
-- Best suited for creator content audits, media library review, and profile content reports.
+- Purpose: Collect a profile content portfolio by surface.
 
-### Rules
+### Best Suited For
 
-- Choose the content endpoint that matches the requested media surface.
-- Preserve post shortcode or media ID for post detail, comments, likes, and ID conversion.
+- creator content audits
+- Reels portfolio review
+- tagged-post evidence
+- repost/share behavior analysis
 
-## 4. Stories And Highlights
+### Routing Rules
+
+- Choose posts, Reels, tagged posts, or reposts based on the requested content surface.
+- Do not fetch every surface by default; confirm sections for broad profile reports.
+- Preserve post shortcode/media ID for post detail, comments, likes, and conversion workflows.
+
+## 4. Stories and highlight review
 
 - Documentation: `https://docs.keyapi.ai/instagram/get-user-stories.md`
 - Documentation: `https://docs.keyapi.ai/instagram/get-user-highlights.md`
 - Documentation: `https://docs.keyapi.ai/instagram/get-highlight-stories.md`
-- Purpose: retrieve active stories, highlight collections, and stories inside a highlight.
-- Best suited for ephemeral content checks and profile highlight review.
+- Purpose: Retrieve active Stories, highlight collections, or stories inside a selected highlight.
 
-### Rules
+### Best Suited For
 
-- Use active stories only when the user asks for current stories.
-- Use user highlights first, then highlight stories after a highlight ID is known.
+- fresh story checks
+- profile highlight audits
+- ephemeral content review
 
-## 5. Followers, Following, And Related Profiles
+### Routing Rules
+
+- Use active stories only when current Story content matters.
+- Use user highlights before highlight stories when the highlight ID is unknown.
+- Stories may expire; missing Stories should not be presented as historical proof.
+
+## 5. Audience and relationship exploration
 
 - Documentation: `https://docs.keyapi.ai/instagram/get-user-followers.md`
 - Documentation: `https://docs.keyapi.ai/instagram/get-user-following.md`
 - Documentation: `https://docs.keyapi.ai/instagram/get-related-profiles.md`
 - Documentation: `https://docs.keyapi.ai/instagram/get-similar-users.md`
-- Purpose: retrieve relationship networks and recommended similar accounts.
-- Best suited for audience/network traversal, creator discovery, and related-account research.
+- Purpose: Inspect relationship lists or expand discovery through related/similar accounts.
 
-### Rules
+### Best Suited For
 
-- Use followers/following only when relationship lists are directly requested.
-- Use related/similar user endpoints for discovery rather than manually crawling large networks.
+- audience sampling
+- following/follower checks
+- creator expansion
+- competitive account discovery
+
+### Routing Rules
+
+- Use followers/following only when relationship lists are explicitly requested.
+- Use related or similar profiles for discovery before considering broad graph traversal.
+- Enrich only selected discovered accounts unless the user approves a larger crawl.
 
 ## 6. Common Workflows
 
-- Profile report: search or direct user info -> posts/Reels/tagged content -> network or stories as needed.
-- Creator discovery: search users -> related/similar users -> user info for selected accounts.
-- Highlight review: user highlights -> selected highlight stories.
+- Profile report: search or direct user info -> selected content surfaces -> stories/highlights or relationship endpoints only if requested.
+- Creator discovery: search users/general search -> related/similar users -> user info for selected accounts.
+- Portfolio audit: user info -> user posts/Reels/tagged/reposts -> post module enrichment for selected content.

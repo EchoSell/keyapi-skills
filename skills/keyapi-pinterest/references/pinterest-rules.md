@@ -1,30 +1,23 @@
 # Pinterest Rules
 
+Use this file for Pinterest platform-level routing boundaries. Use module files for scenario-specific workflows.
+
 ## Entity Scope
 
-users, pins, boards, followers, following, usernames
-
-## Platform-Specific Rules
-
-- Resolve the user identifier accepted by the endpoint before requesting pins, boards, or network data.
-- Pinterest pagination can be cursor-style; inspect docs and first response before fetching more pages.
-- Separate user search from user detail workflows.
+users, profiles, boards, pins, followers, and following relationships
 
 ## Scenario Module Routing
 
-- Use `pinterest-user-board-rules.md` for user search, user information, pins, boards, followers, and following.
-- If a request spans content and network data, load the same module and keep profile, content, and relationship evidence separate.
+- Use `pinterest-profile-rules.md` for user search and profile information.
+- Use `pinterest-content-rules.md` for boards and pins.
+- Use `pinterest-network-rules.md` for followers and following.
 
-## Documentation Hints
+## Identifier Discipline
 
-- Filter `https://docs.keyapi.ai/llms.txt` for links under `https://docs.keyapi.ai/pinterest/`.
-- Treat endpoint titles as hints, not stable tool names.
-- Extract the current REST method and path from the OpenAPI block on the docs page.
-- Use examples from the docs page only after replacing sample identifiers with user-provided or resolved identifiers.
+- Resolve the target user before board, pin, follower, or following workflows.
+- Keep board and pin identifiers separate when a downstream endpoint requires one or the other.
 
 ## Output Guidance
 
-- For discovery tasks, return ranked candidates with key evidence and next-step enrichment suggestions.
-- For detail tasks, return a compact entity profile plus important raw identifiers.
-- For trend/ranking tasks, state the metric, time window, market, and any API coverage limitations.
-- For reports, organize findings by entity, performance signals, risks, and recommended follow-up calls.
+- For profile reports, separate user metadata, board inventory, pin evidence, and social graph context.
+- For graph work, state whether results are followers or following.

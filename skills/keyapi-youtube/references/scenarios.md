@@ -1,42 +1,108 @@
-# Scenarios
+# Scenario Cards
 
-Use these scenario cards to map user intent to documentation search terms and reference modules. They are routing hints only; the exact request contract must come from `https://docs.keyapi.ai/llms.txt` and the linked endpoint page.
+Use these scenario cards to translate natural-language YouTube requests into a small, stable set of inputs. They are routing hints only; the exact method, `/v1/...` path, parameters, body shape, pagination, and response contract must come from `https://docs.keyapi.ai/llms.txt` and the linked endpoint page before execution.
+
+Do not start by listing raw endpoints. First identify the user's business goal, choose the closest scenario, collect only missing high-value inputs, resolve the current docs, then execute through `scripts/keyapi-api.mjs` when available.
 
 ## Core Entities
 
-videos, comments, sub-comments, streams, related videos, shorts, channels, channel IDs, channel URLs, suggestions, trending videos
-
-## Common Scenarios
-
-- YouTube Video: video information, comments, sub-comments, related videos, streams info, and Shorts search.
-- YouTube Channel: channel search, channel ID/URL conversion, channel description, and channel videos.
-- YouTube Search and Trends: video search, general filtered search, search suggestions, trending videos, and query-led channel search.
+videos, Shorts, comments, sub-comments, streams, related videos, search results, trending videos, channels, channel IDs, channel URLs, channel videos, and search suggestions
 
 ## Scenario Modules
 
-Load one of these modules after identifying the user's business goal:
-
 | User intent | Reference module | Docs path family |
 |---|---|---|
-| Video detail, comments, sub-comments, related videos, stream/playback formats, Shorts search | `youtube-video-rules.md` | `/youtube/` |
-| Channel search, channel ID/URL/handle conversion, channel description, channel videos | `youtube-channel-rules.md` | `/youtube/` |
-| Video search, general filtered search, suggestions, trending videos, query-led channel discovery | `youtube-search-trends-rules.md` | `/youtube/` |
+| Video detail, comments, sub-comments, streams, and related videos | `youtube-video-rules.md` | /youtube/ |
+| Channel description, channel videos, channel search, and channel ID/URL conversion | `youtube-channel-rules.md` | /youtube/ |
+| General search, filtered search, Shorts search, trending videos, and search suggestions | `youtube-search-trends-rules.md` | /youtube/ |
+
+## 1. Analyze a video
+
+- User intent: Retrieve video metadata, playback/stream options, related videos, and discussion context.
+- Primary entity: video
+- Ask for: video URL or ID, whether comments/sub-comments/streams/related videos are needed, and page depth.
+- Default workflow: Fetch video information first; call streams only when playback format data is needed, related videos for recommendation context, and comments/sub-comments for audience discussion.
+- Reference module: `youtube-video-rules.md`
+- Endpoint shortlist:
+  - [Get video information](https://docs.keyapi.ai/youtube/get-video-information.md) - Get detailed information about a YouTube video, returning the full raw data (including playerResponse and initialData).
+  - [Get video streams info](https://docs.keyapi.ai/youtube/get-video-streams-info.md) - Get format information and playback URLs for all quality levels of a YouTube video. Returns both standard formats (audio+video merged) and adaptive formats (audio and video separate). Suitable for scenarios where all quality options need to be displayed.
+  - [Get related videos](https://docs.keyapi.ai/youtube/get-related-videos.md) - Get recommended related content for a YouTube video (recommended video list). Similar to the related videos shown on the right side of the video playback page. Returns all recommended videos at once (typically 20-30 videos).
+  - [Get video comments](https://docs.keyapi.ai/youtube/get-video-comments.md) - Get comments for a YouTube video. Supports paginated retrieval.
+  - [Get video sub comments](https://docs.keyapi.ai/youtube/get-video-sub-comments.md) - Get replies to a YouTube video comment.
+
+## 2. Search videos and Shorts
+
+- User intent: Find videos or Shorts by keyword with optional filters and sorting.
+- Primary entity: video / Shorts search result
+- Ask for: query, upload time, duration/type/features/sort filters when needed, Shorts versus general video preference, and top N.
+- Default workflow: Use the narrowest search endpoint: search video for simple video search, filtered search for advanced constraints, and Shorts search for short-form discovery.
+- Reference module: `youtube-search-trends-rules.md`
+- Endpoint shortlist:
+  - [Search video](https://docs.keyapi.ai/youtube/search-video.md) - Search for videos.
+  - [General search with filters](https://docs.keyapi.ai/youtube/general-search-with-filters.md) - Search YouTube with advanced filters. Supports filtering by upload time, video duration, content type, features, and sort order.
+  - [YouTube Shorts search](https://docs.keyapi.ai/youtube/youtube-shorts-search.md) - Dedicated search for YouTube Shorts (videos under 60 seconds), using the native YouTube API. Supports filters and sort options. The first request may return mixed content; use continuation_token for subsequent requests to get pure Shorts.
+  - [Get search suggestions](https://docs.keyapi.ai/youtube/get-search-suggestions.md) - Get YouTube search suggestions (autocomplete). Similar to the suggestions shown when typing in the YouTube search box.
+
+## 3. Monitor trending and query demand
+
+- User intent: Inspect trending videos or generate search suggestions for a topic.
+- Primary entity: trend / suggestion
+- Ask for: region or market when documented, seed query, and result depth.
+- Default workflow: Use trending videos for current market attention and search suggestions to expand query variants before deeper search.
+- Reference module: `youtube-search-trends-rules.md`
+- Endpoint shortlist:
+  - [Get trending videos](https://docs.keyapi.ai/youtube/get-trending-videos.md) - Get trending videos.
+  - [Get search suggestions](https://docs.keyapi.ai/youtube/get-search-suggestions.md) - Get YouTube search suggestions (autocomplete). Similar to the suggestions shown when typing in the YouTube search box.
+  - [Search video](https://docs.keyapi.ai/youtube/search-video.md) - Search for videos.
+
+## 4. Analyze channels and channel catalogs
+
+- User intent: Retrieve channel details, convert channel identifiers, or collect channel videos.
+- Primary entity: channel
+- Ask for: channel URL, handle, name, or channel ID; whether videos should be collected; and page depth.
+- Default workflow: Resolve channel ID/URL when needed, then fetch channel description and channel videos; use channel search endpoints for discovery.
+- Reference module: `youtube-channel-rules.md`
+- Endpoint shortlist:
+  - [Get channel ID](https://docs.keyapi.ai/youtube/get-channel-id.md) - Get a channel ID from the channel name.
+  - [Get channel ID from URL](https://docs.keyapi.ai/youtube/get-channel-id-from-url.md) - Get the channel ID (channel_id) from a YouTube channel URL. Supports multiple URL formats including @username format, /channel/ format, /c/ format, and /user/ format.
+  - [Get channel URL from channel ID](https://docs.keyapi.ai/youtube/get-channel-url-from-channel-id.md) - Get the channel handle (@username) from a YouTube channel ID. This is the reverse operation of get_channel_id.
+  - [Get channel description](https://docs.keyapi.ai/youtube/get-channel-description.md) - Get detailed information about a YouTube channel, including channel description, view count, subscriber count, join date, social links, etc.
+  - [Get channel videos](https://docs.keyapi.ai/youtube/get-channel-videos.md) - Get a list of videos from a YouTube channel. Supports paginated retrieval; use continuation_token to get more videos.
+  - [Search channel](https://docs.keyapi.ai/youtube/search-channel.md) - Search for channels.
+  - [Search channels](https://docs.keyapi.ai/youtube/search-channels.md) - Search YouTube channels. Returns only channel-type results (filters out videos, playlists, etc.). Supports paginated retrieval for more channels.
+
+## 5. Build a YouTube topic or competitor report
+
+- User intent: Compare videos/channels for a topic, creator, or market.
+- Primary entity: mixed video/channel report
+- Ask for: topic, target channels, region, sections, and max page budget.
+- Default workflow: Confirm sections, then combine search/trending, video information, channel description/videos, comments, and related videos only where they add evidence.
+- Reference module: `youtube-search-trends-rules.md`
+- Endpoint shortlist:
+  - [General search with filters](https://docs.keyapi.ai/youtube/general-search-with-filters.md) - Search YouTube with advanced filters. Supports filtering by upload time, video duration, content type, features, and sort order.
+  - [Search video](https://docs.keyapi.ai/youtube/search-video.md) - Search for videos.
+  - [Get trending videos](https://docs.keyapi.ai/youtube/get-trending-videos.md) - Get trending videos.
+  - [Get video information](https://docs.keyapi.ai/youtube/get-video-information.md) - Get detailed information about a YouTube video, returning the full raw data (including playerResponse and initialData).
+  - [Get channel description](https://docs.keyapi.ai/youtube/get-channel-description.md) - Get detailed information about a YouTube channel, including channel description, view count, subscriber count, join date, social links, etc.
+  - [Get channel videos](https://docs.keyapi.ai/youtube/get-channel-videos.md) - Get a list of videos from a YouTube channel. Supports paginated retrieval; use continuation_token to get more videos.
+  - [Get video comments](https://docs.keyapi.ai/youtube/get-video-comments.md) - Get comments for a YouTube video. Supports paginated retrieval.
+  - [Get related videos](https://docs.keyapi.ai/youtube/get-related-videos.md) - Get recommended related content for a YouTube video (recommended video list). Similar to the related videos shown on the right side of the video playback page. Returns all recommended videos at once (typically 20-30 videos).
 
 ## Docs Search Strategy
 
-1. Search `llms.txt` for the platform slug `youtube` plus the entity and action from the user's request.
-2. Prefer docs pages whose title and description match the requested video, channel, search, trend, or comment workflow.
-3. If multiple pages match, choose the narrowest endpoint that satisfies the request with the least post-processing.
-4. For broad reports, compose a small workflow from search, channel, video, comment, and related-video endpoints only when the docs support them.
-5. Use scenario modules as curated endpoint shortlists, but verify current endpoint contracts from the linked docs page before execution.
+1. Search `llms.txt` for the platform slug plus the user's entity and action.
+2. Prefer the narrowest endpoint whose title and description match the requested workflow.
+3. Resolve the selected endpoint page before any live call; never infer method or path from this file.
+4. Compose multiple endpoints only when the user asks for a report, comparison, enrichment, or explanation that one endpoint cannot answer.
+5. If an endpoint returns a large payload saved with `savedTo`, read the saved file instead of repeating the same request; saved files have shape `{ cache, result }`, and the API payload is usually under `result.data.data`.
 
 ## User Input Compression
 
 Compress parameter-heavy tasks into:
 
-- Goal: search, detail, channel lookup, comment review, trend monitoring, media inspection, or report
-- Entity: videos, comments, sub-comments, streams, related videos, shorts, channels, channel IDs, channel URLs, suggestions, trending videos
-- Scope: video ID/URL, channel ID/URL/handle, query, filters, region/category, continuation token, and pagination depth
-- Sort or metric: relevance, upload time, duration, content type, feature filter, trend surface, or continuation order when supported
+- Goal: search, detail, enrichment, ranking, comparison, monitoring, or report
+- Entity: the object being searched, analyzed, compared, ranked, or monitored
+- Scope: market, country, language, category, keyword, identifier, date window, and page depth
+- Sort or metric: freshness, relevance, growth, engagement, rating, sales, price, audience, or other documented metric
 - Pagination depth: one page, top N, until enough evidence, or all available within the user's approved scope
-- Output format: raw JSON, table, concise summary, or structured report
+- Output format: concise answer, table, raw JSON, or structured report

@@ -1,35 +1,33 @@
 # TikTok Rules
 
-## Entity Scope
+Use this file for TikTok platform-level routing boundaries. Use module files for scenario-specific workflows.
 
-influencers, shop creators, products, shops, categories, videos, hashtags, music, comments, live rooms, ads, trends, audiences
+## Data Source Standard
 
-## Platform-Specific Rules
-
-- Resolve unique_id, user_id, product_id, seller_id, video_id, hashtag_id, music_id, and room_id before downstream calls.
-- Analytics endpoints often use page_num/page_size; realtime endpoints may use offset, cursor, max_cursor, or has_more.
-- When both realtime and analytics/offline variants exist, ask the user which data freshness mode they need.
-- Convert echosell image URLs only when the official docs still expose a cover conversion endpoint; otherwise report image URL limitations.
+- Endpoint titles containing `Analytics` and docs paths ending in `-analytics` represent EchoTik analytics data.
+- Endpoints without `Analytics` are realtime/current interfaces.
+- Ask a short mode question when realtime and Analytics variants both exist and the user does not specify freshness versus historical depth.
 
 ## Scenario Module Routing
 
-- Use `tiktok-influencer-rules.md` for `/tiktok/influencer/` creator discovery, profile, ranking, trends, followers, videos, products, live history, milestones, and region tasks.
-- Use `tiktok-shop-creator-rules.md` for `/tiktok/shop-creator/` commerce creator lookup, detail, sales, videos, audience, and trend tasks.
-- Use `tiktok-shop-rules.md` for `/tiktok/shop/` product, seller/shop, category, review, ranking, image search, product creator, product video, product live, and shop analysis tasks.
-- Use `tiktok-content-rules.md` for `/tiktok/content/` video, comment, caption, hashtag, music, live, cover, download, and content search tasks.
-- Use `tiktok-intelligence-rules.md` for `/tiktok/intelligence/` trend, ad, keyword, top product, hashtag detail, music detail, and viral intelligence tasks.
-- If a request spans multiple modules, load the smallest set of scenario modules needed and confirm report scope before broad multi-endpoint execution.
+- Use `tiktok-search-rules.md` for keyword search, image search, share-link/product ID resolution, Shop creator ID resolution, and Analytics cross-entity search.
+- Use `tiktok-product-rules.md` for product discovery, categories, product detail, reviews, trends, rankings, and product-related creators/videos/live sessions.
+- Use `tiktok-seller-rules.md` for shop/seller discovery, detail, products, trends, rankings, and shop-related creators/videos/live sessions.
+- Use `tiktok-influencer-rules.md` for creator discovery, detail, rankings, trends, videos, products, livestreams, follower graph, region, and milestones.
+- Use `tiktok-shop-creator-rules.md` for TikTok Shop creator detail, audience, sales, videos, and trends.
+- Use `tiktok-video-rules.md` for video detail, video discovery, comments, captions, trends, downloads, covers, and video-product attribution.
+- Use `tiktok-live-rules.md` for realtime live search/detail and Analytics live relationships for creators, products, and shops.
+- Use `tiktok-intelligence-rules.md` for ads, keyword insights, top products, trending videos, hashtags, and music.
+- Use `tiktok-content-rules.md` and `tiktok-shop-rules.md` only as composite routers when the user request is broad and needs disambiguation.
 
-## Documentation Hints
+## Identifier Discipline
 
-- Filter `https://docs.keyapi.ai/llms.txt` for links under `https://docs.keyapi.ai/tiktok/`.
-- Treat endpoint titles as hints, not stable tool names.
-- Extract the current REST method and path from the OpenAPI block on the docs page.
-- Use examples from the docs page only after replacing sample identifiers with user-provided or resolved identifiers.
+- Preserve product_id, seller/shop identifiers, creator user_id/unique_id/sec_uid, creator_oecuid, video_id, room_id, hashtag_id, music IDs, image_uri, and box_detection exactly as returned.
+- Resolve identifiers through documented resolver/search endpoints before detail or related-entity calls.
+- Do not infer REST paths or IDs from docs URLs, display titles, or previous 404 responses.
 
 ## Output Guidance
 
-- For discovery tasks, return ranked candidates with key evidence and next-step enrichment suggestions.
-- For detail tasks, return a compact entity profile plus important raw identifiers.
-- For trend/ranking tasks, state the metric, time window, market, and any API coverage limitations.
-- For reports, organize findings by entity, performance signals, risks, and recommended follow-up calls.
+- State whether the workflow used realtime data, Analytics/EchoTik data, or both.
+- For reports, group findings by entity baseline, performance/trend evidence, relationship attribution, and limitations.
+- Keep observed API facts separate from analytical inference.

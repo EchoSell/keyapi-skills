@@ -1,38 +1,71 @@
-# Scenarios
+# Scenario Cards
 
-Use these scenario cards to map user intent to documentation search terms and reference modules. They are routing hints only; the exact request contract must come from `https://docs.keyapi.ai/llms.txt` and the linked endpoint page.
+Use these scenario cards to translate natural-language Threads requests into a small, stable set of inputs. They are routing hints only; the exact method, `/v1/...` path, parameters, body shape, pagination, and response contract must come from `https://docs.keyapi.ai/llms.txt` and the linked endpoint page before execution.
+
+Do not start by listing raw endpoints. First identify the user's business goal, choose the closest scenario, collect only missing high-value inputs, resolve the current docs, then execute through `scripts/keyapi-api.mjs` when available.
 
 ## Core Entities
 
-users, profiles, posts, reposts, replies, comments, search keywords
-
-## Common Scenarios
-
-- Threads Social: profile search, user detail, user posts/replies/reposts, post detail, comments, top content search, and recent content search.
+users, user IDs, profiles, posts, replies, reposts, comments, top content, recent content, and profile search results
 
 ## Scenario Modules
 
-Load this module after identifying a Threads workflow:
-
 | User intent | Reference module | Docs path family |
 |---|---|---|
-| Profile search, user info, user posts/replies/reposts, post detail, comments, top/recent content search | `threads-social-rules.md` | `/threads/` |
+| Profile search and user information | `threads-profile-rules.md` | /threads/ |
+| User posts, replies, reposts, post detail, and comments | `threads-content-rules.md` | /threads/ |
+| Top and recent content search | `threads-search-rules.md` | /threads/ |
+
+## 1. Find and inspect profiles
+
+- User intent: Search Threads profiles and retrieve user information.
+- Primary entity: user / profile
+- Ask for: profile keyword, username, or user ID; page depth; and whether activity is needed.
+- Default workflow: Use profile search for discovery, then user info or user info by ID for selected profiles.
+- Reference module: `threads-profile-rules.md`
+- Endpoint shortlist:
+  - [Search profiles](https://docs.keyapi.ai/threads/search-profiles.md) - Search Threads user profiles
+  - [Get user info](https://docs.keyapi.ai/threads/get-user-info.md) - Get Threads user information
+  - [Get user info by ID](https://docs.keyapi.ai/threads/get-user-info-by-id.md) - Get Threads user information by user ID
+
+## 2. Audit user activity and posts
+
+- User intent: Collect user posts, replies, reposts, or post comments.
+- Primary entity: user content / post / comment
+- Ask for: user identifier or post URL/shortcode, content surfaces, and page/comment depth.
+- Default workflow: Fetch user info first if needed, then posts/replies/reposts; use post detail/comments for selected posts.
+- Reference module: `threads-content-rules.md`
+- Endpoint shortlist:
+  - [Get user posts](https://docs.keyapi.ai/threads/get-user-posts.md) - Get the list of posts by a Threads user
+  - [Get user replies](https://docs.keyapi.ai/threads/get-user-replies.md) - Get the list of replies by a Threads user
+  - [Get user reposts](https://docs.keyapi.ai/threads/get-user-reposts.md) - Get the list of reposts by a Threads user
+  - [Get Post Detail](https://docs.keyapi.ai/threads/get-post-detail.md) - Get Threads post details (supports shortcode and full URL)
+  - [Get post comments](https://docs.keyapi.ai/threads/get-post-comments.md) - Get the list of comments for a Threads post
+
+## 3. Search top or recent content
+
+- User intent: Find Threads content around a keyword using top or recent ordering.
+- Primary entity: content search result
+- Ask for: keyword, top versus recent preference, and result depth.
+- Default workflow: Use top content for high-visibility posts and recent content for freshness; enrich selected posts through content rules.
+- Reference module: `threads-search-rules.md`
+- Endpoint shortlist:
+  - [Search top content](https://docs.keyapi.ai/threads/search-top-content.md) - Search Threads top content
+  - [Search recent content](https://docs.keyapi.ai/threads/search-recent-content.md) - Search Threads recent content
 
 ## Docs Search Strategy
 
-1. Search `llms.txt` for the platform slug `threads` plus the entity and action from the user's request.
-2. Prefer docs pages whose title and description match the requested profile, post, comment, or search workflow.
-3. If multiple pages match, choose the narrowest endpoint that satisfies the request with the least post-processing.
-4. For broad reports, compose a small workflow from search, user detail, post detail, and comments only when the docs support them.
-5. Use scenario modules as curated endpoint shortlists, but verify current endpoint contracts from the linked docs page before execution.
+1. Search `llms.txt` for the platform slug plus the user's entity and action.
+2. Prefer the narrowest endpoint whose title and description match the requested workflow.
+3. Resolve the selected endpoint page before any live call; never infer method or path from this file.
+4. Compose multiple endpoints only when the user asks for a report, comparison, enrichment, or explanation that one endpoint cannot answer.
+5. If an endpoint returns a large payload saved with `savedTo`, read the saved file instead of repeating the same request; saved files have shape `{ cache, result }`, and the API payload is usually under `result.data.data`.
 
 ## User Input Compression
 
-Compress parameter-heavy tasks into:
-
-- Goal: profile lookup, content search, post detail, comment review, activity review, or report
-- Entity: users, profiles, posts, reposts, replies, comments, search keywords
-- Scope: username, user ID, post shortcode/URL/ID, keyword, top/recent ordering, and pagination depth
-- Sort or metric: top content, recent content, activity type, or engagement signal when supported
+- Goal: search, detail, enrichment, ranking, comparison, monitoring, or report
+- Entity: the object being searched, analyzed, compared, ranked, or monitored
+- Scope: market, country, language, category, keyword, identifier, date window, and page depth
+- Sort or metric: freshness, relevance, growth, engagement, rating, sales, price, audience, or other documented metric
 - Pagination depth: one page, top N, until enough evidence, or all available within the user's approved scope
-- Output format: raw JSON, table, concise summary, or structured report
+- Output format: concise answer, table, raw JSON, or structured report

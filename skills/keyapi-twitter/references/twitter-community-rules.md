@@ -1,53 +1,90 @@
-# Twitter Community List And Spaces Module Rules
+# Twitter/X Community And Network Module Rules
 
 ## 1. Module Scope
 
-Use this module for Twitter/X communities, community posts, community members, lists, list timelines, list members, list followers, and Spaces info.
+Use this module for communities, community posts/members, lists, Spaces, and adjacent network surfaces.
 
-These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before execution, always open the linked endpoint docs page and use the current method, path, parameters, pagination, and response schema.
+These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before execution, always resolve the selected endpoint docs page and use the current method, path, parameters, pagination, and response schema.
 
-## 2. Communities
+## 2. Community discovery and profile
 
 - Documentation: `https://docs.keyapi.ai/twitter/communities-search.md`
 - Documentation: `https://docs.keyapi.ai/twitter/community-info.md`
 - Documentation: `https://docs.keyapi.ai/twitter/community-members.md`
+- Purpose: Find communities, inspect community metadata, and retrieve members.
+
+### Best Suited For
+
+- community discovery
+- community validation
+- member sampling
+- network research
+
+### Routing Rules
+
+- Use communities search when the community target is unknown.
+- Use community info after selecting or receiving a community ID.
+- Use community members only when member context is required.
+
+## 3. Community posts and search modes
+
 - Documentation: `https://docs.keyapi.ai/twitter/comunity-posts.md`
 - Documentation: `https://docs.keyapi.ai/twitter/communities-posts-search-top.md`
 - Documentation: `https://docs.keyapi.ai/twitter/communities-posts-search-latest.md`
-- Purpose: search communities, inspect community info, members, and posts.
-- Best suited for community discovery, community content monitoring, and community membership analysis.
+- Purpose: Retrieve community posts or search within community posts by ordering mode.
 
-### Rules
+### Best Suited For
 
-- Use community search before info/members/posts when the community ID is unknown.
-- Use top/latest community post search according to the user's freshness or relevance need.
+- community content monitoring
+- top post discovery
+- fresh post checks
+- topic research inside a community
 
-## 3. Lists
+### Routing Rules
+
+- Use community posts for general community content.
+- Use top search when influence/visibility matters.
+- Use latest search when freshness matters.
+- Enrich selected tweets with content rules when thread/replies are needed.
+
+## 4. Lists and list timelines
 
 - Documentation: `https://docs.keyapi.ai/twitter/list-timeline.md`
 - Documentation: `https://docs.keyapi.ai/twitter/list-members.md`
 - Documentation: `https://docs.keyapi.ai/twitter/list-followers.md`
-- Purpose: retrieve list timeline, list members, or list followers.
-- Best suited for curated account monitoring and list-based audience or content analysis.
+- Purpose: Inspect list timelines, list members, or list followers.
 
-### Rules
+### Best Suited For
 
-- Use list timeline for content, members for accounts in the list, and followers for audience around the list.
-- Preserve list IDs and pagination tokens from the API response.
+- curated account monitoring
+- list membership analysis
+- topic/account set tracking
 
-## 4. Spaces
+### Routing Rules
+
+- Use list timeline for content from a list.
+- Use list members/followers for network structure.
+- Do not mix list followers with account followers in output.
+
+## 5. Spaces
 
 - Documentation: `https://docs.keyapi.ai/twitter/spaces-info.md`
-- Purpose: retrieve Twitter/X Spaces information.
-- Best suited for audio-room lookup and Spaces metadata checks.
+- Purpose: Retrieve information for a Twitter/X Space.
 
-### Rules
+### Best Suited For
 
-- Use only when the user provides or asks about a Space.
-- Keep Spaces metadata separate from tweet/community content.
+- Space detail lookup
+- audio event context
+- host/speaker context when returned
 
-## 5. Common Workflows
+### Routing Rules
 
-- Community report: community search -> community info -> posts/members.
-- Community content monitor: community posts or community search top/latest -> tweet detail.
-- List monitor: list timeline -> selected tweet detail; list members/followers as needed.
+- Use only when a Space identifier or Space task is provided.
+- Combine with profile rules only when account enrichment is needed.
+
+## 6. Common Workflows
+
+- Community report: community search/info -> members/posts as requested.
+- Community topic monitor: top/latest community post search -> selected tweet detail.
+- List report: list timeline -> list members/followers if requested.
+- Space lookup: spaces info -> profile enrichment for selected accounts if needed.

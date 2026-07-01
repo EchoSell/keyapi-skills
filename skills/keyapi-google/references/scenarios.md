@@ -1,38 +1,94 @@
-# Scenarios
+# Scenario Cards
 
-Use these scenario cards to map user intent to documentation search terms and reference modules. They are routing hints only; the exact request contract must come from `https://docs.keyapi.ai/llms.txt` and the linked endpoint page.
+Use these scenario cards to translate natural-language Google requests into a small, stable set of inputs. They are routing hints only; the exact method, `/v1/...` path, parameters, body shape, pagination, and response contract must come from `https://docs.keyapi.ai/llms.txt` and the linked endpoint page before execution.
+
+Do not start by listing raw endpoints. First identify the user's business goal, choose the closest scenario, collect only missing high-value inputs, resolve the current docs, then execute through `scripts/keyapi-api.mjs` when available.
 
 ## Core Entities
 
-queries, images, videos, places, maps, reviews, news, shopping results, Lens URLs, scholar results, patents, webpages
-
-## Common Scenarios
-
-- Google Search and Extraction: web search, vertical search, visual search, local places, reviews, suggestions, and webpage extraction.
+queries, SERP results, images, Lens inputs, videos, news, shopping results, places, maps, reviews, scholar results, patents, autocomplete suggestions, and webpages
 
 ## Scenario Modules
 
-Load this module after identifying a Google search or extraction workflow:
-
 | User intent | Reference module | Docs path family |
 |---|---|---|
-| Web, news, shopping, scholar, patents, images, videos, Lens, places, maps, reviews, autocomplete, webpage extraction | `google-search-extraction-rules.md` | `/google/` |
+| Web search and query expansion | `google-search-rules.md` | /google/ |
+| Selected webpage extraction | `google-webpage-rules.md` | /google/ |
+| Images, Lens, and video results | `google-visual-rules.md` | /google/ |
+| Local places, maps, and reviews | `google-local-rules.md` | /google/ |
+| News, shopping, scholar, and patents | `google-vertical-rules.md` | /google/ |
+
+## 1. Run web research
+
+- User intent: Find web sources and expand/refine queries.
+- Primary entity: query / SERP
+- Ask for: query, country/language/location, freshness or result constraints, and whether extraction is needed.
+- Default workflow: Use autocomplete only when helpful, then web search; extract selected pages if the user needs source content.
+- Reference module: `google-search-rules.md`
+- Endpoint shortlist:
+  - [autocomplete](https://docs.keyapi.ai/google/autocomplete.md)
+  - [search](https://docs.keyapi.ai/google/search.md) - Search
+
+## 2. Extract selected webpages
+
+- User intent: Analyze a URL or selected search result page.
+- Primary entity: webpage
+- Ask for: URL and desired extraction/summary goal.
+- Default workflow: Use webpage extraction directly for user-provided URLs or after a search/vertical result is selected.
+- Reference module: `google-webpage-rules.md`
+- Endpoint shortlist:
+  - [Webpage](https://docs.keyapi.ai/google/webpage.md)
+
+## 3. Find visual or video results
+
+- User intent: Search images/videos or visually similar results from an image.
+- Primary entity: image / Lens / video
+- Ask for: text query or image URL, market/language, and result depth.
+- Default workflow: Use images/videos for text queries and Lens for image input; extract selected pages only if needed.
+- Reference module: `google-visual-rules.md`
+- Endpoint shortlist:
+  - [images](https://docs.keyapi.ai/google/images.md)
+  - [Image Search(Lens)](https://docs.keyapi.ai/google/image-search(lens).md) - Image Search
+  - [videos](https://docs.keyapi.ai/google/videos.md)
+
+## 4. Analyze local places and reviews
+
+- User intent: Find local businesses, map results, or reputation evidence.
+- Primary entity: place / map / review
+- Ask for: business/category query, location, language, and review depth.
+- Default workflow: Use places/maps for discovery, then reviews for selected targets.
+- Reference module: `google-local-rules.md`
+- Endpoint shortlist:
+  - [places](https://docs.keyapi.ai/google/places.md)
+  - [maps](https://docs.keyapi.ai/google/maps.md)
+  - [reviews](https://docs.keyapi.ai/google/reviews.md)
+
+## 5. Use specialized Google verticals
+
+- User intent: Research news, shopping results, academic literature, or patents.
+- Primary entity: vertical result
+- Ask for: query, vertical, market/language, time/filter constraints, and output depth.
+- Default workflow: Choose the vertical endpoint that matches the requested surface; extract selected pages when deeper content is needed.
+- Reference module: `google-vertical-rules.md`
+- Endpoint shortlist:
+  - [news](https://docs.keyapi.ai/google/news.md)
+  - [shopping](https://docs.keyapi.ai/google/shopping.md)
+  - [scholar](https://docs.keyapi.ai/google/scholar.md)
+  - [patents](https://docs.keyapi.ai/google/patents.md)
 
 ## Docs Search Strategy
 
-1. Search `llms.txt` for the platform slug `google` plus the entity and action from the user's request.
-2. Prefer docs pages whose title and description match the requested Google surface.
-3. If multiple pages match, choose the narrowest endpoint that satisfies the request with the least post-processing.
-4. For broad reports, compose search, vertical, place/review, and webpage extraction workflows only when the docs support them.
-5. Use scenario modules as curated endpoint shortlists, but verify current endpoint contracts from the linked docs page before execution.
+1. Search `llms.txt` for the platform slug plus the user's entity and action.
+2. Prefer the narrowest endpoint whose title and description match the requested workflow.
+3. Resolve the selected endpoint page before any live call; never infer method or path from this file.
+4. Compose multiple endpoints only when the user asks for a report, comparison, enrichment, or explanation that one endpoint cannot answer.
+5. If an endpoint returns a large payload saved with `savedTo`, read the saved file instead of repeating the same request; saved files have shape `{ cache, result }`, and the API payload is usually under `result.data.data`.
 
 ## User Input Compression
 
-Compress parameter-heavy tasks into:
-
-- Goal: search, extraction, discovery, comparison, monitoring, or report
-- Entity: queries, images, videos, places, maps, reviews, news, shopping results, Lens URLs, scholar results, patents, webpages
-- Scope: query, result surface, country, language, location, time filter, page depth, and source type
-- Sort or metric: relevance, freshness, location proximity, rating, review count, result type, source authority
+- Goal: search, detail, enrichment, ranking, comparison, monitoring, or report
+- Entity: the object being searched, analyzed, compared, ranked, or monitored
+- Scope: market, country, language, category, keyword, identifier, date window, and page depth
+- Sort or metric: freshness, relevance, growth, engagement, rating, sales, price, audience, or other documented metric
 - Pagination depth: one page, top N, until enough evidence, or all available within the user's approved scope
-- Output format: raw JSON, table, concise summary, or structured report
+- Output format: concise answer, table, raw JSON, or structured report

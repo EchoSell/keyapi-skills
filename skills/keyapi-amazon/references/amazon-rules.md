@@ -1,32 +1,34 @@
 # Amazon Rules
 
+Use this file for platform-level routing boundaries, identifier discipline, and output expectations. Use module files for scenario-specific workflows.
+
 ## Entity Scope
 
-products, categories, sellers, reviews, deals, offers, influencers, ASINs, GTINs
+products, ASINs, GTINs, categories, deals, promo codes, offers, reviews, sellers, and Amazon Influencer storefronts
 
-## Platform-Specific Rules
+## Identifier Discipline
 
-- Marketplace parameters usually use country or marketplace codes; confirm the current enum in docs.
-- Batch product detail and offer endpoints may have per-call ASIN limits; verify limits from the current endpoint docs.
-- For review workflows, preserve star rating, verified purchase, sort, and pagination filters when available.
+- Preserve ASINs from every product, deal, category, seller, and influencer workflow for downstream detail, offers, reviews, and identifier conversion.
+- Use GTIN conversion only when catalog matching or external identifier normalization is part of the task.
+- Seller IDs and influencer storefront names are different entity identifiers; do not substitute one for the other.
 
 ## Scenario Module Routing
 
-- Use `amazon-product-rules.md` for product search, detail, categories, best sellers, deals, offers, reviews, promo codes, and ASIN/GTIN conversion.
-- Use `amazon-seller-rules.md` for seller profile, seller products, seller reviews, and offer comparison workflows.
-- Use `amazon-influencer-rules.md` for Amazon Influencer profile, posts, and featured post products.
-- If a request spans multiple modules, load the smallest set of scenario modules needed and confirm report scope before broad multi-endpoint execution.
+- Use `amazon-product-rules.md` for product discovery, category/best-seller research, deals, offers, reviews, promo codes, and ASIN/GTIN conversion.
+- Use `amazon-seller-rules.md` for seller profile, seller catalog, seller feedback, and offer comparison workflows.
+- Use `amazon-influencer-rules.md` for Amazon Influencer storefront profiles, posts, list posts, and featured products.
+- If a request spans multiple modules, load the smallest set of module files needed and confirm report scope before broad multi-endpoint execution.
 
 ## Documentation Hints
 
 - Filter `https://docs.keyapi.ai/llms.txt` for links under `https://docs.keyapi.ai/amazon/`.
-- Treat endpoint titles as hints, not stable tool names.
-- Extract the current REST method and path from the OpenAPI block on the docs page.
+- Treat endpoint titles as search hints, not stable tool names.
+- Extract the current REST method and `/v1/...` path from the endpoint docs page before calling the API.
 - Use examples from the docs page only after replacing sample identifiers with user-provided or resolved identifiers.
 
 ## Output Guidance
 
-- For discovery tasks, return ranked candidates with key evidence and next-step enrichment suggestions.
-- For detail tasks, return a compact entity profile plus important raw identifiers.
-- For trend/ranking tasks, state the metric, time window, market, and any API coverage limitations.
-- For reports, organize findings by entity, performance signals, risks, and recommended follow-up calls.
+- For product discovery, return ranked candidates with ASIN, title, marketplace, price/rating evidence when available, and the next enrichment step.
+- For seller work, separate seller-level reputation from product-level offer facts.
+- For review work, distinguish review samples, top helpful reviews, and single review detail.
+- For reports, organize findings by entity, evidence, limitations, and recommended follow-up calls.

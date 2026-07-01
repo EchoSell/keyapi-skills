@@ -2,127 +2,134 @@
 
 ## 1. Module Scope
 
-Use this module for Amazon product discovery, product detail, category browsing, best-seller monitoring, deals, offers, reviews, promo codes, and ASIN/GTIN conversion.
+Use this module for product discovery, category and best-seller research, product detail enrichment, deals, offer economics, customer reviews, promo codes, and ASIN/GTIN conversion.
 
-These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before execution, always open the linked endpoint docs page and use the current method, path, parameters, pagination, and response schema.
+These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before execution, always resolve the selected endpoint docs page and use the current method, path, parameters, pagination, and response schema.
 
-## 2. Product Search
+## 2. Product discovery and first-pass candidate collection
 
 - Documentation: `https://docs.keyapi.ai/amazon/product-search.md`
-- Purpose: search Amazon products by keyword or ASIN.
-- Best suited for product discovery, competitor lookup, and first-pass candidate collection.
-
-### Rules
-
-- Use this first when the user starts from a keyword, brand, ASIN-like input, or broad product idea.
-- Preserve ASINs for detail, offers, reviews, and ASIN/GTIN conversion.
-
-## 3. Product Details
-
-- Documentation: `https://docs.keyapi.ai/amazon/product-details.md`
-- Purpose: retrieve detailed product data for one or more ASINs.
-- Best suited for current product profile, price, rating, images, specifications, and availability checks.
-
-### Rules
-
-- Use after search, category, best-seller, deals, or seller product results when selected ASINs need enrichment.
-- Check the current docs for batch limits before sending multiple ASINs.
-
-## 4. Product Category List
-
-- Documentation: `https://docs.keyapi.ai/amazon/product-category-list.md`
-- Purpose: retrieve top-level Amazon product categories for a marketplace.
-- Best suited for category discovery before category-specific product or best-seller workflows.
-
-### Rules
-
-- Use when the user gives a broad marketplace or category request without a category ID/path.
-- Preserve category identifiers or paths for downstream category products and best-seller calls.
-
-## 5. Products By Category
-
 - Documentation: `https://docs.keyapi.ai/amazon/products-by-category.md`
-- Purpose: retrieve products inside a specific Amazon category.
-- Best suited for category browsing and category-specific comparison.
+- Documentation: `https://docs.keyapi.ai/amazon/product-category-list.md`
+- Purpose: Find product candidates from keyword, ASIN-like input, category browsing, or marketplace/category navigation.
 
-### Rules
+### Best Suited For
 
-- Use after resolving the category from category list or user-provided category URL/path.
-- Use product detail only for shortlisted products.
+- keyword product research
+- brand or competitor lookup
+- category browsing before enrichment
+- candidate collection for later detail, offers, or reviews
 
-## 6. Best Seller
+### Routing Rules
+
+- Use product search when the user starts from a keyword, brand, ASIN-like text, or broad product idea.
+- Use product category list when the user needs category discovery or lacks a category ID/path.
+- Use products by category after the category is known.
+- Preserve ASINs from every result for detail, offers, reviews, seller, and GTIN workflows.
+- Do not enrich every product by default; shortlist first unless the user requests a broad export.
+
+## 3. Ranking, best-seller, and demand scan
 
 - Documentation: `https://docs.keyapi.ai/amazon/best-seller.md`
-- Purpose: retrieve best-selling, new release, mover, wished-for, or gift idea products for a category.
-- Best suited for rankings, category monitoring, and market scans.
+- Purpose: Retrieve marketplace/category ranking lists such as best sellers, new releases, movers, most wished for, and gift ideas.
 
-### Rules
+### Best Suited For
 
-- Use when the user asks for top products, best sellers, new releases, movers, wish lists, or gift ideas.
-- State the list type, category, marketplace, and ranking position when available.
+- top product lists
+- category demand snapshots
+- new-release and mover monitoring
+- gift or wishlist research
 
-## 7. Deals And Deal Products
+### Routing Rules
+
+- Use this when the user asks for top, best-selling, new, movers, wished-for, or gift ideas.
+- State marketplace, category, list type, and ranking position when available.
+- Enrich only selected ASINs with product details, offers, or reviews.
+- Do not treat a ranking list as a complete category catalog.
+
+## 4. Product detail and catalog normalization
+
+- Documentation: `https://docs.keyapi.ai/amazon/product-details.md`
+- Documentation: `https://docs.keyapi.ai/amazon/asin-to-gtin.md`
+- Purpose: Retrieve detailed product records and convert ASINs to GTIN when external catalog matching is needed.
+
+### Best Suited For
+
+- product profile reports
+- price/rating/spec/image/availability checks
+- batch enrichment of shortlisted ASINs
+- catalog matching with UPC/EAN/GTIN systems
+
+### Routing Rules
+
+- Use product details after search, category, best-seller, deal, seller, or influencer results identify ASINs.
+- Check current docs for batch limits before sending multiple ASINs.
+- Use ASIN to GTIN only when identifier normalization is part of the user goal.
+- Keep ASIN and GTIN facts separate because GTIN coverage may vary by marketplace/product.
+
+## 5. Offer economics and seller comparison
+
+- Documentation: `https://docs.keyapi.ai/amazon/product-offers.md`
+- Purpose: Retrieve available purchase offers for ASINs and compare offer-level conditions.
+
+### Best Suited For
+
+- seller/offer comparison
+- Prime/free-shipping or condition filtering
+- price and delivery option analysis
+- buy-box style evidence where returned
+
+### Routing Rules
+
+- Use after product resolution when the user asks who sells an item, what offers exist, or how prices differ.
+- Keep offer-level facts separate from product-level detail facts.
+- Use seller module only when the user wants seller profile, seller catalog, or seller feedback beyond offers.
+
+## 6. Deals and promotional research
 
 - Documentation: `https://docs.keyapi.ai/amazon/deals.md`
 - Documentation: `https://docs.keyapi.ai/amazon/deal-products.md`
-- Purpose: find active deals and retrieve products inside a specific deal.
-- Best suited for discount monitoring, Prime deal research, and deal product analysis.
+- Documentation: `https://docs.keyapi.ai/amazon/promo-code-detail.md`
+- Purpose: Find active deals, inspect products inside a known deal, or analyze a promo code.
 
-### Rules
+### Best Suited For
 
-- Use `Deals` for broad deal discovery, then `Deal Products` when the user selects a deal ID.
-- Enrich selected deal ASINs with product details, offers, and reviews when needed.
+- discount monitoring
+- Prime or Lightning Deal research
+- deal product analysis
+- coupon or promotional-code investigation
 
-## 8. Product Offers
+### Routing Rules
 
-- Documentation: `https://docs.keyapi.ai/amazon/product-offers.md`
-- Purpose: retrieve available purchase offers for products.
-- Best suited for seller/offer comparison, condition filtering, Prime/free-shipping checks, and buy-box style analysis.
+- Use deals for broad discount discovery.
+- Use deal products only after a deal ID is known.
+- Use promo code detail only when a promo code is provided or requested.
+- Enrich deal ASINs with details, offers, or reviews only after the user selects candidates.
 
-### Rules
-
-- Use after product resolution when the user asks who sells the item, price differences, delivery options, or offer availability.
-- Keep offer-level facts separate from product-level facts.
-
-## 9. Product Reviews
+## 7. Review and buyer-signal analysis
 
 - Documentation: `https://docs.keyapi.ai/amazon/product-reviews.md`
 - Documentation: `https://docs.keyapi.ai/amazon/top-product-reviews.md`
 - Documentation: `https://docs.keyapi.ai/amazon/product-review-details.md`
-- Purpose: retrieve product reviews, top helpful reviews, or one specific review detail.
-- Best suited for customer feedback analysis, quality checks, objection mining, and review evidence.
+- Purpose: Collect customer review evidence, top helpful reviews, or a single review record.
 
-### Rules
+### Best Suited For
 
-- Use `Product Reviews` for paginated review collection.
-- Use `Top Product Reviews` when helpful-review evidence is enough.
-- Use `Product Review Details` only after a review ID is known.
+- customer objection mining
+- quality and sentiment checks
+- review evidence for product comparison
+- single review verification
 
-## 10. Promo Code Detail
+### Routing Rules
 
-- Documentation: `https://docs.keyapi.ai/amazon/promo-code-detail.md`
-- Purpose: retrieve products and discount information tied to a promo code.
-- Best suited for coupon or promotional-code analysis.
+- Use product reviews for paginated review collection.
+- Use top product reviews when helpful-review evidence is enough.
+- Use product review details only after a review ID is known.
+- State review sort/filter assumptions and do not overgeneralize from a small sample.
 
-### Rules
+## 8. Common Workflows
 
-- Use only when the user provides or asks about a promo code.
-- Enrich returned products by ASIN when the user needs product-level evidence.
-
-## 11. ASIN To GTIN
-
-- Documentation: `https://docs.keyapi.ai/amazon/asin-to-gtin.md`
-- Purpose: convert an Amazon ASIN to GTIN.
-- Best suited for catalog matching, cross-marketplace normalization, and external product database joins.
-
-### Rules
-
-- Use when the user's workflow requires UPC/EAN/GTIN mapping.
-- Do not use this for ordinary product detail unless identifier conversion is requested.
-
-## 12. Common Workflows
-
-- Product discovery: `Product Search` -> `Product Details` -> `Product Offers` or `Product Reviews`.
-- Category scan: `Product Category List` -> `Products By Category` or `Best Seller` -> `Product Details`.
-- Deal analysis: `Deals` -> `Deal Products` -> product detail/offers/reviews.
-- Review analysis: product resolution -> reviews -> selected review detail.
+- Product discovery: product search or category browse -> shortlist ASINs -> product details -> offers/reviews as needed.
+- Category demand scan: category list -> best seller or products by category -> selected product details.
+- Deal analysis: deals -> deal products -> details/offers/reviews for selected ASINs.
+- Review analysis: product resolution -> product reviews or top reviews -> selected review detail.

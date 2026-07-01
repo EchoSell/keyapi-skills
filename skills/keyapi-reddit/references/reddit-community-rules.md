@@ -2,47 +2,67 @@
 
 ## 1. Module Scope
 
-Use this module for subreddit info, subreddit feed, community highlights, subreddit rules/style, subreddit settings, post channels, muted status, and active communities.
+Use this module for subreddit info, subreddit feed, community highlights, rules/style, settings, post channels, mute status, and user active subreddit context.
 
-These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before execution, always open the linked endpoint docs page and use the current method, path, parameters, pagination, and response schema.
+These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before execution, always resolve the selected endpoint docs page and use the current method, path, parameters, pagination, and response schema.
 
-## 2. Subreddit Info And Feed
+## 2. Subreddit baseline and feed
 
 - Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-app-subreddit-info.md`
 - Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-app-subreddit-feed.md`
-- Purpose: retrieve subreddit profile information and post feed.
-- Best suited for community overview, content monitoring, and subreddit research.
+- Purpose: Retrieve subreddit profile information and its content feed.
 
-### Rules
+### Best Suited For
 
-- Use info for community profile and feed for current/ordered content.
-- Preserve post IDs for post detail and comment workflows.
+- community overview
+- subreddit activity monitoring
+- content stream review
+- post candidate collection
 
-## 3. Rules, Settings, Channels, Highlights, And Muted Status
+### Routing Rules
+
+- Use subreddit info for profile/baseline.
+- Use subreddit feed for current or ordered content.
+- Preserve post IDs for post detail/comment workflows.
+
+## 3. Governance, posting rules, and community configuration
 
 - Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-app-subreddit-rules-and-style-info.md`
 - Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-app-subreddit-settings.md`
 - Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-app-subreddit-post-channels.md`
-- Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-app-community-highlights.md`
 - Documentation: `https://docs.keyapi.ai/reddit/check-if-subreddit-is-muted.md`
-- Purpose: retrieve community governance, style, posting channels, highlighted content, and muted status.
-- Best suited for moderation context, posting feasibility, community policy checks, and highlighted post review.
+- Purpose: Retrieve rules, style, settings, post channels, and mute status.
 
-### Rules
+### Best Suited For
 
-- Use only the governance/support endpoint that matches the user's question.
-- Keep rules/settings facts separate from post performance or user activity.
+- posting feasibility checks
+- moderation/policy review
+- community setup analysis
+- channel selection
 
-## 4. User Active Subreddits
+### Routing Rules
 
+- Use the specific governance endpoint that matches the question.
+- Keep rules/settings/channel facts separate from performance or discussion evidence.
+- Do not infer moderation policies beyond returned data.
+
+## 4. Highlights and active community context
+
+- Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-app-community-highlights.md`
 - Documentation: `https://docs.keyapi.ai/reddit/fetch-user-s-active-subreddits.md`
-- Purpose: retrieve communities where a user is most active.
-- Best suited for user interest mapping and community-affinity analysis.
+- Purpose: Retrieve highlighted community content or communities where a user is active.
 
-### Rules
+### Best Suited For
 
-- Use after a Reddit username is known.
-- Do not present active communities as exhaustive interests unless the API states that coverage.
+- community highlights review
+- user interest mapping
+- community-affinity analysis
+
+### Routing Rules
+
+- Use highlights for featured or important community content.
+- Use active subreddits after a username is known.
+- Do not present active communities as exhaustive interests unless the API defines coverage.
 
 ## 5. Common Workflows
 

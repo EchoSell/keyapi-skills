@@ -2,45 +2,64 @@
 
 ## 1. Module Scope
 
-Use this module for Amazon Influencer storefront profile, posts, list posts, and products featured by influencers.
+Use this module for Amazon Influencer storefront profile, posts, list posts, and featured products.
 
-These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before execution, always open the linked endpoint docs page and use the current method, path, parameters, pagination, and response schema.
+These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before execution, always resolve the selected endpoint docs page and use the current method, path, parameters, pagination, and response schema.
 
-## 2. Influencer Profile
+## 2. Storefront identity and profile
 
 - Documentation: `https://docs.keyapi.ai/amazon/influencer-profile.md`
-- Purpose: retrieve profile details for an Amazon Influencer storefront.
-- Best suited for validating storefront identity, follower count, bio, and storefront metadata.
+- Purpose: Retrieve Influencer storefront metadata before post or product analysis.
 
-### Rules
+### Best Suited For
 
-- Use when the user provides a storefront name or asks for influencer profile information.
-- Preserve storefront identifiers for posts and post-product calls.
+- creator storefront validation
+- influencer profile summaries
+- storefront metadata capture
 
-## 3. Influencer Posts
+### Routing Rules
+
+- Use storefront name as the primary input when the docs require it.
+- Do not confuse Amazon Influencer storefronts with Amazon seller IDs.
+- Use profile first when the user asks for a creator/storefront report.
+
+## 3. Post and content audit
 
 - Documentation: `https://docs.keyapi.ai/amazon/influencer-posts.md`
-- Purpose: retrieve posts from an Amazon Influencer storefront.
-- Best suited for idea lists, photos, videos, keyword filtering, and storefront content review.
+- Purpose: Retrieve Influencer posts including lists, photos, and videos.
 
-### Rules
+### Best Suited For
 
-- Use after storefront resolution.
-- Preserve post IDs and post types; product extraction only applies when supported by the post type.
+- storefront content audit
+- idea-list review
+- creator product curation research
+- post keyword or scope filtering
 
-## 4. Influencer Post Products
+### Routing Rules
+
+- Use posts after resolving the storefront profile or when the storefront name is already known.
+- Preserve post IDs/types for downstream list-product retrieval.
+- Do not call post-products unless the post type supports it.
+
+## 4. Featured products from list posts
 
 - Documentation: `https://docs.keyapi.ai/amazon/influencer-post-products.md`
-- Purpose: retrieve products featured in a specific influencer list post.
-- Best suited for extracting product recommendations from list-style influencer content.
+- Documentation: `https://docs.keyapi.ai/amazon/product-details.md`
+- Purpose: Retrieve products featured inside a specific Influencer list post.
 
-### Rules
+### Best Suited For
 
-- Use only after an influencer post ID is known and the post type supports product extraction.
-- Enrich returned ASINs through product detail, offers, and reviews when the user needs product evidence.
+- creator-to-product mapping
+- featured product analysis
+- affiliate storefront product research
+
+### Routing Rules
+
+- Use only for List posts as documented.
+- Preserve ASINs for product details, offers, and reviews when the user wants product evidence.
+- Use cursor pagination according to the docs when more list products are requested.
 
 ## 5. Common Workflows
 
-- Influencer storefront review: `Influencer Profile` -> `Influencer Posts`.
-- Product extraction: `Influencer Posts` -> `Influencer Post Products` -> product detail/reviews.
-- Creator-commerce report: profile -> posts -> products -> product ranking and review evidence.
+- Influencer report: influencer profile -> influencer posts -> post products for selected list posts -> product details/offers/reviews.
+- Product sourcing from creators: influencer posts -> list post products -> shortlist ASINs -> product module enrichment.

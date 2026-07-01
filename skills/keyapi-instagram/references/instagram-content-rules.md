@@ -2,53 +2,90 @@
 
 ## 1. Module Scope
 
-Use this module for Instagram post detail, comments, replies, likes, shortcode/media ID conversion, hashtag posts, music posts, Reels search, and explore section content.
+Use this module for post detail, shortcode/media ID conversion, comments, replies, likes, hashtag posts, music posts, Reels search, and Explore section content.
 
-These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before execution, always open the linked endpoint docs page and use the current method, path, parameters, pagination, and response schema.
+These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before execution, always resolve the selected endpoint docs page and use the current method, path, parameters, pagination, and response schema.
 
-## 2. Post Detail And Identifier Conversion
+## 2. Post detail and identifier conversion
 
 - Documentation: `https://docs.keyapi.ai/instagram/get-post-info.md`
 - Documentation: `https://docs.keyapi.ai/instagram/convert-shortcode-to-media-id.md`
 - Documentation: `https://docs.keyapi.ai/instagram/convert-media-id-to-shortcode.md`
-- Purpose: retrieve post detail and convert between shortcode and media ID.
-- Best suited for post URL analysis, ID normalization, and preparing comment or likes workflows.
+- Purpose: Retrieve post detail and normalize post identifiers.
 
-### Rules
+### Best Suited For
+
+- post URL analysis
+- shortcode/media ID normalization
+- preparing comment/reply/like workflows
+- selected content enrichment
+
+### Routing Rules
 
 - Use post info when the user provides a post URL or shortcode.
-- Convert identifiers only when downstream endpoints require a different ID type.
+- Convert identifiers only when a downstream endpoint requires the other form.
+- Preserve both shortcode and media ID when returned.
 
-## 3. Comments, Replies, And Likes
+## 3. Comment, reply, and like analysis
 
 - Documentation: `https://docs.keyapi.ai/instagram/get-post-comments.md`
 - Documentation: `https://docs.keyapi.ai/instagram/get-comment-replies.md`
 - Documentation: `https://docs.keyapi.ai/instagram/get-post-likes.md`
-- Purpose: retrieve post engagement details.
-- Best suited for comment review, reply expansion, liker sampling, and engagement evidence.
+- Purpose: Retrieve discussion and engagement-account evidence for a post.
 
-### Rules
+### Best Suited For
+
+- comment review
+- reply thread expansion
+- liker sampling
+- audience reaction evidence
+
+### Routing Rules
 
 - Use comments before replies; replies require a known comment ID.
-- Use likes only when the user asks for liked-by data or engagement accounts.
+- Use likes only when liked-by data is directly useful.
+- For sentiment or theme analysis, collect enough comments but stop when the evidence target is met.
 
-## 4. Hashtag, Music, Reels, And Explore Content
+## 4. Hashtag, music, and Reels content research
 
 - Documentation: `https://docs.keyapi.ai/instagram/get-posts-by-hashtag.md`
 - Documentation: `https://docs.keyapi.ai/instagram/get-posts-using-specific-music.md`
 - Documentation: `https://docs.keyapi.ai/instagram/search-reels.md`
+- Purpose: Retrieve content around a hashtag, audio track, or Reels keyword.
+
+### Best Suited For
+
+- topic content research
+- audio trend checks
+- Reels discovery
+- creative examples for a niche
+
+### Routing Rules
+
+- Resolve hashtag or music identifiers through discovery rules when only text is known.
+- Use Reels search when the user specifically asks for Reels or short-video examples.
+- Enrich selected posts with post info/comments rather than all results.
+
+## 5. Explore section content
+
 - Documentation: `https://docs.keyapi.ai/instagram/get-explore-page-sections.md`
 - Documentation: `https://docs.keyapi.ai/instagram/get-posts-by-section.md`
-- Purpose: retrieve content from hashtag, music, Reels, or Explore surfaces.
-- Best suited for topic discovery, audio trend checks, Reels research, and Explore section review.
+- Purpose: Browse Explore sections and retrieve posts inside a selected section.
 
-### Rules
+### Best Suited For
 
-- Resolve the hashtag, music, or section first when the endpoint requires an ID.
-- Enrich selected posts with post info, comments, replies, and likes.
+- Explore surface review
+- section-based content discovery
+- creative/category scanning
 
-## 5. Common Workflows
+### Routing Rules
 
-- Post report: post info -> comments -> selected replies -> likes if needed.
-- Hashtag/content research: hashtag posts or Reels search -> post info for selected posts.
-- Music trend review: search/known music -> posts using specific music -> post detail.
+- Use explore sections before posts by section when the section ID is unknown.
+- Do not treat Explore output as a general ranking unless the docs define the ordering.
+
+## 6. Common Workflows
+
+- Post report: post info -> comments -> selected replies -> likes only if useful.
+- Hashtag research: discovery resolves hashtag -> posts by hashtag -> selected post info/comments.
+- Music trend review: music discovery -> posts using music -> selected post details.
+- Explore review: sections -> posts by selected section -> selected post enrichment.

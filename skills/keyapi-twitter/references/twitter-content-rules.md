@@ -1,53 +1,90 @@
-# Twitter Content And Search Module Rules
+# Twitter/X Content Module Rules
 
 ## 1. Module Scope
 
-Use this module for Twitter/X tweet detail, tweet thread, timelines, replies, search, trends, inspiration posts, and jobs search.
+Use this module for tweet detail, tweet thread, replies, retweets, content search, trends, inspiration posts, jobs search, and topic monitoring.
 
-These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before execution, always open the linked endpoint docs page and use the current method, path, parameters, pagination, and response schema.
+These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before execution, always resolve the selected endpoint docs page and use the current method, path, parameters, pagination, and response schema.
 
-## 2. Tweet Detail And Thread
+## 2. Tweet detail, thread, and reply context
 
 - Documentation: `https://docs.keyapi.ai/twitter/tweet-info.md`
 - Documentation: `https://docs.keyapi.ai/twitter/tweet-thread.md`
-- Purpose: retrieve a tweet or the surrounding thread.
-- Best suited for post-level analysis, conversation context, and quoted/threaded content review.
-
-### Rules
-
-- Use tweet info for one tweet and tweet thread when context across a thread is needed.
-- Preserve tweet IDs for replies, retweets, and relationship checks.
-
-## 3. Timelines And Replies
-
-- Documentation: `https://docs.keyapi.ai/twitter/user-timeline.md`
 - Documentation: `https://docs.keyapi.ai/twitter/latest-replies.md`
 - Documentation: `https://docs.keyapi.ai/twitter/user-replies.md`
-- Purpose: retrieve user timelines and reply streams.
-- Best suited for account activity analysis and recent reply monitoring.
+- Purpose: Inspect tweets, reconstruct thread context, and retrieve reply streams.
 
-### Rules
+### Best Suited For
 
-- Use user timeline for authored posts and user replies/latest replies for reply behavior.
-- Enrich selected tweets with tweet info or thread context.
+- tweet report
+- conversation context
+- reply behavior review
+- post-level evidence
 
-## 4. Search, Trends, Inspiration, And Jobs
+### Routing Rules
+
+- Use tweet info for one tweet and tweet thread when surrounding thread context matters.
+- Use latest replies for replies to a tweet or surface as documented.
+- Use user replies when the requested surface is an account reply stream.
+- Preserve tweet IDs for retweets, relationship checks, and follow-on enrichment.
+
+## 3. Retweets and social proof
+
+- Documentation: `https://docs.keyapi.ai/twitter/retweets.md`
+- Documentation: `https://docs.keyapi.ai/twitter/check-retweet.md`
+- Purpose: Retrieve retweet evidence or check whether one account retweeted a tweet.
+
+### Best Suited For
+
+- amplification checks
+- social proof review
+- specific retweet verification
+
+### Routing Rules
+
+- Use retweets when the user wants retweeter lists or repost evidence.
+- Use check retweet for a specific account/tweet relationship.
+- Do not infer endorsement beyond the returned retweet relationship.
+
+## 4. Search, trends, and content ideation
 
 - Documentation: `https://docs.keyapi.ai/twitter/search.md`
 - Documentation: `https://docs.keyapi.ai/twitter/trends.md`
 - Documentation: `https://docs.keyapi.ai/twitter/inspiration-posts.md`
-- Documentation: `https://docs.keyapi.ai/twitter/jobs-search.md`
-- Purpose: search content, monitor trends, retrieve inspiration posts, or search jobs.
-- Best suited for topic monitoring, trend discovery, content ideation, and job lookup.
+- Purpose: Search posts, inspect current trends, or retrieve inspiration posts.
 
-### Rules
+### Best Suited For
 
-- Use search for keyword/topic discovery.
+- topic monitoring
+- trend discovery
+- content ideation
+- candidate tweet collection
+
+### Routing Rules
+
+- Use search for explicit keyword/topic queries.
 - Use trends when the user asks what is trending.
-- Use jobs search only for job-related requests.
+- Use inspiration posts only for ideation-style requests.
+- Enrich selected tweets with tweet info/thread/replies only after shortlisting.
 
-## 5. Common Workflows
+## 5. Jobs search
 
-- Tweet report: tweet info -> thread -> replies/retweets when needed.
-- Account activity: profile resolution -> user timeline/replies -> selected tweet detail.
-- Topic monitor: search or trends -> tweet detail/thread for selected results.
+- Documentation: `https://docs.keyapi.ai/twitter/jobs-search.md`
+- Purpose: Search Twitter/X job-related listings or job surface results.
+
+### Best Suited For
+
+- job lookup
+- hiring topic search
+- role discovery
+
+### Routing Rules
+
+- Use only for job-related requests.
+- If account/company context is needed, combine with profile rules after selecting relevant results.
+
+## 6. Common Workflows
+
+- Tweet report: tweet info -> thread -> replies/retweets as requested.
+- Topic monitor: search or trends -> selected tweet info/thread -> replies if needed.
+- Content ideation: inspiration posts -> selected tweet/profile enrichment.

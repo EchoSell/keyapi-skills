@@ -2,45 +2,83 @@
 
 ## 1. Module Scope
 
-Use this module for LinkedIn company profile, company employees, company posts, and company-level analysis workflows.
+Use this module for LinkedIn company profile, employees, company posts, and company hiring footprint.
 
-These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before execution, always open the linked endpoint docs page and use the current method, path, parameters, pagination, and response schema.
+These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before execution, always resolve the selected endpoint docs page and use the current method, path, parameters, pagination, and response schema.
 
-## 2. Get Company Profile
+## 2. Company profile baseline
 
 - Documentation: `https://docs.keyapi.ai/linkedin/get-company-profile.md`
-- Purpose: retrieve LinkedIn company profile information.
-- Best suited for company lookup, profile enrichment, and organization summaries.
+- Purpose: Retrieve company profile information before employee, post, or hiring workflows.
 
-### Rules
+### Best Suited For
 
-- Use after the company identifier or profile URL is known from the user or docs-supported search flow.
-- Preserve company identifiers for people, posts, and jobs endpoints.
+- company validation
+- account research
+- firmographic summaries
+- company report baseline
 
-## 3. Get Company People
+### Routing Rules
+
+- Use this first when the company identity is ambiguous.
+- Preserve company identifiers needed for people, posts, and job endpoints.
+- Do not infer private financial or employee data beyond returned fields.
+
+## 3. Employee and people mapping
 
 - Documentation: `https://docs.keyapi.ai/linkedin/get-company-people.md`
-- Purpose: retrieve employees or people associated with a company.
-- Best suited for team mapping, hiring intelligence, and employee-list analysis.
+- Documentation: `https://docs.keyapi.ai/linkedin/get-user-profile.md`
+- Purpose: Retrieve employees associated with a company and optionally enrich selected people.
 
-### Rules
+### Best Suited For
 
-- Use when the user asks who works at a company or needs people associated with the company.
-- Enrich selected people through LinkedIn user endpoints when needed.
+- org mapping
+- lead discovery
+- hiring/team structure research
+- employee shortlist enrichment
 
-## 4. Get Company Posts
+### Routing Rules
+
+- Use company people after company identity is resolved.
+- Enrich only selected people with user module endpoints.
+- Do not treat returned employee list as complete unless the API docs define coverage.
+
+## 4. Company content activity
 
 - Documentation: `https://docs.keyapi.ai/linkedin/get-company-posts.md`
-- Purpose: retrieve posts published by a LinkedIn company.
-- Best suited for company content monitoring, announcement review, and social activity checks.
+- Purpose: Retrieve posts published by a company.
 
-### Rules
+### Best Suited For
 
-- Use when the user asks for company posts or recent company activity.
-- Keep company-authored activity separate from employee activity.
+- brand activity review
+- content monitoring
+- company communications analysis
 
-## 5. Common Workflows
+### Routing Rules
 
-- Company profile: company profile -> company people and company posts as needed.
-- Hiring/company research: company profile -> people -> jobs/job count.
-- Content monitoring: company profile -> company posts.
+- Use after company profile when the user asks about content or announcements.
+- Enrich people or job context only when the user asks for adjacent analysis.
+
+## 5. Hiring footprint
+
+- Documentation: `https://docs.keyapi.ai/linkedin/get-company-job-count.md`
+- Documentation: `https://docs.keyapi.ai/linkedin/get-company-jobs.md`
+- Purpose: Quantify and inspect open roles tied to a company.
+
+### Best Suited For
+
+- hiring demand checks
+- role/category monitoring
+- company growth signals
+
+### Routing Rules
+
+- Use job count for quick hiring footprint.
+- Use company jobs when listings are needed.
+- Use job detail from the jobs module only for selected roles.
+
+## 6. Common Workflows
+
+- Company report: company profile -> company people/posts/jobs depending on requested sections.
+- Hiring analysis: company profile -> job count -> company jobs -> selected job detail.
+- Account research: company profile -> company posts -> key employees if requested.

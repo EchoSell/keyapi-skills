@@ -1,42 +1,106 @@
-# Scenarios
+# Scenario Cards
 
-Use these scenario cards to map user intent to documentation search terms and reference modules. They are routing hints only; the exact request contract must come from `https://docs.keyapi.ai/llms.txt` and the linked endpoint page.
+Use these scenario cards to translate natural-language LinkedIn requests into a small, stable set of inputs. They are routing hints only; the exact method, `/v1/...` path, parameters, body shape, pagination, and response contract must come from `https://docs.keyapi.ai/llms.txt` and the linked endpoint page before execution.
+
+Do not start by listing raw endpoints. First identify the user's business goal, choose the closest scenario, collect only missing high-value inputs, resolve the current docs, then execute through `scripts/keyapi-api.mjs` when available.
 
 ## Core Entities
 
-people, profiles, companies, posts, comments, videos, images, experience, education, skills, certifications, publications, honors, recommendations, interests, jobs, employees
-
-## Common Scenarios
-
-- LinkedIn User: people search, profile, about, contact, career background, credentials, activity, interests, and social signals.
-- LinkedIn Company: company profile, employees, and company posts.
-- LinkedIn Jobs: company job count, company jobs, and job detail.
+people, companies, jobs, posts, comments, videos, images, experience, education, skills, certifications, publications, honors, recommendations, interests, followers, connections, and contact information
 
 ## Scenario Modules
 
-Load one of these modules after identifying the user's business goal:
-
 | User intent | Reference module | Docs path family |
 |---|---|---|
-| People search, user profile/about/contact, experience, education, skills, certifications, publications, honors, recommendations, interests, posts, comments, media | `linkedin-user-rules.md` | `/linkedin/` |
-| Company profile, company employees, company posts | `linkedin-company-rules.md` | `/linkedin/` |
-| Company job count, company jobs, job detail | `linkedin-jobs-rules.md` | `/linkedin/` |
+| People search, profile detail, contact info, career background, skills, and social proof | `linkedin-user-rules.md` | /linkedin/ |
+| Company profile, employees, company posts, and company hiring footprint | `linkedin-company-rules.md` | /linkedin/ |
+| Job listings, job counts, and job detail | `linkedin-jobs-rules.md` | /linkedin/ |
+
+## 1. Find and qualify people
+
+- User intent: Search professionals and build a reliable profile baseline.
+- Primary entity: person / profile
+- Ask for: keyword, role, company, location or other search filters from docs, profile URL/URN if known, and whether contact info is required.
+- Default workflow: Use people search for discovery, then profile/about/follower-contact endpoints only for shortlisted users.
+- Reference module: `linkedin-user-rules.md`
+- Endpoint shortlist:
+  - [Search people](https://docs.keyapi.ai/linkedin/search-people.md) - Search LinkedIn users
+  - [Get user profile](https://docs.keyapi.ai/linkedin/get-user-profile.md) - Get LinkedIn user profile information
+  - [Get user about](https://docs.keyapi.ai/linkedin/get-user-about.md) - Get LinkedIn user about/bio information
+  - [Get user contact information](https://docs.keyapi.ai/linkedin/get-user-contact-information.md) - Get LinkedIn user contact information
+  - [Get user follower and connection](https://docs.keyapi.ai/linkedin/get-user-follower-and-connection.md) - Get LinkedIn user follower and connection count
+
+## 2. Assess professional background
+
+- User intent: Analyze a person's experience, education, skills, credentials, publications, honors, or recommendations.
+- Primary entity: career profile sections
+- Ask for: profile identifier and the specific sections needed for the report.
+- Default workflow: Fetch the profile baseline first, then call only the requested background sections to avoid unnecessary calls.
+- Reference module: `linkedin-user-rules.md`
+- Endpoint shortlist:
+  - [Get user experience](https://docs.keyapi.ai/linkedin/get-user-experience.md) - Get LinkedIn user work experience
+  - [Get user educations](https://docs.keyapi.ai/linkedin/get-user-educations.md) - Get LinkedIn user education background
+  - [Get user skills](https://docs.keyapi.ai/linkedin/get-user-skills.md) - Get LinkedIn user skills
+  - [Get user certifications](https://docs.keyapi.ai/linkedin/get-user-certifications.md) - Get LinkedIn user certifications
+  - [Get user publications](https://docs.keyapi.ai/linkedin/get-user-publications.md) - Get LinkedIn user publications
+  - [Get user honors](https://docs.keyapi.ai/linkedin/get-user-honors.md) - Get LinkedIn user honors and awards
+  - [Get user recommendations](https://docs.keyapi.ai/linkedin/get-user-recommendations.md) - Get LinkedIn user recommendations
+
+## 3. Review a person's content activity
+
+- User intent: Inspect posts, comments, videos, images, and interests for a LinkedIn user.
+- Primary entity: user activity / interests
+- Ask for: profile identifier, content surfaces, page depth, and whether interests should be included.
+- Default workflow: Use posts/comments/images/videos for activity; use interests companies/groups when the user asks for affinity or ecosystem context.
+- Reference module: `linkedin-user-rules.md`
+- Endpoint shortlist:
+  - [Get user posts](https://docs.keyapi.ai/linkedin/get-user-posts.md) - Get posts published by a LinkedIn user
+  - [Get user comments](https://docs.keyapi.ai/linkedin/get-user-comments.md) - Get comments by a LinkedIn user
+  - [Get user videos](https://docs.keyapi.ai/linkedin/get-user-videos.md) - Get videos published by a LinkedIn user
+  - [Get user images](https://docs.keyapi.ai/linkedin/get-user-images.md) - Get images published by a LinkedIn user
+  - [Get user interests companies](https://docs.keyapi.ai/linkedin/get-user-interests-companies.md) - Get LinkedIn user interest companies
+  - [Get user interests groups](https://docs.keyapi.ai/linkedin/get-user-interests-groups.md) - Get LinkedIn user interest groups
+
+## 4. Analyze a company
+
+- User intent: Profile a company, inspect employees, and review company-published content.
+- Primary entity: company
+- Ask for: company identifier, whether people and posts are needed, and page depth.
+- Default workflow: Fetch company profile first, then company people and posts; use job endpoints only when hiring analysis is requested.
+- Reference module: `linkedin-company-rules.md`
+- Endpoint shortlist:
+  - [Get company profile](https://docs.keyapi.ai/linkedin/get-company-profile.md) - Get LinkedIn company profile information
+  - [Get company people](https://docs.keyapi.ai/linkedin/get-company-people.md) - Get LinkedIn company employee list
+  - [Get company posts](https://docs.keyapi.ai/linkedin/get-company-posts.md) - Get posts published by a LinkedIn company
+  - [Get company job count](https://docs.keyapi.ai/linkedin/get-company-job-count.md) - Get LinkedIn company job count
+
+## 5. Research jobs and hiring demand
+
+- User intent: Find company job listings, quantify open roles, or inspect a specific job.
+- Primary entity: job / company hiring
+- Ask for: company identifier, job filters from docs, job ID if known, and desired result size.
+- Default workflow: Use job count for hiring footprint, company jobs for listings, and job detail for a selected role.
+- Reference module: `linkedin-jobs-rules.md`
+- Endpoint shortlist:
+  - [Get company job count](https://docs.keyapi.ai/linkedin/get-company-job-count.md) - Get LinkedIn company job count
+  - [Get company jobs](https://docs.keyapi.ai/linkedin/get-company-jobs.md) - Get LinkedIn company job listings
+  - [Get job detail](https://docs.keyapi.ai/linkedin/get-job-detail.md) - Get LinkedIn job details
 
 ## Docs Search Strategy
 
-1. Search `llms.txt` for the platform slug `linkedin` plus the entity and action from the user's request.
-2. Prefer docs pages whose title and description match the requested person, company, or job workflow.
-3. If multiple pages match, choose the narrowest endpoint that satisfies the request with the least post-processing.
-4. For broad reports, compose a small workflow from profile, background, activity, company, and job endpoints only when the docs support them.
-5. Use scenario modules as curated endpoint shortlists, but verify current endpoint contracts from the linked docs page before execution.
+1. Search `llms.txt` for the platform slug plus the user's entity and action.
+2. Prefer the narrowest endpoint whose title and description match the requested workflow.
+3. Resolve the selected endpoint page before any live call; never infer method or path from this file.
+4. Compose multiple endpoints only when the user asks for a report, comparison, enrichment, or explanation that one endpoint cannot answer.
+5. If an endpoint returns a large payload saved with `savedTo`, read the saved file instead of repeating the same request; saved files have shape `{ cache, result }`, and the API payload is usually under `result.data.data`.
 
 ## User Input Compression
 
 Compress parameter-heavy tasks into:
 
-- Goal: search, detail, enrichment, hiring analysis, comparison, monitoring, or report
-- Entity: people, profiles, companies, posts, comments, videos, images, experience, education, skills, certifications, publications, honors, recommendations, interests, jobs, employees
-- Scope: profile URL/ID, company URL/ID, job ID, role, location, skill, date/activity scope, and pagination depth
-- Sort or metric: relevance, recency, role match, hiring count, follower/connection count, or activity surface when supported
+- Goal: search, detail, enrichment, ranking, comparison, monitoring, or report
+- Entity: the object being searched, analyzed, compared, ranked, or monitored
+- Scope: market, country, language, category, keyword, identifier, date window, and page depth
+- Sort or metric: freshness, relevance, growth, engagement, rating, sales, price, audience, or other documented metric
 - Pagination depth: one page, top N, until enough evidence, or all available within the user's approved scope
-- Output format: raw JSON, table, concise summary, or structured report
+- Output format: concise answer, table, raw JSON, or structured report

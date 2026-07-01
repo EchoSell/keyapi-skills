@@ -1,38 +1,71 @@
-# Scenarios
+# Scenario Cards
 
-Use these scenario cards to map user intent to documentation search terms and reference modules. They are routing hints only; the exact request contract must come from `https://docs.keyapi.ai/llms.txt` and the linked endpoint page.
+Use these scenario cards to translate natural-language Facebook requests into a small, stable set of inputs. They are routing hints only; the exact method, `/v1/...` path, parameters, body shape, pagination, and response contract must come from `https://docs.keyapi.ai/llms.txt` and the linked endpoint page before execution.
+
+Do not start by listing raw endpoints. First identify the user's business goal, choose the closest scenario, collect only missing high-value inputs, resolve the current docs, then execute through `scripts/keyapi-api.mjs` when available.
 
 ## Core Entities
 
-profiles, pages, groups, posts, photos, reels, events, profile IDs, group IDs
-
-## Common Scenarios
-
-- Facebook Public Data: public profile/page lookup, profile content, group lookup, group posts, and future group events.
+public profiles, pages, profile IDs, profile posts, Reels, photos, public groups, group IDs, group posts, and future events
 
 ## Scenario Modules
 
-Load this module after identifying a Facebook public-data workflow:
-
 | User intent | Reference module | Docs path family |
 |---|---|---|
-| Profile/page details, posts, photos, Reels, group details, group posts, group events, ID resolution | `facebook-public-data-rules.md` | `/facebook/` |
+| Public profile/page ID resolution and baseline detail | `facebook-profile-rules.md` | /facebook/ |
+| Public profile/page posts, Reels, and photos | `facebook-profile-content-rules.md` | /facebook/ |
+| Public group details, posts, and future events | `facebook-group-rules.md` | /facebook/ |
+
+## 1. Resolve and inspect public profiles or pages
+
+- User intent: Get reliable profile/page details from a URL or ID before collecting posts or media.
+- Primary entity: profile / page
+- Ask for: profile or page URL, profile ID if known, and whether follow-on content is needed.
+- Default workflow: Resolve identity first, then retrieve URL or ID detail; route media/content sections to the profile content module.
+- Reference module: `facebook-profile-rules.md`
+- Endpoint shortlist:
+  - [Get profile id](https://docs.keyapi.ai/facebook/get-profile-id.md) - Get user ID from profile URL
+  - [Profile details by url](https://docs.keyapi.ai/facebook/profile-details-by-url.md) - Get profile details via Facebook profile URL
+  - [Profiles details by id](https://docs.keyapi.ai/facebook/profiles-details-by-id.md) - Get profile details by ID, used in conjunction with get_profile_id (profile_details_by_url as an alternative)
+
+## 2. Collect profile/page posts and media
+
+- User intent: Analyze recent public posts, Reels, or photos for a profile/page.
+- Primary entity: profile content
+- Ask for: profile/page identifier, content type, page depth, and topic/time focus if supported.
+- Default workflow: Use posts, Reels, or photos according to the requested surface; resolve profile/page first if identity is ambiguous.
+- Reference module: `facebook-profile-content-rules.md`
+- Endpoint shortlist:
+  - [Profile posts](https://docs.keyapi.ai/facebook/profile-posts.md) - Get public Facebook profile posts.
+  - [Profile Reels](https://docs.keyapi.ai/facebook/profile-reels.md) - Get a public Facebook page's reels.
+  - [Profiles photos](https://docs.keyapi.ai/facebook/profiles-photos.md) - Get a public Facebook page's photos.
+
+## 3. Analyze public groups
+
+- User intent: Inspect a public group baseline, posts, and upcoming events.
+- Primary entity: group
+- Ask for: group URL or ID, desired post depth, and whether future events are needed.
+- Default workflow: Resolve group ID, fetch group detail, then posts and future events only when requested.
+- Reference module: `facebook-group-rules.md`
+- Endpoint shortlist:
+  - [Get group id](https://docs.keyapi.ai/facebook/get-group-id.md) - Get a public Facebook group ID.
+  - [Get group details](https://docs.keyapi.ai/facebook/get-group-details.md) - Get a public Facebook groups details.
+  - [Get group posts](https://docs.keyapi.ai/facebook/get-group-posts.md) - Get a public Facebook groups posts.
+  - [Get group future events](https://docs.keyapi.ai/facebook/get-group-future-events.md) - Get a public Facebook group future events.
 
 ## Docs Search Strategy
 
-1. Search `llms.txt` for the platform slug `facebook` plus the entity and action from the user's request.
-2. Prefer docs pages whose title and description match the requested entity family and workflow.
-3. If multiple pages match, choose the narrowest endpoint that satisfies the request with the least post-processing.
-4. For broad reports, compose a small workflow from resolver, detail, and content endpoints only when the docs support them.
-5. Use scenario modules as curated endpoint shortlists, but verify current endpoint contracts from the linked docs page before execution.
+1. Search `llms.txt` for the platform slug plus the user's entity and action.
+2. Prefer the narrowest endpoint whose title and description match the requested workflow.
+3. Resolve the selected endpoint page before any live call; never infer method or path from this file.
+4. Compose multiple endpoints only when the user asks for a report, comparison, enrichment, or explanation that one endpoint cannot answer.
+5. If an endpoint returns a large payload saved with `savedTo`, read the saved file instead of repeating the same request; saved files have shape `{ cache, result }`, and the API payload is usually under `result.data.data`.
 
 ## User Input Compression
 
-Compress parameter-heavy tasks into:
-
-- Goal: resolver, detail, content lookup, monitoring, or report
-- Entity: profiles, pages, groups, posts, photos, reels, events, profile IDs, group IDs
-- Scope: profile URL, profile ID, group URL, group ID, public page/profile, content type, and pagination depth
-- Sort or metric: recency, relevance, media type, or event date when supported
+- Goal: search, detail, enrichment, ranking, comparison, monitoring, or report
+- Entity: the object being searched, analyzed, compared, ranked, or monitored
+- Scope: market, country, language, category, keyword, identifier, date window, and page depth
+- Sort or metric: freshness, relevance, growth, engagement, rating, sales, price, audience, or other documented metric
 - Pagination depth: one page, top N, until enough evidence, or all available within the user's approved scope
-- Output format: raw JSON, table, concise summary, or structured report
+- Output format: concise answer, table, raw JSON, or structured report

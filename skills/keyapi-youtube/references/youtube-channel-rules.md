@@ -2,49 +2,83 @@
 
 ## 1. Module Scope
 
-Use this module for YouTube channel search, channel ID/URL conversion, channel description, and channel videos.
+Use this module for YouTube channel description, channel videos, channel search, and channel ID/URL conversion.
 
-These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before execution, always open the linked endpoint docs page and use the current method, path, parameters, pagination, and response schema.
+These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before execution, always resolve the selected endpoint docs page and use the current method, path, parameters, pagination, and response schema.
 
-## 2. Channel Search And ID Resolution
+## 2. Channel identity conversion and resolution
 
-- Documentation: `https://docs.keyapi.ai/youtube/search-channel.md`
-- Documentation: `https://docs.keyapi.ai/youtube/search-channels.md`
 - Documentation: `https://docs.keyapi.ai/youtube/get-channel-id.md`
 - Documentation: `https://docs.keyapi.ai/youtube/get-channel-id-from-url.md`
 - Documentation: `https://docs.keyapi.ai/youtube/get-channel-url-from-channel-id.md`
-- Purpose: find channels and convert between channel names, URLs, IDs, and handles.
-- Best suited for channel lookup, identifier normalization, and preparing channel detail workflows.
+- Purpose: Resolve channel names, URLs, handles, and channel IDs into the form needed by downstream endpoints.
 
-### Rules
+### Best Suited For
 
-- Use URL-to-ID conversion when the user provides a channel URL.
-- Use channel search when the user provides a name or keyword.
-- Preserve channel IDs for description and videos endpoints.
+- channel URL to ID conversion
+- handle/name resolution
+- normalizing channel identifiers
+- preparing channel video workflows
 
-## 3. Channel Description
+### Routing Rules
+
+- Use channel ID from URL when the user provides a channel URL.
+- Use get channel ID when the user provides a channel name/handle according to docs.
+- Use channel URL from channel ID when the user needs handle/URL output.
+- Do not call conversion endpoints when the required identifier is already known.
+
+## 3. Channel profile baseline
 
 - Documentation: `https://docs.keyapi.ai/youtube/get-channel-description.md`
-- Purpose: retrieve channel profile details.
-- Best suited for channel summary, subscriber/view context, join date, and social links.
+- Purpose: Retrieve detailed channel profile information.
 
-### Rules
+### Best Suited For
 
-- Use after channel ID resolution.
-- Keep profile facts separate from video-level performance.
+- channel reports
+- creator validation
+- subscriber/view/join-date/social link context when returned
 
-## 4. Channel Videos
+### Routing Rules
+
+- Use after resolving channel ID/URL when identity is uncertain.
+- Keep channel profile facts separate from video-level performance facts.
+
+## 4. Channel video catalog
 
 - Documentation: `https://docs.keyapi.ai/youtube/get-channel-videos.md`
-- Purpose: retrieve videos from a channel.
-- Best suited for channel content review, upload history, and creator video analysis.
+- Purpose: Retrieve videos from a channel.
 
-### Rules
+### Best Suited For
 
-- Use after channel ID resolution.
-- Preserve continuation tokens for pagination and video IDs for video detail/comments.
+- creator content audit
+- channel catalog collection
+- recent upload review
+- video candidates for enrichment
 
-## 5. Common Workflows
+### Routing Rules
 
-- Channel report: channel search or URL-to-ID -> channel description -> channel videos.
-- Creator content review: channel videos -> selected video information/comments.
+- Use continuation tokens exactly as documented.
+- Enrich only selected videos with video information/comments unless a broad audit is approved.
+
+## 5. Channel discovery search
+
+- Documentation: `https://docs.keyapi.ai/youtube/search-channel.md`
+- Documentation: `https://docs.keyapi.ai/youtube/search-channels.md`
+- Purpose: Search YouTube channels.
+
+### Best Suited For
+
+- creator/channel discovery
+- competitor channel research
+- channel shortlist creation
+
+### Routing Rules
+
+- Use channel search when the target channel is unknown.
+- After selecting candidates, use channel description and channel videos for enrichment.
+
+## 6. Common Workflows
+
+- Channel report: channel resolution -> channel description -> channel videos -> selected video detail/comments.
+- Channel discovery: search channels -> channel description for candidates -> channel videos for selected channels.
+- Identifier normalization: URL/name/ID conversion -> downstream channel or video workflow.

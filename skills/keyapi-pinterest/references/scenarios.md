@@ -1,38 +1,67 @@
-# Scenarios
+# Scenario Cards
 
-Use these scenario cards to map user intent to documentation search terms and reference modules. They are routing hints only; the exact request contract must come from `https://docs.keyapi.ai/llms.txt` and the linked endpoint page.
+Use these scenario cards to translate natural-language Pinterest requests into a small, stable set of inputs. They are routing hints only; the exact method, `/v1/...` path, parameters, body shape, pagination, and response contract must come from `https://docs.keyapi.ai/llms.txt` and the linked endpoint page before execution.
+
+Do not start by listing raw endpoints. First identify the user's business goal, choose the closest scenario, collect only missing high-value inputs, resolve the current docs, then execute through `scripts/keyapi-api.mjs` when available.
 
 ## Core Entities
 
-users, pins, boards, followers, following, usernames
-
-## Common Scenarios
-
-- Pinterest User and Board: user search, user profile, pins, boards, followers, and following.
+users, profiles, boards, pins, followers, and following relationships
 
 ## Scenario Modules
 
-Load this module after identifying a Pinterest user, board, pin, or network workflow:
-
 | User intent | Reference module | Docs path family |
 |---|---|---|
-| User search, user information, pins, boards, followers, following | `pinterest-user-board-rules.md` | `/pinterest/` |
+| User search and profile information | `pinterest-profile-rules.md` | /pinterest/ |
+| Boards and pins | `pinterest-content-rules.md` | /pinterest/ |
+| Followers and following | `pinterest-network-rules.md` | /pinterest/ |
+
+## 1. Find and inspect Pinterest users
+
+- User intent: Search users and retrieve profile information.
+- Primary entity: user / profile
+- Ask for: keyword or username, page depth, and whether boards/pins/social graph should be included.
+- Default workflow: Search users for discovery, then get user information for selected accounts.
+- Reference module: `pinterest-profile-rules.md`
+- Endpoint shortlist:
+  - [Search Users](https://docs.keyapi.ai/pinterest/search-users.md) - Search Users
+  - [Get user information](https://docs.keyapi.ai/pinterest/get-user-information.md) - Get user information
+
+## 2. Audit boards and pins
+
+- User intent: Understand what a Pinterest account curates or publishes.
+- Primary entity: board / pin
+- Ask for: username or user identifier, boards versus pins, and page depth.
+- Default workflow: Resolve user first, then retrieve boards and pins according to the requested surface.
+- Reference module: `pinterest-content-rules.md`
+- Endpoint shortlist:
+  - [Get boards](https://docs.keyapi.ai/pinterest/get-boards.md) - Get a user's boards
+  - [Get pins](https://docs.keyapi.ai/pinterest/get-pins.md) - Get Pinterest pin
+
+## 3. Map follower and following context
+
+- User intent: Inspect who follows a user or who the user follows.
+- Primary entity: followers / following
+- Ask for: user identifier, direction, page depth, and enrichment scope.
+- Default workflow: Use followers or following based on direction; enrich only selected related users unless broad traversal is approved.
+- Reference module: `pinterest-network-rules.md`
+- Endpoint shortlist:
+  - [Get followers detail](https://docs.keyapi.ai/pinterest/get-followers-detail.md) - Get followers detail
+  - [Get following detail](https://docs.keyapi.ai/pinterest/get-following-detail.md) - Get following detail
 
 ## Docs Search Strategy
 
-1. Search `llms.txt` for the platform slug `pinterest` plus the entity and action from the user's request.
-2. Prefer docs pages whose title and description match the requested entity family and workflow.
-3. If multiple pages match, choose the narrowest endpoint that satisfies the request with the least post-processing.
-4. For broad reports, compose user, pins, boards, and network endpoints only when the docs support them.
-5. Use scenario modules as curated endpoint shortlists, but verify current endpoint contracts from the linked docs page before execution.
+1. Search `llms.txt` for the platform slug plus the user's entity and action.
+2. Prefer the narrowest endpoint whose title and description match the requested workflow.
+3. Resolve the selected endpoint page before any live call; never infer method or path from this file.
+4. Compose multiple endpoints only when the user asks for a report, comparison, enrichment, or explanation that one endpoint cannot answer.
+5. If an endpoint returns a large payload saved with `savedTo`, read the saved file instead of repeating the same request; saved files have shape `{ cache, result }`, and the API payload is usually under `result.data.data`.
 
 ## User Input Compression
 
-Compress parameter-heavy tasks into:
-
-- Goal: user lookup, content lookup, network traversal, comparison, or report
-- Entity: users, pins, boards, followers, following, usernames
-- Scope: username, user ID, board ID, pin scope, relationship type, and pagination depth
-- Sort or metric: content recency, board grouping, follower/following relationship when supported
+- Goal: search, detail, enrichment, ranking, comparison, monitoring, or report
+- Entity: the object being searched, analyzed, compared, ranked, or monitored
+- Scope: market, country, language, category, keyword, identifier, date window, and page depth
+- Sort or metric: freshness, relevance, growth, engagement, rating, sales, price, audience, or other documented metric
 - Pagination depth: one page, top N, until enough evidence, or all available within the user's approved scope
-- Output format: raw JSON, table, concise summary, or structured report
+- Output format: concise answer, table, raw JSON, or structured report

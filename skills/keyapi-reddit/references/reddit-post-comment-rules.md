@@ -2,49 +2,68 @@
 
 ## 1. Module Scope
 
-Use this module for Reddit post detail, post batch detail, post comments, comment replies, user posts, and user comments.
+Use this module for single or batch Reddit post detail, post comments, sub-comments, and discussion-thread analysis.
 
-These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before execution, always open the linked endpoint docs page and use the current method, path, parameters, pagination, and response schema.
+These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before execution, always resolve the selected endpoint docs page and use the current method, path, parameters, pagination, and response schema.
 
-## 2. Post Detail
+## 2. Single and batch post detail
 
 - Documentation: `https://docs.keyapi.ai/reddit/fetch-single-reddit-post-details.md`
 - Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-post-details-in-batch-max-5.md`
 - Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-post-details-in-large-batch-max-30.md`
-- Purpose: retrieve one or more Reddit post details.
-- Best suited for post inspection, evidence collection, and batch enrichment of post IDs.
+- Purpose: Retrieve detail for one or multiple Reddit posts.
 
-### Rules
+### Best Suited For
 
-- Use single detail for one post and batch endpoints when the user provides multiple post IDs.
-- Check batch size limits in the current docs before sending IDs.
+- post verification
+- thread context baseline
+- batch enrichment of search/feed results
+- comparison across known post IDs
 
-## 3. Post Comments And Comment Replies
+### Routing Rules
+
+- Use single post detail for one post.
+- Use batch max 5 or large batch max 30 only when the user provides or approves multiple IDs.
+- Preserve post IDs for comments and follow-on enrichment.
+- Do not batch unrelated posts without a comparison or report goal.
+
+## 3. Top-level comments and discussion evidence
 
 - Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-app-post-comments.md`
+- Purpose: Retrieve comments under a specified post.
+
+### Best Suited For
+
+- discussion analysis
+- sentiment/theme evidence
+- audience reaction review
+- thread summary
+
+### Routing Rules
+
+- Fetch post detail first when the post context is unknown.
+- Use comment pagination or continuation exactly as documented.
+- Stop when enough evidence is collected for the requested summary.
+
+## 4. Sub-comments and reply expansion
+
 - Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-app-comment-replies-sub-comments.md`
-- Purpose: retrieve comments under a post and replies under a comment.
-- Best suited for discussion analysis, reply expansion, and thread evidence.
+- Purpose: Retrieve replies under a specific comment node.
 
-### Rules
+### Best Suited For
 
-- Use post comments first; comment replies require a selected comment or cursor from the comment tree.
-- Preserve cursors when the response indicates more comments are available.
+- deep thread analysis
+- controversy/reply chain review
+- expanding high-value comments
 
-## 4. User Posts And User Comments
+### Routing Rules
 
-- Documentation: `https://docs.keyapi.ai/reddit/fetch-user-posts.md`
-- Documentation: `https://docs.keyapi.ai/reddit/fetch-user-comments.md`
-- Purpose: retrieve posts or comments authored by a Reddit user.
-- Best suited for user activity review and account-level content analysis.
-
-### Rules
-
-- Use the endpoint matching the requested activity type.
-- Enrich selected post IDs with post detail when full post context is needed.
+- Use only after comments reveal a comment node with the required continuation cursor/context.
+- Expand selected comments, not every comment, unless the user approves deep traversal.
+- Keep nested replies separate from top-level comments in summaries.
 
 ## 5. Common Workflows
 
-- Post report: single post detail -> comments -> selected comment replies.
-- Batch report: batch post details -> comments only for selected posts.
-- User activity review: user posts/comments -> post details for important items.
+- Post report: single post detail -> comments -> selected sub-comments.
+- Search/feed enrichment: discovery module returns post IDs -> batch post details -> comments for selected posts.
+- Comparison: batch post details -> normalize metrics and subreddit context -> selected comment evidence.

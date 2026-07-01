@@ -2,58 +2,82 @@
 
 ## 1. Module Scope
 
-Use this module for YouTube video information, comments, sub-comments, related videos, streams info, and Shorts search.
+Use this module for YouTube video information, comments, sub-comments, related videos, streams info, and video-level reports.
 
-These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before execution, always open the linked endpoint docs page and use the current method, path, parameters, pagination, and response schema.
+These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before execution, always resolve the selected endpoint docs page and use the current method, path, parameters, pagination, and response schema.
 
-## 2. Get Video Information
+## 2. Video detail baseline
 
 - Documentation: `https://docs.keyapi.ai/youtube/get-video-information.md`
-- Purpose: retrieve detailed raw video information.
-- Best suited for video metadata, channel, engagement, playback context, and full video analysis.
+- Purpose: Retrieve detailed raw information for one video.
 
-### Rules
+### Best Suited For
+
+- video metadata report
+- engagement/channel context
+- selected search-result enrichment
+- video URL or ID lookup
+
+### Routing Rules
 
 - Use when the user provides a video URL/ID or asks for detail on one video.
-- Preserve video IDs for comments, related videos, streams info, and sub-comment workflows.
+- Preserve video ID for comments, sub-comments, related videos, and streams info.
+- Do not fetch comments/streams/related videos unless they support the user goal.
 
-## 3. Comments And Sub Comments
+## 3. Comments and sub-comments
 
 - Documentation: `https://docs.keyapi.ai/youtube/get-video-comments.md`
 - Documentation: `https://docs.keyapi.ai/youtube/get-video-sub-comments.md`
-- Purpose: retrieve video comments and replies to comments.
-- Best suited for audience reaction analysis, comment evidence, and discussion expansion.
+- Purpose: Retrieve video comments and replies to comments.
 
-### Rules
+### Best Suited For
 
-- Use comments first; sub-comments require a selected comment/reply token from comment results.
+- audience reaction analysis
+- comment evidence
+- discussion expansion
+- sentiment/theme sampling
+
+### Routing Rules
+
+- Use comments first.
+- Use sub-comments only after a selected comment provides the required context.
 - Respect continuation tokens exactly as documented.
+- Stop when enough evidence has been collected.
 
-## 4. Related Videos And Streams Info
+## 4. Related videos and recommendation context
 
 - Documentation: `https://docs.keyapi.ai/youtube/get-related-videos.md`
+- Purpose: Retrieve recommended related content for a video.
+
+### Best Suited For
+
+- adjacent content discovery
+- competitor/video cluster research
+- recommendation context
+
+### Routing Rules
+
+- Use related videos for content adjacency, not as proof of global ranking.
+- Enrich selected related videos with video information only when needed.
+
+## 5. Streams and playback formats
+
 - Documentation: `https://docs.keyapi.ai/youtube/get-video-streams-info.md`
-- Purpose: retrieve recommended related content or video stream/playback formats.
-- Best suited for recommendation context and media format/playback inspection.
+- Purpose: Retrieve playback/format information for a video.
 
-### Rules
+### Best Suited For
 
-- Use related videos for content adjacency, not as proof of ranking.
-- Use streams info only when format or playback URL data is explicitly needed.
+- format inspection
+- download/playback option analysis
+- technical media checks
 
-## 5. YouTube Shorts Search
+### Routing Rules
 
-- Documentation: `https://docs.keyapi.ai/youtube/youtube-shorts-search.md`
-- Purpose: search YouTube Shorts.
-- Best suited for short-form video discovery and Shorts-specific content research.
-
-### Rules
-
-- Use this instead of general video search when the user specifically asks for Shorts.
-- Follow continuation guidance from the docs because first responses may mix content.
+- Use only when format, stream, or playback URL data is explicitly needed.
+- Keep stream/format facts separate from content performance facts.
 
 ## 6. Common Workflows
 
-- Video report: video information -> comments -> selected sub-comments -> related videos.
+- Video report: video information -> comments -> selected sub-comments -> related videos if needed.
+- Audience analysis: video information -> comments -> sub-comments for selected high-value threads.
 - Media inspection: video information -> streams info.
-- Shorts research: Shorts search -> selected video information/comments.

@@ -1,30 +1,25 @@
 # Threads Rules
 
+Use this file for Threads platform-level routing boundaries. Use module files for scenario-specific workflows.
+
 ## Entity Scope
 
-users, profiles, posts, reposts, replies, comments, search keywords
-
-## Platform-Specific Rules
-
-- Distinguish top content search, recent content search, and profile search.
-- Use post IDs from search/detail responses for comments and thread analysis.
-- Apply cursor or pagination fields exactly as documented.
+users, user IDs, profiles, posts, replies, reposts, comments, top content, recent content, and profile search results
 
 ## Scenario Module Routing
 
-- Use `threads-social-rules.md` for profile search, user info, user posts/replies/reposts, post detail, comments, and top/recent content search.
-- If a request spans profile and content search, load the same module and keep account-level facts separate from post-level facts.
+- Use `threads-profile-rules.md` for profile search and user info.
+- Use `threads-content-rules.md` for user posts, replies, reposts, post detail, and comments.
+- Use `threads-search-rules.md` for top and recent content search.
 
-## Documentation Hints
+## Identifier Discipline
 
-- Filter `https://docs.keyapi.ai/llms.txt` for links under `https://docs.keyapi.ai/threads/`.
-- Treat endpoint titles as hints, not stable tool names.
-- Extract the current REST method and path from the OpenAPI block on the docs page.
-- Use examples from the docs page only after replacing sample identifiers with user-provided or resolved identifiers.
+- Resolve profile username/user ID before user posts, replies, or reposts.
+- Use post shortcode or full URL for post detail before comment analysis.
+- Keep top content and recent content as different search modes.
 
 ## Output Guidance
 
-- For discovery tasks, return ranked candidates with key evidence and next-step enrichment suggestions.
-- For detail tasks, return a compact entity profile plus important raw identifiers.
-- For trend/ranking tasks, state the metric, time window, market, and any API coverage limitations.
-- For reports, organize findings by entity, performance signals, risks, and recommended follow-up calls.
+- For profile work, separate profile metadata, authored posts, replies, and reposts.
+- For post work, separate post detail from comment evidence.
+- For content search, state whether top or recent mode was used.

@@ -2,51 +2,76 @@
 
 ## 1. Module Scope
 
-Use this module for Reddit search, typeahead suggestions, trending searches, app feeds, popular feed, home feed, news feed, games feed, and user profile/trophies.
+Use this module for Reddit dynamic search, typeahead, trending searches, popular/home/news/games feeds, and user activity discovery.
 
-These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before execution, always open the linked endpoint docs page and use the current method, path, parameters, pagination, and response schema.
+These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before execution, always resolve the selected endpoint docs page and use the current method, path, parameters, pagination, and response schema.
 
-## 2. Dynamic Search And Typeahead
+## 2. Dynamic search and query expansion
 
 - Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-app-dynamic-search-results.md`
 - Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-app-search-typeahead-suggestions.md`
-- Purpose: search Reddit entities or retrieve search suggestions.
-- Best suited for discovering posts, communities, comments, media, users, and query ideas.
-
-### Rules
-
-- Use typeahead for query expansion or entity suggestions.
-- Use dynamic search for broad discovery, then route selected results to post, community, or user modules.
-
-## 3. Trending Searches And Feeds
-
 - Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-app-trending-searches.md`
+- Purpose: Discover posts, communities, comments, media, users, search suggestions, and trending topics.
+
+### Best Suited For
+
+- topic discovery
+- community discovery
+- query expansion
+- current interest monitoring
+
+### Routing Rules
+
+- Use dynamic search for explicit keyword search.
+- Use typeahead for search-seed expansion.
+- Use trending searches when the user asks what topics are currently trending.
+- Route selected posts to post/comment rules and selected communities to community rules.
+
+## 3. Feed surface monitoring
+
 - Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-app-popular-feed.md`
 - Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-app-home-feed.md`
 - Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-app-news-feed.md`
 - Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-app-games-feed.md`
-- Purpose: retrieve trending searches and feed surfaces.
-- Best suited for trend monitoring, popular content discovery, news/gaming feed review, and broad Reddit signal scans.
+- Purpose: Retrieve different Reddit feed surfaces.
 
-### Rules
+### Best Suited For
 
-- Choose the feed surface that matches the user's topic or requested Reddit view.
-- Enrich selected posts through post detail and comments.
+- popular content scan
+- news feed monitoring
+- gaming topic scan
+- home-style recommendation review
 
-## 4. User Profile And Trophies
+### Routing Rules
+
+- Use the feed that matches the user surface request.
+- Enrich selected posts with post detail/comments only when deeper analysis is needed.
+- Do not mix feed surfaces without labeling them.
+
+## 4. User activity discovery
 
 - Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-app-user-profile.md`
+- Documentation: `https://docs.keyapi.ai/reddit/fetch-user-posts.md`
+- Documentation: `https://docs.keyapi.ai/reddit/fetch-user-comments.md`
 - Documentation: `https://docs.keyapi.ai/reddit/fetch-user-public-trophies.md`
-- Purpose: retrieve Reddit user profile and public trophy data.
-- Best suited for user identity context and account credibility/history checks.
+- Documentation: `https://docs.keyapi.ai/reddit/fetch-user-s-active-subreddits.md`
+- Purpose: Retrieve profile, posts, comments, trophies, and active communities for a Reddit user.
 
-### Rules
+### Best Suited For
 
-- Use profile before user posts/comments when the user wants account context.
-- Use public trophies only when achievements/account history are relevant.
+- user activity reports
+- interest mapping
+- post/comment history review
+- account context
+
+### Routing Rules
+
+- Use user profile first when identity/context is unknown.
+- Fetch posts/comments/trophies/active subreddits only as requested.
+- Route selected posts/comments to post/comment rules for deeper thread analysis.
 
 ## 5. Common Workflows
 
-- Discovery: typeahead or dynamic search -> route selected results to post/community/user endpoints.
-- Trend scan: trending searches or feed endpoint -> selected post detail/comments.
-- User context: user profile -> posts/comments -> trophies or active communities as needed.
+- Topic discovery: typeahead/trending -> dynamic search -> selected post/community enrichment.
+- Feed monitor: chosen feed -> batch/single post details for selected posts -> comments if requested.
+- User report: user profile -> posts/comments/trophies/active subreddits by section.

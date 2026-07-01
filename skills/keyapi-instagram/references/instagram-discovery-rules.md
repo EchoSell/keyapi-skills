@@ -2,48 +2,88 @@
 
 ## 1. Module Scope
 
-Use this module for Instagram general search, hashtag search, music search, places search, city lookup, and coordinate-based location search.
+Use this module for broad Instagram search, hashtag search, music search, place search, city lookup, coordinate-based location search, and discovery seed resolution before content/user workflows.
 
-These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before execution, always open the linked endpoint docs page and use the current method, path, parameters, pagination, and response schema.
+These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before execution, always resolve the selected endpoint docs page and use the current method, path, parameters, pagination, and response schema.
 
-## 2. General Search
+## 2. General and user-facing search
 
 - Documentation: `https://docs.keyapi.ai/instagram/general-search.md`
-- Purpose: perform broad Instagram search by keyword.
-- Best suited for exploratory requests when the user has not specified users, hashtags, places, music, or Reels.
+- Documentation: `https://docs.keyapi.ai/instagram/search-users.md`
+- Purpose: Search broadly or find accounts by keyword.
 
-### Rules
+### Best Suited For
 
-- Use this when the desired entity type is ambiguous.
-- After results clarify entity type, route to user, content, hashtag, music, or place workflows.
+- initial discovery when entity type is unclear
+- creator/account search
+- query exploration
 
-## 3. Hashtag And Music Search
+### Routing Rules
+
+- Use search users when the target is clearly an account.
+- Use general search when the user asks for a broader Instagram search across surfaces.
+- Route selected users to user rules and selected posts/Reels to content rules.
+
+## 3. Hashtag and music seed resolution
 
 - Documentation: `https://docs.keyapi.ai/instagram/search-hashtags.md`
 - Documentation: `https://docs.keyapi.ai/instagram/search-music.md`
-- Purpose: resolve hashtags or music by keyword.
-- Best suited for topic, campaign, audio, and trend discovery.
+- Purpose: Resolve hashtag or music/audio targets before fetching related posts.
 
-### Rules
+### Best Suited For
 
-- Use search endpoints before content endpoints that require hashtag or music identifiers.
-- Preserve IDs and names exactly for downstream content retrieval.
+- hashtag discovery
+- audio/music trend seed selection
+- topic expansion
 
-## 4. Places, Cities, And Coordinate Search
+### Routing Rules
+
+- Use these endpoints before content endpoints when the user provides only text.
+- Preserve returned IDs/names exactly for posts-by-hashtag or posts-using-music workflows.
+- If multiple candidates are similar, present a short choice rather than guessing.
+
+## 4. Place, city, and coordinate discovery
 
 - Documentation: `https://docs.keyapi.ai/instagram/search-places.md`
 - Documentation: `https://docs.keyapi.ai/instagram/get-cities-by-country.md`
 - Documentation: `https://docs.keyapi.ai/instagram/search-locations-by-coordinates.md`
-- Purpose: find Instagram places, city/region values, or nearby locations.
-- Best suited for local discovery, location-based content workflows, and geographic filtering.
+- Purpose: Resolve location-based targets for local Instagram research.
 
-### Rules
+### Best Suited For
 
-- Use city lookup when the request starts from country-level geography.
+- local place discovery
+- city/region lookup
+- coordinate-based location research
+- venue or travel content workflows
+
+### Routing Rules
+
+- Use cities by country when the user needs city/region options.
+- Use search places for place-name queries.
 - Use coordinate search when the user provides latitude/longitude or asks for nearby locations.
+- Route selected places/locations to content workflows only when the docs support the follow-on endpoint.
 
-## 5. Common Workflows
+## 5. Reels and Explore discovery
 
-- Ambiguous search: general search -> route selected entity to the matching module.
-- Topic discovery: hashtag search -> posts by hashtag.
-- Location discovery: places/cities/coordinates -> content or user workflows when supported by docs.
+- Documentation: `https://docs.keyapi.ai/instagram/search-reels.md`
+- Documentation: `https://docs.keyapi.ai/instagram/get-explore-page-sections.md`
+- Documentation: `https://docs.keyapi.ai/instagram/get-posts-by-section.md`
+- Purpose: Find short-video examples or Explore sections for content research.
+
+### Best Suited For
+
+- Reels topic discovery
+- Explore category review
+- creative inspiration research
+
+### Routing Rules
+
+- Use search reels for explicit Reels intent.
+- Use explore sections before posts by section when section ID is unknown.
+- Enrich selected results through content rules only after shortlisting.
+
+## 6. Common Workflows
+
+- Discovery to profile: search users/general search -> user info -> related/similar or content portfolio.
+- Discovery to content: hashtag/music/place/Reels search -> selected content endpoint -> post detail/comments.
+- Local discovery: country/city or coordinates -> place candidates -> selected location/content workflow.

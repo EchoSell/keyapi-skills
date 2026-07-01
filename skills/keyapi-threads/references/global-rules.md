@@ -1,52 +1,67 @@
 # Global Rules
 
-These rules apply to every Threads KeyAPI REST workflow.
+These rules are the lowest-level execution contract for every Threads KeyAPI REST workflow. Every scenario, routing path, and endpoint choice must comply with them.
+
+## API-Only Policy
+
+- Use KeyAPI REST API execution for live lookup, ranking, analysis, search, comparison, and reporting.
+- Do not browse, inspect, scrape, or navigate Threads web pages as a substitute for API data.
+- Platform web pages may only be referenced when the user explicitly asks about public URLs, UI context, or non-API browsing.
 
 ## Source Of Truth
 
 - Documentation index: `https://docs.keyapi.ai/llms.txt`
+- Platform docs family: `https://docs.keyapi.ai/threads/`
 - API base URL: `https://api.keyapi.ai`
 - Authentication: `Authorization: Bearer $KEYAPI_TOKEN`
-- Before any live API request, resolve or read the current docs page for the selected endpoint and decide the final method, `/v1/...` path, required parameters, body shape, and pagination from that page.
-- Never infer API paths from docs URLs, scenario names, endpoint titles, remembered routes, or 404 responses.
-- If this skill text conflicts with the official docs, follow the official docs.
+- Before any live API request, resolve or read the current docs page for the selected endpoint and extract method, `/v1/...` path, required parameters, request body shape, pagination, and response contract.
+- Never infer API paths from docs URLs, scenario names, endpoint titles, remembered routes, or a previous 404.
+- If this skill conflicts with the official docs page, follow the official docs page.
 
 ## REST Execution
 
-- Use the documented method, path, query parameters, and JSON body from the current docs page.
-- Do not execute a live REST call until the current docs page or resolver output has produced the endpoint method and `/v1/...` path.
-- Prefer the skill-local helper scripts under `scripts/` for local execution; the current KeyAPI docs remain the API source of truth.
-- Use the host's available HTTP client only when helper scripts are unavailable or cannot express the documented request.
-- Do not use gateway tool schemas or remembered MCP tool definitions as the source of truth.
-- Do not navigate platform web apps as a fallback for API data.
+- Prefer skill-local scripts under `scripts/` for execution: auth status, docs resolution, then live request.
+- Use the host HTTP client only when scripts are unavailable or the helper cannot express the documented request.
+- For query values with spaces or shell-sensitive characters, prefer repeated `--query-param key=value` or `--param key=value`; use `--query-file` for structured query objects.
+- For large request bodies, file uploads, or image/base64 payloads, prefer `--body-file` or `--image-file` instead of inline shell JSON.
 
 ## Parameter Discipline
 
 - Include required parameters exactly as documented.
 - Do not send empty optional parameters.
-- Confirm enum values, date windows, sort values, country/region codes, and pagination fields from the endpoint docs.
-- When identifiers are ambiguous, resolve them first through the documented resolver/search/detail endpoint.
+- Confirm enum values, date windows, sorting values, locale/market fields, and pagination fields from the endpoint docs.
+- Resolve ambiguous identifiers first through the documented search, conversion, resolver, or detail endpoint.
+- Prefer API-side filtering over client-side filtering when the endpoint supports it.
 
 ## Response Handling
 
 - Check HTTP status first.
-- Then check KeyAPI response envelope when present:
+- Then check the KeyAPI response envelope when present:
   - `code = 0`: success
-  - non-zero `code`: API-level error; report the message and adjust inputs if appropriate
-- For missing credentials or `401`, load `references/setup-and-auth.md` and give the exact setup command `node scripts/configure-keyapi-auth.mjs`; also mention `node scripts/configure-keyapi-auth.mjs --status` and continue only when it reports `authStatus: "available"`.
+  - non-zero `code`: API-level error; report the `message` and adjust inputs if appropriate
+- If auth is missing or a request returns `401`, load `references/setup-and-auth.md` and give the exact setup command `node scripts/configure-keyapi-auth.mjs`.
 - For `402` or quota messages, explain that the request needs available credits or plan access.
-- For `429`, wait or reduce request rate.
+- For `429`, reduce request rate or wait before retrying.
 - For `500`, retry once for idempotent requests before reporting failure.
 
-## Pagination
+## Pagination And Scope
 
 - Use the pagination shape documented for the exact endpoint.
 - Numeric pagination may use `page`, `page_num`, `page_size`, `limit`, `offset`, or similar fields.
 - Cursor pagination must use the cursor returned by the previous response.
-- Stop when the response has no items, `has_more` is false, no next cursor exists, or the requested scope is satisfied.
+- Stop when the requested top N or evidence target is satisfied, the response has no items, `has_more` is false, or no next cursor exists.
+- Ask before broad crawling, large fan-out enrichment, or report workflows that require many adjacent endpoints.
+
+## Cache And Large Output Handling
+
+- `scripts/keyapi-api.mjs` may cache exact successful requests for a short TTL under `.keyapi-cache/YYYY-MM-DD/`.
+- The cache key includes method, full URL/query, and body, so different parameters do not share a cache entry.
+- Large responses may be saved and stdout may return a preview with `savedTo`.
+- Saved files have top-level shape `{ cache, result }`; the API payload is usually under `result.data.data`.
+- When `savedTo` is present, read that file for deeper analysis instead of repeating the same request unless fresh data is required.
 
 ## Reporting
 
-- Summarize the answer in the user's language.
-- Cite which endpoint family was used when relevant.
-- For multi-endpoint workflows, separate observed API facts from analytical inference.
+- Return findings in the user's language and business context, not raw endpoint language.
+- Name the endpoint family or data surface when it affects interpretation.
+- For multi-endpoint workflows, separate observed API facts from inference.

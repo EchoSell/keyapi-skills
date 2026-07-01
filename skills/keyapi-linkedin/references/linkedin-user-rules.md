@@ -2,26 +2,50 @@
 
 ## 1. Module Scope
 
-Use this module for LinkedIn people search, user profile, about, contact, experience, education, skills, certifications, publications, honors, recommendations, interests, posts, comments, videos, images, and follower/connection workflows.
+Use this module for people search, profile baseline, about/contact information, career background, skills, credentials, social proof, user posts/comments/media, and interest context.
 
-These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before execution, always open the linked endpoint docs page and use the current method, path, parameters, pagination, and response schema.
+These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before execution, always resolve the selected endpoint docs page and use the current method, path, parameters, pagination, and response schema.
 
-## 2. Search People And Profile
+## 2. People search and profile baseline
 
 - Documentation: `https://docs.keyapi.ai/linkedin/search-people.md`
 - Documentation: `https://docs.keyapi.ai/linkedin/get-user-profile.md`
 - Documentation: `https://docs.keyapi.ai/linkedin/get-user-about.md`
+- Documentation: `https://docs.keyapi.ai/linkedin/get-user-follower-and-connection.md`
+- Purpose: Find professionals and build a reliable profile baseline before section-specific enrichment.
+
+### Best Suited For
+
+- prospect or candidate discovery
+- profile validation
+- headline/about/follower context
+- shortlist enrichment
+
+### Routing Rules
+
+- Use search people when the exact profile target is unknown.
+- Use user profile for baseline information before calling many adjacent sections.
+- Use about and follower/connection endpoints only when that context is needed.
+- Avoid calling every profile section unless the user asks for a full report.
+
+## 3. Contact and outreach context
+
 - Documentation: `https://docs.keyapi.ai/linkedin/get-user-contact-information.md`
-- Purpose: find LinkedIn users and retrieve profile, about, and contact information.
-- Best suited for professional profile lookup, candidate discovery, and contact enrichment.
+- Purpose: Retrieve documented contact information for a selected LinkedIn user.
 
-### Rules
+### Best Suited For
 
-- Use search when the exact profile identifier is unknown.
-- Use contact information only when explicitly needed.
-- Keep profile/about facts separate from inferred suitability.
+- sales or recruiting outreach preparation
+- contact field verification
+- profile enrichment
 
-## 3. Career, Education, And Credentials
+### Routing Rules
+
+- Use only after the person target is identified.
+- Do not infer missing contact information.
+- Keep contact fields separate from public profile/about facts.
+
+## 4. Career background and credentials
 
 - Documentation: `https://docs.keyapi.ai/linkedin/get-user-experience.md`
 - Documentation: `https://docs.keyapi.ai/linkedin/get-user-educations.md`
@@ -30,33 +54,46 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 - Documentation: `https://docs.keyapi.ai/linkedin/get-user-publications.md`
 - Documentation: `https://docs.keyapi.ai/linkedin/get-user-honors.md`
 - Documentation: `https://docs.keyapi.ai/linkedin/get-user-recommendations.md`
-- Purpose: retrieve structured professional background and credentials.
-- Best suited for resume-style summaries, candidate screening, and expertise validation.
+- Purpose: Retrieve structured career, education, skill, and credibility sections.
 
-### Rules
+### Best Suited For
 
-- Load only the credential endpoints required by the user's requested report.
-- Do not treat missing sections as absence of credentials unless the API explicitly confirms it.
+- candidate qualification
+- expertise verification
+- background reports
+- speaker or advisor research
 
-## 4. Activity, Interests, And Social Signals
+### Routing Rules
+
+- Call only the sections requested or clearly useful for the user goal.
+- Group output by section rather than mixing credentials with activity.
+- Use profile baseline first if the user identity is ambiguous.
+
+## 5. Activity, media, and interests
 
 - Documentation: `https://docs.keyapi.ai/linkedin/get-user-posts.md`
 - Documentation: `https://docs.keyapi.ai/linkedin/get-user-comments.md`
 - Documentation: `https://docs.keyapi.ai/linkedin/get-user-videos.md`
 - Documentation: `https://docs.keyapi.ai/linkedin/get-user-images.md`
-- Documentation: `https://docs.keyapi.ai/linkedin/get-user-follower-and-connection.md`
 - Documentation: `https://docs.keyapi.ai/linkedin/get-user-interests-companies.md`
 - Documentation: `https://docs.keyapi.ai/linkedin/get-user-interests-groups.md`
-- Purpose: retrieve user activity, media, audience size, and interest signals.
-- Best suited for thought-leadership review, network-size checks, and professional interest analysis.
+- Purpose: Analyze user content activity and ecosystem interests.
 
-### Rules
+### Best Suited For
+
+- thought leadership review
+- recent activity checks
+- content/media audit
+- interest and affiliation context
+
+### Routing Rules
 
 - Use posts/comments/videos/images based on the requested activity surface.
-- Use follower/connection count for reach context, not as a standalone quality score.
+- Use interests only when the user asks for companies/groups or ecosystem context.
+- Enrich only selected posts/media unless a broader content audit is approved.
 
-## 5. Common Workflows
+## 6. Common Workflows
 
-- Candidate profile: search -> profile/about -> experience/education/skills.
-- Expert validation: profile -> publications/certifications/honors/recommendations.
-- Activity review: profile -> posts/comments/media -> follower and interest signals.
+- People qualification: search people -> user profile -> about/follower-contact sections as needed.
+- Candidate/background report: profile -> experience/education/skills/certs/publications/honors/recommendations.
+- Activity report: profile -> posts/comments/media -> selected content summary.

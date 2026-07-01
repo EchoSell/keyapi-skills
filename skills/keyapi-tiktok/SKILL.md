@@ -37,6 +37,19 @@ Turn natural-language TikTok requests into documentation-guided KeyAPI REST work
 13. Check HTTP status and KeyAPI response envelope. `code = 0` means success; non-zero `code` is an API-level failure.
 14. Return the result in user-facing analytical language, separating observed API facts from inference.
 
+## Interaction Rules
+
+- Do not start by listing raw endpoints or dumping all parameters. First identify the user's business goal, choose the closest scenario, collect only missing high-value inputs, resolve the current docs, then execute.
+- Prefer scenario names and user-facing workflows over endpoint names for non-technical users. Use raw endpoint names only after the route is chosen or when the user asks for integration details.
+- If multiple endpoints could solve the task, choose the one with the least user input burden and strongest documented filtering.
+- If the user's request is vague, offer 2 to 4 concrete scenario options instead of asking an open-ended question.
+- If a request needs a broad report or many adjacent calls, confirm the sections and maximum scope before execution.
+- If credentials are missing, pause live execution and route to setup; do not fall back to platform websites or unauthenticated browsing for API data.
+
+## Scenario Selection
+
+Read `references/scenarios.md` to choose the best scenario card. If no exact scenario fits, use the nearest scenario with explicit assumptions or fall back to advanced mode that exposes filters gradually. Treat the official docs index as the endpoint source of truth, not the scenario card.
+
 ## Input Model
 
 Compress parameter-heavy APIs into these decision fields:
@@ -147,9 +160,14 @@ node scripts/keyapi-api.mjs --path /v1/tiktok/realtime/product/photo-search --me
 - `references/scenarios.md`
 - `references/routing-policy.md`
 - `references/tiktok-rules.md`
+- `references/tiktok-search-rules.md`
+- `references/tiktok-product-rules.md`
+- `references/tiktok-seller-rules.md`
 - `references/tiktok-influencer-rules.md`
 - `references/tiktok-shop-creator-rules.md`
-- `references/tiktok-shop-rules.md`
-- `references/tiktok-content-rules.md`
+- `references/tiktok-video-rules.md`
+- `references/tiktok-live-rules.md`
 - `references/tiktok-intelligence-rules.md`
+- `references/tiktok-content-rules.md`
+- `references/tiktok-shop-rules.md`
 - `references/setup-and-auth.md`
