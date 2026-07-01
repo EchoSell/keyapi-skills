@@ -2,7 +2,7 @@
 
 ## 1. Module Scope
 
-Use this file only as a TikTok Shop router. For detailed execution rules, load product, seller, shop creator, live, or search modules.
+Use this file only as a TikTok Shop router. For detailed execution rules, load product, seller, live, or search modules.
 
 These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before execution, always resolve the selected endpoint docs page and use the current method, path, parameters, pagination, and response schema.
 
@@ -42,13 +42,12 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 - seller discovery
 - shop report
 - shop product inventory
-- shop creator/video/live attribution
+- creator/video/live attribution for a known shop
 
 ### Routing Rules
 
 - Load tiktok-seller-rules.md for seller/shop workflows.
-- Use tiktok-shop-creator-rules.md when the target is a TikTok Shop creator rather than a seller/shop.
 
 ## 4. Common Workflows
 
-- TikTok Shop request: identify product, seller, shop creator, or image/link resolver -> load the specific module.
+- TikTok Shop request: identify product, seller, image/link resolver, or shop-level creator/video/live attribution -> load the specific module.

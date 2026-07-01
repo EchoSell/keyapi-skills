@@ -1,6 +1,6 @@
 ---
 name: keyapi-tiktok
-description: Analyze TikTok creators, TikTok Shop commerce, content, live streams, trends, ads, products, shops, categories, videos, hashtags, music, comments, and audience signals through the KeyAPI REST API using live official docs. Use for influencer discovery, shop creator analysis, product and seller research, video intelligence, live commerce, trend monitoring, and multi-endpoint reports.
+description: Analyze TikTok creators, TikTok Shop commerce, content, live streams, trends, ads, products, shops, categories, videos, hashtags, music, comments, and audience signals through the KeyAPI REST API using live official docs. Use for influencer discovery, product and seller research, video intelligence, live commerce, trend monitoring, and multi-endpoint reports.
 ---
 
 # TikTok KeyAPI Skill
@@ -26,7 +26,6 @@ Turn natural-language TikTok requests into documentation-guided KeyAPI REST work
 7. Apply `references/tiktok-rules.md` for TikTok-specific identifiers, pagination, and reporting rules.
 8. Load the relevant scenario module before endpoint selection:
    - `references/tiktok-influencer-rules.md` for TikTok Influencer workflows.
-   - `references/tiktok-shop-creator-rules.md` for TikTok Shop Creator workflows.
    - `references/tiktok-shop-rules.md` for TikTok Shop product, shop, seller, category, review, and commerce workflows.
    - `references/tiktok-content-rules.md` for video, comments, hashtags, music, live, captions, downloads, and content search workflows.
    - `references/tiktok-intelligence-rules.md` for trend, insight, ad, keyword, top product, hashtag, music, and viral intelligence workflows.
@@ -64,7 +63,6 @@ Compress parameter-heavy APIs into these decision fields:
 ## Scenario Families
 
 - TikTok Influencer: creator discovery, profile detail, followers/following, videos, products, live history, region, milestones, trend, and rankings.
-- TikTok Shop Creator: Shop creator lookup, profile, audience, sales, videos, and commerce trends.
 - TikTok Shop: products, shops, categories, reviews, rankings, product creators, videos, livestreams, image search, and seller analysis.
 - TikTok Content: videos, comments, replies, captions, downloads, hashtags, music, live streams, covers, and general content search.
 - TikTok Intelligence: trending videos, hashtags, music, ad insights, keyword insights, top products, and market intelligence.
@@ -74,7 +72,7 @@ Compress parameter-heavy APIs into these decision fields:
 - Prefer API-side filters from the current docs over client-side filtering.
 - If multiple endpoints could solve the task, choose the one with the least user input burden and strongest documented filtering.
 - For broad reports, confirm the requested sections before launching a multi-endpoint workflow.
-- For TikTok reporting, distinguish creator, shop creator, product, shop, category, video, hashtag, music, live, ad, and trend signals.
+- For TikTok reporting, distinguish creator, product, shop, category, video, hashtag, music, live, ad, and trend signals.
 - Use the scenario-specific reference module as the endpoint shortlist, then verify the final method/path/params in the live docs page.
 - If the user asks about integration details, answer with method, path, auth, required params, and a minimal request example from the current docs.
 
@@ -164,7 +162,6 @@ node scripts/keyapi-api.mjs --path /v1/tiktok/realtime/product/photo-search --me
 - `references/tiktok-product-rules.md`
 - `references/tiktok-seller-rules.md`
 - `references/tiktok-influencer-rules.md`
-- `references/tiktok-shop-creator-rules.md`
 - `references/tiktok-video-rules.md`
 - `references/tiktok-live-rules.md`
 - `references/tiktok-intelligence-rules.md`

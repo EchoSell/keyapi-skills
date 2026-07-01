@@ -58,19 +58,16 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 ## 4. Identifier and link resolution
 
 - Documentation: `https://docs.keyapi.ai/tiktok/shop/product-id.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/shop-creator/search.md`
-- Purpose: Resolve canonical product or Shop creator identifiers before detail workflows.
+- Purpose: Resolve canonical product identifiers before detail workflows.
 
 ### Best Suited For
 
 - product share-link handling
-- shop creator unique ID resolution
 - preparing detail/report calls
 
 ### Routing Rules
 
 - Use product ID extraction when the user gives a product share link.
-- Use Shop creator search to resolve creator_oecuid before Shop creator detail/audience/sales/videos/trends.
 - Do not guess IDs from URLs or display text.
 
 ## 5. Analytics search fallback

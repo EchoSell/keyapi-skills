@@ -10,11 +10,10 @@ Use this file for TikTok platform-level routing boundaries. Use module files for
 
 ## Scenario Module Routing
 
-- Use `tiktok-search-rules.md` for keyword search, image search, share-link/product ID resolution, Shop creator ID resolution, and Analytics cross-entity search.
+- Use `tiktok-search-rules.md` for keyword search, image search, share-link/product ID resolution, and Analytics cross-entity search.
 - Use `tiktok-product-rules.md` for product discovery, categories, product detail, reviews, trends, rankings, and product-related creators/videos/live sessions.
 - Use `tiktok-seller-rules.md` for shop/seller discovery, detail, products, trends, rankings, and shop-related creators/videos/live sessions.
 - Use `tiktok-influencer-rules.md` for creator discovery, detail, rankings, trends, videos, products, livestreams, follower graph, region, and milestones.
-- Use `tiktok-shop-creator-rules.md` for TikTok Shop creator detail, audience, sales, videos, and trends.
 - Use `tiktok-video-rules.md` for video detail, video discovery, comments, captions, trends, downloads, covers, and video-product attribution.
 - Use `tiktok-live-rules.md` for realtime live search/detail and Analytics live relationships for creators, products, and shops.
 - Use `tiktok-intelligence-rules.md` for ads, keyword insights, top products, trending videos, hashtags, and music.
@@ -22,7 +21,7 @@ Use this file for TikTok platform-level routing boundaries. Use module files for
 
 ## Identifier Discipline
 
-- Preserve product_id, seller/shop identifiers, creator user_id/unique_id/sec_uid, creator_oecuid, video_id, room_id, hashtag_id, music IDs, image_uri, and box_detection exactly as returned.
+- Preserve product_id, seller/shop identifiers, creator user_id/unique_id/sec_uid, video_id, room_id, hashtag_id, music IDs, image_uri, and box_detection exactly as returned.
 - Resolve identifiers through documented resolver/search endpoints before detail or related-entity calls.
 - Do not infer REST paths or IDs from docs URLs, display titles, or previous 404 responses.
 

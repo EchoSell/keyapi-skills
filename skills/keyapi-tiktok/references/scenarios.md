@@ -6,17 +6,16 @@ Do not start by listing raw endpoints. First identify the user's business goal, 
 
 ## Core Entities
 
-creators, Shop creators, products, shops, sellers, categories, videos, comments, captions, hashtags, music, live streams, ads, keywords, trends, and market-intelligence signals
+creators, products, shops, sellers, categories, videos, comments, captions, hashtags, music, live streams, ads, keywords, trends, and market-intelligence signals
 
 ## Scenario Modules
 
 | User intent | Reference module | Docs path family |
 |---|---|---|
-| Search, image lookup, ID resolution, and cross-entity discovery | `tiktok-search-rules.md` | /tiktok/shop/, /tiktok/content/, /tiktok/influencer/, /tiktok/shop-creator/ |
+| Search, image lookup, ID resolution, and cross-entity discovery | `tiktok-search-rules.md` | /tiktok/shop/, /tiktok/content/, /tiktok/influencer/ |
 | Product discovery, category resolution, detail, reviews, ranking, trend, and attribution | `tiktok-product-rules.md` | /tiktok/shop/ |
 | Shop/seller discovery, detail, products, ranking, trend, and traffic sources | `tiktok-seller-rules.md` | /tiktok/shop/ |
 | Creator/influencer discovery, detail, rankings, trends, content, products, live history, and graph | `tiktok-influencer-rules.md` | /tiktok/influencer/ |
-| TikTok Shop creator detail, audience, sales, videos, and trends | `tiktok-shop-creator-rules.md` | /tiktok/shop-creator/ |
 | Video discovery, detail, comments, captions, trends, assets, and product links | `tiktok-video-rules.md` | /tiktok/content/ |
 | Live stream lookup and live commerce attribution | `tiktok-live-rules.md` | /tiktok/content/, /tiktok/shop/, /tiktok/influencer/ |
 | Ads, keyword, top product, trending hashtag, music, and video intelligence | `tiktok-intelligence-rules.md` | /tiktok/intelligence/ |
@@ -104,22 +103,7 @@ creators, Shop creators, products, shops, sellers, categories, videos, comments,
   - [Get Influencer Followers](https://docs.keyapi.ai/tiktok/influencer/followers.md) - Retrieve the follower list for a TikTok influencer, with basic profile information for each follower.
   - [Get Influencer Following](https://docs.keyapi.ai/tiktok/influencer/following.md) - Retrieve the list of accounts a TikTok influencer is following, with basic profile information for each account.
 
-## 5. Analyze TikTok Shop creators
-
-- User intent: Evaluate a Shop creator as an affiliate/commerce partner with audience, sales, videos, and trends.
-- Primary entity: Shop creator
-- Ask for: TikTok unique ID or creator_oecuid, report sections, and whether audience/sales/videos/trends are needed.
-- Default workflow: Resolve creator_oecuid first, fetch detail, then add audience, sales, videos, and trends only as requested.
-- Reference module: `tiktok-shop-creator-rules.md`
-- Endpoint shortlist:
-  - [Search Shop Creator](https://docs.keyapi.ai/tiktok/shop-creator/search.md) - Look up a TikTok Shop creator by their TikTok unique ID to retrieve their creator_oecuid, which is required for other Shop Creator endpoints.
-  - [Get Shop Creator Detail](https://docs.keyapi.ai/tiktok/shop-creator/detail.md) - Retrieve basic profile and performance data for a TikTok Shop creator, including follower count, sales metrics, and GMV.
-  - [Get Shop Creator Audience](https://docs.keyapi.ai/tiktok/shop-creator/audience.md) - Retrieve fan portrait and audience demographics for a TikTok Shop creator, including age, gender, and geographic distribution of followers.
-  - [Get Shop Creator Sales](https://docs.keyapi.ai/tiktok/shop-creator/sales.md) - Retrieve product promotion and sales data for a TikTok Shop creator, including items sold, GMV, and video-driven sales performance.
-  - [Get Shop Creator Videos](https://docs.keyapi.ai/tiktok/shop-creator/videos.md) - Retrieve video data for a TikTok Shop creator, including product promotion videos with sales metrics and view counts.
-  - [Get Shop Creator Trends](https://docs.keyapi.ai/tiktok/shop-creator/trends.md) - Retrieve trend data for a TikTok Shop creator, showing follower growth, view trends, and sales performance over time.
-
-## 6. Analyze videos and discussion
+## 5. Analyze videos and discussion
 
 - User intent: Search videos, explain performance, inspect comments/captions, retrieve assets, or trace products attached to videos.
 - Primary entity: video / comments / captions / assets
@@ -142,7 +126,7 @@ creators, Shop creators, products, shops, sellers, categories, videos, comments,
   - [Batch Download Cover Images](https://docs.keyapi.ai/tiktok/content/covers-batch-download.md) - Download cover images for multiple TikTok videos in a single request, useful for bulk content processing and archiving.
   - [Video Products (Analytics)](https://docs.keyapi.ai/tiktok/content/video-products-analytics.md) - Retrieve the list of products featured in a TikTok video, with sales data and conversion metrics computed from analytics records.
 
-## 7. Analyze live commerce
+## 6. Analyze live commerce
 
 - User intent: Find live sessions, inspect current live detail, or evaluate creator/product/shop live history.
 - Primary entity: live stream / live attribution
@@ -156,7 +140,7 @@ creators, Shop creators, products, shops, sellers, categories, videos, comments,
   - [Product Livestreams (Analytics)](https://docs.keyapi.ai/tiktok/shop/product-livestreams-analytics.md) - Retrieve the list of TikTok livestreams in which a specific product was promoted, including viewer counts and GMV data.
   - [Shop Livestreams (Analytics)](https://docs.keyapi.ai/tiktok/shop/shop-livestreams-analytics.md) - Retrieve historical livestream records for a TikTok Shop, including viewer counts, GMV generated, and product sales data from each session.
 
-## 8. Run market intelligence and trend research
+## 7. Run market intelligence and trend research
 
 - User intent: Understand ads, keywords, top products, trending videos, hashtags, or music in a market.
 - Primary entity: ad / keyword / top product / trend
