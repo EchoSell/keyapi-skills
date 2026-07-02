@@ -24,11 +24,11 @@ videos, Shorts, comments, sub-comments, streams, related videos, search results,
 - Default workflow: Fetch video information first; call streams only when playback format data is needed, related videos for recommendation context, and comments/sub-comments for audience discussion.
 - Reference module: `youtube-video-rules.md`
 - Endpoint shortlist:
-  - [Get video information](https://docs.keyapi.ai/youtube/get-video-information.md) - Get detailed information about a YouTube video, returning the full raw data (including playerResponse and initialData).
-  - [Get video streams info](https://docs.keyapi.ai/youtube/get-video-streams-info.md) - Get format information and playback URLs for all quality levels of a YouTube video. Returns both standard formats (audio+video merged) and adaptive formats (audio and video separate). Suitable for scenarios where all quality options need to be displayed.
-  - [Get related videos](https://docs.keyapi.ai/youtube/get-related-videos.md) - Get recommended related content for a YouTube video (recommended video list). Similar to the related videos shown on the right side of the video playback page. Returns all recommended videos at once (typically 20-30 videos).
-  - [Get video comments](https://docs.keyapi.ai/youtube/get-video-comments.md) - Get comments for a YouTube video. Supports paginated retrieval.
-  - [Get video sub comments](https://docs.keyapi.ai/youtube/get-video-sub-comments.md) - Get replies to a YouTube video comment.
+  - [Get video information](https://docs.keyapi.ai/en/youtube/get_video_info.md) - Get detailed information about a YouTube video, returning the full raw data (including playerResponse and initialData).
+  - [Get video streams info](https://docs.keyapi.ai/en/youtube/get_video_streams.md) - Get format information and playback URLs for all quality levels of a YouTube video. Returns both standard formats (audio+video merged) and adaptive formats (audio and video separate). Suitable for scenarios where all quality options need to be displayed.
+  - [Get related videos](https://docs.keyapi.ai/en/youtube/get_related_videos.md) - Get recommended related content for a YouTube video (recommended video list). Similar to the related videos shown on the right side of the video playback page. Returns all recommended videos at once (typically 20-30 videos).
+  - [Get video comments](https://docs.keyapi.ai/en/youtube/get_video_comments.md) - Get comments for a YouTube video. Supports paginated retrieval.
+  - [Get video sub comments](https://docs.keyapi.ai/en/youtube/get_video_comment_replies.md) - Get replies to a YouTube video comment.
 
 ## 2. Search videos and Shorts
 
@@ -38,10 +38,10 @@ videos, Shorts, comments, sub-comments, streams, related videos, search results,
 - Default workflow: Use the narrowest search endpoint: search video for simple video search, filtered search for advanced constraints, and Shorts search for short-form discovery.
 - Reference module: `youtube-search-trends-rules.md`
 - Endpoint shortlist:
-  - [Search video](https://docs.keyapi.ai/youtube/search-video.md) - Search for videos.
-  - [General search with filters](https://docs.keyapi.ai/youtube/general-search-with-filters.md) - Search YouTube with advanced filters. Supports filtering by upload time, video duration, content type, features, and sort order.
-  - [YouTube Shorts search](https://docs.keyapi.ai/youtube/youtube-shorts-search.md) - Dedicated search for YouTube Shorts (videos under 60 seconds), using the native YouTube API. Supports filters and sort options. The first request may return mixed content; use continuation_token for subsequent requests to get pure Shorts.
-  - [Get search suggestions](https://docs.keyapi.ai/youtube/get-search-suggestions.md) - Get YouTube search suggestions (autocomplete). Similar to the suggestions shown when typing in the YouTube search box.
+  - [Search video](https://docs.keyapi.ai/en/youtube/search_video.md) - Search for videos.
+  - [General search with filters](https://docs.keyapi.ai/en/youtube/get_general_search.md) - Search YouTube with advanced filters. Supports filtering by upload time, video duration, content type, features, and sort order.
+  - [YouTube Shorts search](https://docs.keyapi.ai/en/youtube/get_shorts_search.md) - Dedicated search for YouTube Shorts (videos under 60 seconds), using the native YouTube API. Supports filters and sort options. The first request may return mixed content; use continuation_token for subsequent requests to get pure Shorts.
+  - [Get search suggestions](https://docs.keyapi.ai/en/youtube/get_search_suggestions.md) - Get YouTube search suggestions (autocomplete). Similar to the suggestions shown when typing in the YouTube search box.
 
 ## 3. Monitor trending and query demand
 
@@ -51,9 +51,9 @@ videos, Shorts, comments, sub-comments, streams, related videos, search results,
 - Default workflow: Use trending videos for current market attention and search suggestions to expand query variants before deeper search.
 - Reference module: `youtube-search-trends-rules.md`
 - Endpoint shortlist:
-  - [Get trending videos](https://docs.keyapi.ai/youtube/get-trending-videos.md) - Get trending videos.
-  - [Get search suggestions](https://docs.keyapi.ai/youtube/get-search-suggestions.md) - Get YouTube search suggestions (autocomplete). Similar to the suggestions shown when typing in the YouTube search box.
-  - [Search video](https://docs.keyapi.ai/youtube/search-video.md) - Search for videos.
+  - [Get trending videos](https://docs.keyapi.ai/en/youtube/get_trending_videos.md) - Get trending videos.
+  - [Get search suggestions](https://docs.keyapi.ai/en/youtube/get_search_suggestions.md) - Get YouTube search suggestions (autocomplete). Similar to the suggestions shown when typing in the YouTube search box.
+  - [Search video](https://docs.keyapi.ai/en/youtube/search_video.md) - Search for videos.
 
 ## 4. Analyze channels and channel catalogs
 
@@ -63,13 +63,13 @@ videos, Shorts, comments, sub-comments, streams, related videos, search results,
 - Default workflow: Resolve channel ID/URL when needed, then fetch channel description and channel videos; use channel search endpoints for discovery.
 - Reference module: `youtube-channel-rules.md`
 - Endpoint shortlist:
-  - [Get channel ID](https://docs.keyapi.ai/youtube/get-channel-id.md) - Get a channel ID from the channel name.
-  - [Get channel ID from URL](https://docs.keyapi.ai/youtube/get-channel-id-from-url.md) - Get the channel ID (channel_id) from a YouTube channel URL. Supports multiple URL formats including @username format, /channel/ format, /c/ format, and /user/ format.
-  - [Get channel URL from channel ID](https://docs.keyapi.ai/youtube/get-channel-url-from-channel-id.md) - Get the channel handle (@username) from a YouTube channel ID. This is the reverse operation of get_channel_id.
-  - [Get channel description](https://docs.keyapi.ai/youtube/get-channel-description.md) - Get detailed information about a YouTube channel, including channel description, view count, subscriber count, join date, social links, etc.
-  - [Get channel videos](https://docs.keyapi.ai/youtube/get-channel-videos.md) - Get a list of videos from a YouTube channel. Supports paginated retrieval; use continuation_token to get more videos.
-  - [Search channel](https://docs.keyapi.ai/youtube/search-channel.md) - Search for channels.
-  - [Search channels](https://docs.keyapi.ai/youtube/search-channels.md) - Search YouTube channels. Returns only channel-type results (filters out videos, playlists, etc.). Supports paginated retrieval for more channels.
+  - [Get channel ID](https://docs.keyapi.ai/en/youtube/get_channel_id.md) - Get a channel ID from the channel name.
+  - [Get channel ID from URL](https://docs.keyapi.ai/en/youtube/get_channel_id_from_url.md) - Get the channel ID (channel_id) from a YouTube channel URL. Supports multiple URL formats including @username format, /channel/ format, /c/ format, and /user/ format.
+  - [Get channel URL from channel ID](https://docs.keyapi.ai/en/youtube/get_channel_url.md) - Get the channel handle (@username) from a YouTube channel ID. This is the reverse operation of get_channel_id.
+  - [Get channel description](https://docs.keyapi.ai/en/youtube/get_channel_description.md) - Get detailed information about a YouTube channel, including channel description, view count, subscriber count, join date, social links, etc.
+  - [Get channel videos](https://docs.keyapi.ai/en/youtube/get_channel_videos.md) - Get a list of videos from a YouTube channel. Supports paginated retrieval; use continuation_token to get more videos.
+  - [Search channel](https://docs.keyapi.ai/en/youtube/search_channel.md) - Search for channels.
+  - [Search channels](https://docs.keyapi.ai/en/youtube/search_channels.md) - Search YouTube channels. Returns only channel-type results (filters out videos, playlists, etc.). Supports paginated retrieval for more channels.
 
 ## 5. Build a YouTube topic or competitor report
 
@@ -79,14 +79,14 @@ videos, Shorts, comments, sub-comments, streams, related videos, search results,
 - Default workflow: Confirm sections, then combine search/trending, video information, channel description/videos, comments, and related videos only where they add evidence.
 - Reference module: `youtube-search-trends-rules.md`
 - Endpoint shortlist:
-  - [General search with filters](https://docs.keyapi.ai/youtube/general-search-with-filters.md) - Search YouTube with advanced filters. Supports filtering by upload time, video duration, content type, features, and sort order.
-  - [Search video](https://docs.keyapi.ai/youtube/search-video.md) - Search for videos.
-  - [Get trending videos](https://docs.keyapi.ai/youtube/get-trending-videos.md) - Get trending videos.
-  - [Get video information](https://docs.keyapi.ai/youtube/get-video-information.md) - Get detailed information about a YouTube video, returning the full raw data (including playerResponse and initialData).
-  - [Get channel description](https://docs.keyapi.ai/youtube/get-channel-description.md) - Get detailed information about a YouTube channel, including channel description, view count, subscriber count, join date, social links, etc.
-  - [Get channel videos](https://docs.keyapi.ai/youtube/get-channel-videos.md) - Get a list of videos from a YouTube channel. Supports paginated retrieval; use continuation_token to get more videos.
-  - [Get video comments](https://docs.keyapi.ai/youtube/get-video-comments.md) - Get comments for a YouTube video. Supports paginated retrieval.
-  - [Get related videos](https://docs.keyapi.ai/youtube/get-related-videos.md) - Get recommended related content for a YouTube video (recommended video list). Similar to the related videos shown on the right side of the video playback page. Returns all recommended videos at once (typically 20-30 videos).
+  - [General search with filters](https://docs.keyapi.ai/en/youtube/get_general_search.md) - Search YouTube with advanced filters. Supports filtering by upload time, video duration, content type, features, and sort order.
+  - [Search video](https://docs.keyapi.ai/en/youtube/search_video.md) - Search for videos.
+  - [Get trending videos](https://docs.keyapi.ai/en/youtube/get_trending_videos.md) - Get trending videos.
+  - [Get video information](https://docs.keyapi.ai/en/youtube/get_video_info.md) - Get detailed information about a YouTube video, returning the full raw data (including playerResponse and initialData).
+  - [Get channel description](https://docs.keyapi.ai/en/youtube/get_channel_description.md) - Get detailed information about a YouTube channel, including channel description, view count, subscriber count, join date, social links, etc.
+  - [Get channel videos](https://docs.keyapi.ai/en/youtube/get_channel_videos.md) - Get a list of videos from a YouTube channel. Supports paginated retrieval; use continuation_token to get more videos.
+  - [Get video comments](https://docs.keyapi.ai/en/youtube/get_video_comments.md) - Get comments for a YouTube video. Supports paginated retrieval.
+  - [Get related videos](https://docs.keyapi.ai/en/youtube/get_related_videos.md) - Get recommended related content for a YouTube video (recommended video list). Similar to the related videos shown on the right side of the video playback page. Returns all recommended videos at once (typically 20-30 videos).
 
 ## Docs Search Strategy
 

@@ -24,11 +24,11 @@ tweets, threads, replies, retweets, profiles, timelines, media, followers, follo
 - Default workflow: Fetch tweet info first, then thread or replies; use retweets and check-retweet only when the user asks for reposting/social proof.
 - Reference module: `twitter-content-rules.md`
 - Endpoint shortlist:
-  - [Tweet info](https://docs.keyapi.ai/twitter/tweet-info.md)
-  - [Tweet thread](https://docs.keyapi.ai/twitter/tweet-thread.md)
-  - [Latest replies](https://docs.keyapi.ai/twitter/latest-replies.md)
-  - [Retweets](https://docs.keyapi.ai/twitter/retweets.md)
-  - [Check Retweet](https://docs.keyapi.ai/twitter/check-retweet.md)
+  - [Tweet info](https://docs.keyapi.ai/en/twitter/tweet.md)
+  - [Tweet thread](https://docs.keyapi.ai/en/twitter/tweet_thread.md)
+  - [Latest replies](https://docs.keyapi.ai/en/twitter/latest_replies.md)
+  - [Retweets](https://docs.keyapi.ai/en/twitter/retweets.md)
+  - [Check Retweet](https://docs.keyapi.ai/en/twitter/checkretweet.md)
 
 ## 2. Inspect profiles and timelines
 
@@ -38,13 +38,13 @@ tweets, threads, replies, retweets, profiles, timelines, media, followers, follo
 - Default workflow: Resolve profile by handle/rest ID as needed, then call timeline/media/live/about endpoints according to requested sections.
 - Reference module: `twitter-profile-social-rules.md`
 - Endpoint shortlist:
-  - [User info](https://docs.keyapi.ai/twitter/user-info.md)
-  - [About profile](https://docs.keyapi.ai/twitter/about-profile.md)
-  - [Profiles By RestIds](https://docs.keyapi.ai/twitter/profiles-by-restids.md)
-  - [User timeline](https://docs.keyapi.ai/twitter/user-timeline.md)
-  - [User's Media](https://docs.keyapi.ai/twitter/users-media.md)
-  - [User live](https://docs.keyapi.ai/twitter/user-live.md)
-  - [Inspiration Posts](https://docs.keyapi.ai/twitter/inspiration-posts.md)
+  - [User info](https://docs.keyapi.ai/en/twitter/screenname.md)
+  - [About profile](https://docs.keyapi.ai/en/twitter/about.md)
+  - [Profiles By RestIds](https://docs.keyapi.ai/en/twitter/screennames.md)
+  - [User timeline](https://docs.keyapi.ai/en/twitter/timeline.md)
+  - [User's Media](https://docs.keyapi.ai/en/twitter/usermedia.md)
+  - [User live](https://docs.keyapi.ai/en/twitter/broadcast.md)
+  - [Inspiration Posts](https://docs.keyapi.ai/en/twitter/top_posts.md)
 
 ## 3. Map social graph and relationship context
 
@@ -54,11 +54,11 @@ tweets, threads, replies, retweets, profiles, timelines, media, followers, follo
 - Default workflow: Use followers/following for graph collection, check-follow for a specific relationship, and affiliates when the user asks for affiliated accounts.
 - Reference module: `twitter-profile-social-rules.md`
 - Endpoint shortlist:
-  - [Followers](https://docs.keyapi.ai/twitter/followers.md)
-  - [Following](https://docs.keyapi.ai/twitter/following.md)
-  - [Check follow](https://docs.keyapi.ai/twitter/check-follow.md)
-  - [Affilates](https://docs.keyapi.ai/twitter/affilates.md)
-  - [Profiles By RestIds](https://docs.keyapi.ai/twitter/profiles-by-restids.md)
+  - [Followers](https://docs.keyapi.ai/en/twitter/followers.md)
+  - [Following](https://docs.keyapi.ai/en/twitter/following.md)
+  - [Check follow](https://docs.keyapi.ai/en/twitter/checkfollow.md)
+  - [Affilates](https://docs.keyapi.ai/en/twitter/affilates.md)
+  - [Profiles By RestIds](https://docs.keyapi.ai/en/twitter/screennames.md)
 
 ## 4. Search and trend monitoring
 
@@ -68,10 +68,10 @@ tweets, threads, replies, retweets, profiles, timelines, media, followers, follo
 - Default workflow: Use search for explicit queries and trends for current topic discovery; enrich selected tweets or profiles only when needed.
 - Reference module: `twitter-content-rules.md`
 - Endpoint shortlist:
-  - [Search](https://docs.keyapi.ai/twitter/search.md)
-  - [Trends](https://docs.keyapi.ai/twitter/trends.md)
-  - [Tweet info](https://docs.keyapi.ai/twitter/tweet-info.md)
-  - [User info](https://docs.keyapi.ai/twitter/user-info.md)
+  - [Search](https://docs.keyapi.ai/en/twitter/search.md)
+  - [Trends](https://docs.keyapi.ai/en/twitter/trends.md)
+  - [Tweet info](https://docs.keyapi.ai/en/twitter/tweet.md)
+  - [User info](https://docs.keyapi.ai/en/twitter/screenname.md)
 
 ## 5. Analyze communities and lists
 
@@ -81,15 +81,15 @@ tweets, threads, replies, retweets, profiles, timelines, media, followers, follo
 - Default workflow: Use community search/info first, then members or posts; use list endpoints for list timeline and membership analysis.
 - Reference module: `twitter-community-rules.md`
 - Endpoint shortlist:
-  - [Communities Search](https://docs.keyapi.ai/twitter/communities-search.md)
-  - [Community Info](https://docs.keyapi.ai/twitter/community-info.md)
-  - [Community Members](https://docs.keyapi.ai/twitter/community-members.md)
-  - [Comunity Posts](https://docs.keyapi.ai/twitter/comunity-posts.md)
-  - [Communities Posts Search Top](https://docs.keyapi.ai/twitter/communities-posts-search-top.md)
-  - [Communities Posts Search Latest](https://docs.keyapi.ai/twitter/communities-posts-search-latest.md)
-  - [List timeline](https://docs.keyapi.ai/twitter/list-timeline.md)
-  - [List members](https://docs.keyapi.ai/twitter/list-members.md)
-  - [List followers](https://docs.keyapi.ai/twitter/list-followers.md)
+  - [Communities Search](https://docs.keyapi.ai/en/twitter/search_communities.md)
+  - [Community Info](https://docs.keyapi.ai/en/twitter/community_info.md)
+  - [Community Members](https://docs.keyapi.ai/en/twitter/community_members.md)
+  - [Comunity Posts](https://docs.keyapi.ai/en/twitter/community_timeline.md)
+  - [Communities Posts Search Top](https://docs.keyapi.ai/en/twitter/search_communities_top.md)
+  - [Communities Posts Search Latest](https://docs.keyapi.ai/en/twitter/search_communities_latest.md)
+  - [List timeline](https://docs.keyapi.ai/en/twitter/listtimeline.md)
+  - [List members](https://docs.keyapi.ai/en/twitter/list_members.md)
+  - [List followers](https://docs.keyapi.ai/en/twitter/list_followers.md)
 
 ## 6. Inspect jobs and Spaces
 
@@ -99,9 +99,9 @@ tweets, threads, replies, retweets, profiles, timelines, media, followers, follo
 - Default workflow: Use jobs search for hiring queries and Spaces info for a known Space; combine with profile detail only if the user asks for account context.
 - Reference module: `twitter-community-rules.md`
 - Endpoint shortlist:
-  - [Jobs Search](https://docs.keyapi.ai/twitter/jobs-search.md)
-  - [Spaces info](https://docs.keyapi.ai/twitter/spaces-info.md)
-  - [User info](https://docs.keyapi.ai/twitter/user-info.md)
+  - [Jobs Search](https://docs.keyapi.ai/en/twitter/jobs.md)
+  - [Spaces info](https://docs.keyapi.ai/en/twitter/spaces.md)
+  - [User info](https://docs.keyapi.ai/en/twitter/screenname.md)
 
 ## Docs Search Strategy
 

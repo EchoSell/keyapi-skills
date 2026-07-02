@@ -13,10 +13,10 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. Route search-style content requests
 
-- Documentation: `https://docs.keyapi.ai/tiktok/content/video-search.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/content/hashtag-search.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/content/music-search.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/content/live-search.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/content/video-search.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/content/hashtag-search.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/content/music-search.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/content/live-search.md`
 - Purpose: Route content search requests to the dedicated search module.
 
 ### Best Suited For
@@ -32,9 +32,9 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 3. Route video analysis requests
 
-- Documentation: `https://docs.keyapi.ai/tiktok/content/video-detail.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/content/video-comments.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/content/video-captions.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/content/video-detail.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/content/video-comments.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/content/video-captions.md`
 - Purpose: Route video detail, comments, captions, trends, and assets to the video module.
 
 ### Best Suited For

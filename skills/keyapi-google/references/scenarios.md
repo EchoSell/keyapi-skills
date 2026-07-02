@@ -26,8 +26,8 @@ queries, SERP results, images, Lens inputs, videos, news, shopping results, plac
 - Default workflow: Use autocomplete only when helpful, then web search; extract selected pages if the user needs source content.
 - Reference module: `google-search-rules.md`
 - Endpoint shortlist:
-  - [autocomplete](https://docs.keyapi.ai/google/autocomplete.md)
-  - [search](https://docs.keyapi.ai/google/search.md) - Search
+  - [autocomplete](https://docs.keyapi.ai/en/google/autocomplete.md)
+  - [search](https://docs.keyapi.ai/en/google/search.md) - Search
 
 ## 2. Extract selected webpages
 
@@ -37,7 +37,7 @@ queries, SERP results, images, Lens inputs, videos, news, shopping results, plac
 - Default workflow: Use webpage extraction directly for user-provided URLs or after a search/vertical result is selected.
 - Reference module: `google-webpage-rules.md`
 - Endpoint shortlist:
-  - [Webpage](https://docs.keyapi.ai/google/webpage.md)
+  - [Webpage](https://docs.keyapi.ai/en/google/webpage.md)
 
 ## 3. Find visual or video results
 
@@ -47,9 +47,9 @@ queries, SERP results, images, Lens inputs, videos, news, shopping results, plac
 - Default workflow: Use images/videos for text queries and Lens for image input; extract selected pages only if needed.
 - Reference module: `google-visual-rules.md`
 - Endpoint shortlist:
-  - [images](https://docs.keyapi.ai/google/images.md)
-  - [Image Search(Lens)](https://docs.keyapi.ai/google/image-search(lens).md) - Image Search
-  - [videos](https://docs.keyapi.ai/google/videos.md)
+  - [images](https://docs.keyapi.ai/en/google/images.md)
+  - [Image Search(Lens)](https://docs.keyapi.ai/en/google/lens.md) - Image Search
+  - [videos](https://docs.keyapi.ai/en/google/videos.md)
 
 ## 4. Analyze local places and reviews
 
@@ -59,9 +59,9 @@ queries, SERP results, images, Lens inputs, videos, news, shopping results, plac
 - Default workflow: Use places/maps for discovery, then reviews for selected targets.
 - Reference module: `google-local-rules.md`
 - Endpoint shortlist:
-  - [places](https://docs.keyapi.ai/google/places.md)
-  - [maps](https://docs.keyapi.ai/google/maps.md)
-  - [reviews](https://docs.keyapi.ai/google/reviews.md)
+  - [places](https://docs.keyapi.ai/en/google/places.md)
+  - [maps](https://docs.keyapi.ai/en/google/maps.md)
+  - [reviews](https://docs.keyapi.ai/en/google/reviews.md)
 
 ## 5. Use specialized Google verticals
 
@@ -71,10 +71,10 @@ queries, SERP results, images, Lens inputs, videos, news, shopping results, plac
 - Default workflow: Choose the vertical endpoint that matches the requested surface; extract selected pages when deeper content is needed.
 - Reference module: `google-vertical-rules.md`
 - Endpoint shortlist:
-  - [news](https://docs.keyapi.ai/google/news.md)
-  - [shopping](https://docs.keyapi.ai/google/shopping.md)
-  - [scholar](https://docs.keyapi.ai/google/scholar.md)
-  - [patents](https://docs.keyapi.ai/google/patents.md)
+  - [news](https://docs.keyapi.ai/en/google/news.md)
+  - [shopping](https://docs.keyapi.ai/en/google/shopping.md)
+  - [scholar](https://docs.keyapi.ai/en/google/scholar.md)
+  - [patents](https://docs.keyapi.ai/en/google/patents.md)
 
 ## Docs Search Strategy
 

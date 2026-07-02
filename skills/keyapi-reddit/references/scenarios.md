@@ -24,11 +24,11 @@ posts, comments, sub-comments, users, trophies, active communities, subreddits, 
 - Default workflow: Use single or batch post detail depending on count; use post comments for top-level discussion and sub-comment replies only when a comment node exposes more cursor context.
 - Reference module: `reddit-post-comment-rules.md`
 - Endpoint shortlist:
-  - [Fetch Single Reddit Post Details](https://docs.keyapi.ai/reddit/fetch-single-reddit-post-details.md) - Get single post details by post ID, optionally including the context of a specific comment
-  - [Fetch Reddit Post Details in Batch (Max 5)](https://docs.keyapi.ai/reddit/fetch-reddit-post-details-in-batch-max-5.md) - Batch get post details by a list of post IDs, supports up to 5 posts per batch, optionally including the context of a specific comment
-  - [Fetch Reddit Post Details in Large Batch (Max 30)](https://docs.keyapi.ai/reddit/fetch-reddit-post-details-in-large-batch-max-30.md) - Batch get post details by a large list of post IDs, supports up to 30 posts per batch, optionally including the context of a specific comment
-  - [Fetch Reddit APP Post Comments](https://docs.keyapi.ai/reddit/fetch-reddit-app-post-comments.md) - Get comments under a specified post on Reddit APP
-  - [Fetch Reddit APP Comment Replies (Sub-comments)](https://docs.keyapi.ai/reddit/fetch-reddit-app-comment-replies-sub-comments.md) - Get replies (second-level comments / sub-comments) under a specified comment on Reddit APP When a comment node has a more.cursor field, use this API to fetch the sub-comments of that comment
+  - [Fetch Single Reddit Post Details](https://docs.keyapi.ai/en/reddit/fetch_post_details.md) - Get single post details by post ID, optionally including the context of a specific comment
+  - [Fetch Reddit Post Details in Batch (Max 5)](https://docs.keyapi.ai/en/reddit/fetch_post_details_batch.md) - Batch get post details by a list of post IDs, supports up to 5 posts per batch, optionally including the context of a specific comment
+  - [Fetch Reddit Post Details in Large Batch (Max 30)](https://docs.keyapi.ai/en/reddit/fetch_post_details_batch_large.md) - Batch get post details by a large list of post IDs, supports up to 30 posts per batch, optionally including the context of a specific comment
+  - [Fetch Reddit APP Post Comments](https://docs.keyapi.ai/en/reddit/fetch_post_comments.md) - Get comments under a specified post on Reddit APP
+  - [Fetch Reddit APP Comment Replies (Sub-comments)](https://docs.keyapi.ai/en/reddit/fetch_comment_replies.md) - Get replies (second-level comments / sub-comments) under a specified comment on Reddit APP When a comment node has a more.cursor field, use this API to fetch the sub-comments of that comment
 
 ## 2. Analyze a user profile and activity
 
@@ -38,11 +38,11 @@ posts, comments, sub-comments, users, trophies, active communities, subreddits, 
 - Default workflow: Fetch profile first, then posts/comments/trophies/active subreddits based on the report sections requested.
 - Reference module: `reddit-discovery-rules.md`
 - Endpoint shortlist:
-  - [Fetch Reddit APP User Profile](https://docs.keyapi.ai/reddit/fetch-reddit-app-user-profile.md) - Get detailed profile information for a specified user on Reddit APP
-  - [Fetch User Posts](https://docs.keyapi.ai/reddit/fetch-user-posts.md) - Get the list of posts published by a specified user
-  - [Fetch User Comments](https://docs.keyapi.ai/reddit/fetch-user-comments.md) - Get the list of comments posted by a specified user
-  - [Fetch User Public Trophies](https://docs.keyapi.ai/reddit/fetch-user-public-trophies.md) - Get the list of public trophies/achievements for a specified Reddit user
-  - [Fetch User's Active Subreddits](https://docs.keyapi.ai/reddit/fetch-user-s-active-subreddits.md) - Get the list of most active Reddit communities for a specified user
+  - [Fetch Reddit APP User Profile](https://docs.keyapi.ai/en/reddit/fetch_user_profile.md) - Get detailed profile information for a specified user on Reddit APP
+  - [Fetch User Posts](https://docs.keyapi.ai/en/reddit/fetch_user_posts.md) - Get the list of posts published by a specified user
+  - [Fetch User Comments](https://docs.keyapi.ai/en/reddit/fetch_user_comments.md) - Get the list of comments posted by a specified user
+  - [Fetch User Public Trophies](https://docs.keyapi.ai/en/reddit/fetch_user_trophies.md) - Get the list of public trophies/achievements for a specified Reddit user
+  - [Fetch User's Active Subreddits](https://docs.keyapi.ai/en/reddit/fetch_user_active_subreddits.md) - Get the list of most active Reddit communities for a specified user
 
 ## 3. Analyze a subreddit community
 
@@ -52,13 +52,13 @@ posts, comments, sub-comments, users, trophies, active communities, subreddits, 
 - Default workflow: Use subreddit info for baseline, then rules/style/settings/channels for governance context and feed/highlights for content context.
 - Reference module: `reddit-community-rules.md`
 - Endpoint shortlist:
-  - [Fetch Reddit APP Subreddit Info](https://docs.keyapi.ai/reddit/fetch-reddit-app-subreddit-info.md)
-  - [Fetch Reddit APP Subreddit Rules and Style Info](https://docs.keyapi.ai/reddit/fetch-reddit-app-subreddit-rules-and-style-info.md) - Get rules and style information for a specified subreddit on Reddit APP
-  - [Fetch Reddit APP Subreddit Settings](https://docs.keyapi.ai/reddit/fetch-reddit-app-subreddit-settings.md) - Get settings information for a specified subreddit on Reddit APP, including posting rules, user flair settings, moderation settings, and other configuration
-  - [Fetch Reddit APP Subreddit Post Channels](https://docs.keyapi.ai/reddit/fetch-reddit-app-subreddit-post-channels.md) - Get post channel information for a specified subreddit on Reddit APP
-  - [Fetch Reddit APP Subreddit Feed](https://docs.keyapi.ai/reddit/fetch-reddit-app-subreddit-feed.md) - Get the feed content stream for a specified subreddit, showing the post list for that subreddit
-  - [Fetch Reddit APP Community Highlights](https://docs.keyapi.ai/reddit/fetch-reddit-app-community-highlights.md) - Get featured highlight content for a specified community on Reddit APP, including popular posts and important announcements
-  - [Check if Subreddit is Muted](https://docs.keyapi.ai/reddit/check-if-subreddit-is-muted.md) - Check if a specified Reddit subreddit is muted by the current user
+  - [Fetch Reddit APP Subreddit Info](https://docs.keyapi.ai/en/reddit/fetch_subreddit_info.md)
+  - [Fetch Reddit APP Subreddit Rules and Style Info](https://docs.keyapi.ai/en/reddit/fetch_subreddit_style.md) - Get rules and style information for a specified subreddit on Reddit APP
+  - [Fetch Reddit APP Subreddit Settings](https://docs.keyapi.ai/en/reddit/fetch_subreddit_settings.md) - Get settings information for a specified subreddit on Reddit APP, including posting rules, user flair settings, moderation settings, and other configuration
+  - [Fetch Reddit APP Subreddit Post Channels](https://docs.keyapi.ai/en/reddit/fetch_subreddit_post_channels.md) - Get post channel information for a specified subreddit on Reddit APP
+  - [Fetch Reddit APP Subreddit Feed](https://docs.keyapi.ai/en/reddit/fetch_subreddit_feed.md) - Get the feed content stream for a specified subreddit, showing the post list for that subreddit
+  - [Fetch Reddit APP Community Highlights](https://docs.keyapi.ai/en/reddit/fetch_community_highlights.md) - Get featured highlight content for a specified community on Reddit APP, including popular posts and important announcements
+  - [Check if Subreddit is Muted](https://docs.keyapi.ai/en/reddit/check_subreddit_muted.md) - Check if a specified Reddit subreddit is muted by the current user
 
 ## 4. Discover topics, communities, and trends
 
@@ -68,9 +68,9 @@ posts, comments, sub-comments, users, trophies, active communities, subreddits, 
 - Default workflow: Use dynamic search for explicit search intent; use typeahead for query expansion and trending searches for current topic discovery.
 - Reference module: `reddit-discovery-rules.md`
 - Endpoint shortlist:
-  - [Fetch Reddit APP Dynamic Search Results](https://docs.keyapi.ai/reddit/fetch-reddit-app-dynamic-search-results.md) - Perform dynamic search on Reddit APP, supporting search for posts, communities, comments, media, and users
-  - [Fetch Reddit APP Search Typeahead Suggestions](https://docs.keyapi.ai/reddit/fetch-reddit-app-search-typeahead-suggestions.md) - Get search typeahead suggestions from the Reddit APP search box, including recommended subreddits, users, and search terms
-  - [Fetch Reddit APP Trending Searches](https://docs.keyapi.ai/reddit/fetch-reddit-app-trending-searches.md) - Get current trending search topics and content on Reddit APP, no parameters required
+  - [Fetch Reddit APP Dynamic Search Results](https://docs.keyapi.ai/en/reddit/fetch_dynamic_search.md) - Perform dynamic search on Reddit APP, supporting search for posts, communities, comments, media, and users
+  - [Fetch Reddit APP Search Typeahead Suggestions](https://docs.keyapi.ai/en/reddit/fetch_search_typeahead.md) - Get search typeahead suggestions from the Reddit APP search box, including recommended subreddits, users, and search terms
+  - [Fetch Reddit APP Trending Searches](https://docs.keyapi.ai/en/reddit/fetch_trending_searches.md) - Get current trending search topics and content on Reddit APP, no parameters required
 
 ## 5. Monitor feed surfaces
 
@@ -80,11 +80,11 @@ posts, comments, sub-comments, users, trophies, active communities, subreddits, 
 - Default workflow: Fetch the target feed first, then enrich selected posts only if the user asks for deeper analysis.
 - Reference module: `reddit-discovery-rules.md`
 - Endpoint shortlist:
-  - [Fetch Reddit APP Popular Feed](https://docs.keyapi.ai/reddit/fetch-reddit-app-popular-feed.md) - Get Reddit APP popular/trending recommended content, showing the most popular posts across the site
-  - [Fetch Reddit APP Home Feed](https://docs.keyapi.ai/reddit/fetch-reddit-app-home-feed.md) - Get Reddit APP home feed recommended content
-  - [Fetch Reddit APP News Feed](https://docs.keyapi.ai/reddit/fetch-reddit-app-news-feed.md) - Get Reddit APP news feed recommended content, showing the latest news and current events discussions
-  - [Fetch Reddit APP Games Feed](https://docs.keyapi.ai/reddit/fetch-reddit-app-games-feed.md) - Get Reddit APP gaming-related recommended content, showing popular posts from gaming communities
-  - [Fetch Single Reddit Post Details](https://docs.keyapi.ai/reddit/fetch-single-reddit-post-details.md) - Get single post details by post ID, optionally including the context of a specific comment
+  - [Fetch Reddit APP Popular Feed](https://docs.keyapi.ai/en/reddit/fetch_popular_feed.md) - Get Reddit APP popular/trending recommended content, showing the most popular posts across the site
+  - [Fetch Reddit APP Home Feed](https://docs.keyapi.ai/en/reddit/fetch_home_feed.md) - Get Reddit APP home feed recommended content
+  - [Fetch Reddit APP News Feed](https://docs.keyapi.ai/en/reddit/fetch_news_feed.md) - Get Reddit APP news feed recommended content, showing the latest news and current events discussions
+  - [Fetch Reddit APP Games Feed](https://docs.keyapi.ai/en/reddit/fetch_games_feed.md) - Get Reddit APP gaming-related recommended content, showing popular posts from gaming communities
+  - [Fetch Single Reddit Post Details](https://docs.keyapi.ai/en/reddit/fetch_post_details.md) - Get single post details by post ID, optionally including the context of a specific comment
 
 ## Docs Search Strategy
 

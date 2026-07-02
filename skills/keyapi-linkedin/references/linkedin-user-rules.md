@@ -8,10 +8,10 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. People search and profile baseline
 
-- Documentation: `https://docs.keyapi.ai/linkedin/search-people.md`
-- Documentation: `https://docs.keyapi.ai/linkedin/get-user-profile.md`
-- Documentation: `https://docs.keyapi.ai/linkedin/get-user-about.md`
-- Documentation: `https://docs.keyapi.ai/linkedin/get-user-follower-and-connection.md`
+- Documentation: `https://docs.keyapi.ai/en/linkedin/search_people.md`
+- Documentation: `https://docs.keyapi.ai/en/linkedin/get_user_profile.md`
+- Documentation: `https://docs.keyapi.ai/en/linkedin/get_user_about.md`
+- Documentation: `https://docs.keyapi.ai/en/linkedin/get_user_follower_and_connection.md`
 - Purpose: Find professionals and build a reliable profile baseline before section-specific enrichment.
 
 ### Best Suited For
@@ -30,7 +30,7 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 3. Contact and outreach context
 
-- Documentation: `https://docs.keyapi.ai/linkedin/get-user-contact-information.md`
+- Documentation: `https://docs.keyapi.ai/en/linkedin/get_user_contact.md`
 - Purpose: Retrieve documented contact information for a selected LinkedIn user.
 
 ### Best Suited For
@@ -47,13 +47,13 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 4. Career background and credentials
 
-- Documentation: `https://docs.keyapi.ai/linkedin/get-user-experience.md`
-- Documentation: `https://docs.keyapi.ai/linkedin/get-user-educations.md`
-- Documentation: `https://docs.keyapi.ai/linkedin/get-user-skills.md`
-- Documentation: `https://docs.keyapi.ai/linkedin/get-user-certifications.md`
-- Documentation: `https://docs.keyapi.ai/linkedin/get-user-publications.md`
-- Documentation: `https://docs.keyapi.ai/linkedin/get-user-honors.md`
-- Documentation: `https://docs.keyapi.ai/linkedin/get-user-recommendations.md`
+- Documentation: `https://docs.keyapi.ai/en/linkedin/get_user_experience.md`
+- Documentation: `https://docs.keyapi.ai/en/linkedin/get_user_educations.md`
+- Documentation: `https://docs.keyapi.ai/en/linkedin/get_user_skills.md`
+- Documentation: `https://docs.keyapi.ai/en/linkedin/get_user_certifications.md`
+- Documentation: `https://docs.keyapi.ai/en/linkedin/get_user_publications.md`
+- Documentation: `https://docs.keyapi.ai/en/linkedin/get_user_honors.md`
+- Documentation: `https://docs.keyapi.ai/en/linkedin/get_user_recommendations.md`
 - Purpose: Retrieve structured career, education, skill, and credibility sections.
 
 ### Best Suited For
@@ -71,12 +71,12 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 5. Activity, media, and interests
 
-- Documentation: `https://docs.keyapi.ai/linkedin/get-user-posts.md`
-- Documentation: `https://docs.keyapi.ai/linkedin/get-user-comments.md`
-- Documentation: `https://docs.keyapi.ai/linkedin/get-user-videos.md`
-- Documentation: `https://docs.keyapi.ai/linkedin/get-user-images.md`
-- Documentation: `https://docs.keyapi.ai/linkedin/get-user-interests-companies.md`
-- Documentation: `https://docs.keyapi.ai/linkedin/get-user-interests-groups.md`
+- Documentation: `https://docs.keyapi.ai/en/linkedin/get_user_posts.md`
+- Documentation: `https://docs.keyapi.ai/en/linkedin/get_user_comments.md`
+- Documentation: `https://docs.keyapi.ai/en/linkedin/get_user_videos.md`
+- Documentation: `https://docs.keyapi.ai/en/linkedin/get_user_images.md`
+- Documentation: `https://docs.keyapi.ai/en/linkedin/get_user_interests_companies.md`
+- Documentation: `https://docs.keyapi.ai/en/linkedin/get_user_interests_groups.md`
 - Purpose: Analyze user content activity and ecosystem interests.
 
 ### Best Suited For

@@ -24,11 +24,11 @@ people, companies, jobs, posts, comments, videos, images, experience, education,
 - Default workflow: Use people search for discovery, then profile/about/follower-contact endpoints only for shortlisted users.
 - Reference module: `linkedin-user-rules.md`
 - Endpoint shortlist:
-  - [Search people](https://docs.keyapi.ai/linkedin/search-people.md) - Search LinkedIn users
-  - [Get user profile](https://docs.keyapi.ai/linkedin/get-user-profile.md) - Get LinkedIn user profile information
-  - [Get user about](https://docs.keyapi.ai/linkedin/get-user-about.md) - Get LinkedIn user about/bio information
-  - [Get user contact information](https://docs.keyapi.ai/linkedin/get-user-contact-information.md) - Get LinkedIn user contact information
-  - [Get user follower and connection](https://docs.keyapi.ai/linkedin/get-user-follower-and-connection.md) - Get LinkedIn user follower and connection count
+  - [Search people](https://docs.keyapi.ai/en/linkedin/search_people.md) - Search LinkedIn users
+  - [Get user profile](https://docs.keyapi.ai/en/linkedin/get_user_profile.md) - Get LinkedIn user profile information
+  - [Get user about](https://docs.keyapi.ai/en/linkedin/get_user_about.md) - Get LinkedIn user about/bio information
+  - [Get user contact information](https://docs.keyapi.ai/en/linkedin/get_user_contact.md) - Get LinkedIn user contact information
+  - [Get user follower and connection](https://docs.keyapi.ai/en/linkedin/get_user_follower_and_connection.md) - Get LinkedIn user follower and connection count
 
 ## 2. Assess professional background
 
@@ -38,13 +38,13 @@ people, companies, jobs, posts, comments, videos, images, experience, education,
 - Default workflow: Fetch the profile baseline first, then call only the requested background sections to avoid unnecessary calls.
 - Reference module: `linkedin-user-rules.md`
 - Endpoint shortlist:
-  - [Get user experience](https://docs.keyapi.ai/linkedin/get-user-experience.md) - Get LinkedIn user work experience
-  - [Get user educations](https://docs.keyapi.ai/linkedin/get-user-educations.md) - Get LinkedIn user education background
-  - [Get user skills](https://docs.keyapi.ai/linkedin/get-user-skills.md) - Get LinkedIn user skills
-  - [Get user certifications](https://docs.keyapi.ai/linkedin/get-user-certifications.md) - Get LinkedIn user certifications
-  - [Get user publications](https://docs.keyapi.ai/linkedin/get-user-publications.md) - Get LinkedIn user publications
-  - [Get user honors](https://docs.keyapi.ai/linkedin/get-user-honors.md) - Get LinkedIn user honors and awards
-  - [Get user recommendations](https://docs.keyapi.ai/linkedin/get-user-recommendations.md) - Get LinkedIn user recommendations
+  - [Get user experience](https://docs.keyapi.ai/en/linkedin/get_user_experience.md) - Get LinkedIn user work experience
+  - [Get user educations](https://docs.keyapi.ai/en/linkedin/get_user_educations.md) - Get LinkedIn user education background
+  - [Get user skills](https://docs.keyapi.ai/en/linkedin/get_user_skills.md) - Get LinkedIn user skills
+  - [Get user certifications](https://docs.keyapi.ai/en/linkedin/get_user_certifications.md) - Get LinkedIn user certifications
+  - [Get user publications](https://docs.keyapi.ai/en/linkedin/get_user_publications.md) - Get LinkedIn user publications
+  - [Get user honors](https://docs.keyapi.ai/en/linkedin/get_user_honors.md) - Get LinkedIn user honors and awards
+  - [Get user recommendations](https://docs.keyapi.ai/en/linkedin/get_user_recommendations.md) - Get LinkedIn user recommendations
 
 ## 3. Review a person's content activity
 
@@ -54,12 +54,12 @@ people, companies, jobs, posts, comments, videos, images, experience, education,
 - Default workflow: Use posts/comments/images/videos for activity; use interests companies/groups when the user asks for affinity or ecosystem context.
 - Reference module: `linkedin-user-rules.md`
 - Endpoint shortlist:
-  - [Get user posts](https://docs.keyapi.ai/linkedin/get-user-posts.md) - Get posts published by a LinkedIn user
-  - [Get user comments](https://docs.keyapi.ai/linkedin/get-user-comments.md) - Get comments by a LinkedIn user
-  - [Get user videos](https://docs.keyapi.ai/linkedin/get-user-videos.md) - Get videos published by a LinkedIn user
-  - [Get user images](https://docs.keyapi.ai/linkedin/get-user-images.md) - Get images published by a LinkedIn user
-  - [Get user interests companies](https://docs.keyapi.ai/linkedin/get-user-interests-companies.md) - Get LinkedIn user interest companies
-  - [Get user interests groups](https://docs.keyapi.ai/linkedin/get-user-interests-groups.md) - Get LinkedIn user interest groups
+  - [Get user posts](https://docs.keyapi.ai/en/linkedin/get_user_posts.md) - Get posts published by a LinkedIn user
+  - [Get user comments](https://docs.keyapi.ai/en/linkedin/get_user_comments.md) - Get comments by a LinkedIn user
+  - [Get user videos](https://docs.keyapi.ai/en/linkedin/get_user_videos.md) - Get videos published by a LinkedIn user
+  - [Get user images](https://docs.keyapi.ai/en/linkedin/get_user_images.md) - Get images published by a LinkedIn user
+  - [Get user interests companies](https://docs.keyapi.ai/en/linkedin/get_user_interests_companies.md) - Get LinkedIn user interest companies
+  - [Get user interests groups](https://docs.keyapi.ai/en/linkedin/get_user_interests_groups.md) - Get LinkedIn user interest groups
 
 ## 4. Analyze a company
 
@@ -69,10 +69,10 @@ people, companies, jobs, posts, comments, videos, images, experience, education,
 - Default workflow: Fetch company profile first, then company people and posts; use job endpoints only when hiring analysis is requested.
 - Reference module: `linkedin-company-rules.md`
 - Endpoint shortlist:
-  - [Get company profile](https://docs.keyapi.ai/linkedin/get-company-profile.md) - Get LinkedIn company profile information
-  - [Get company people](https://docs.keyapi.ai/linkedin/get-company-people.md) - Get LinkedIn company employee list
-  - [Get company posts](https://docs.keyapi.ai/linkedin/get-company-posts.md) - Get posts published by a LinkedIn company
-  - [Get company job count](https://docs.keyapi.ai/linkedin/get-company-job-count.md) - Get LinkedIn company job count
+  - [Get company profile](https://docs.keyapi.ai/en/linkedin/get_company_profile.md) - Get LinkedIn company profile information
+  - [Get company people](https://docs.keyapi.ai/en/linkedin/get_company_people.md) - Get LinkedIn company employee list
+  - [Get company posts](https://docs.keyapi.ai/en/linkedin/get_company_posts.md) - Get posts published by a LinkedIn company
+  - [Get company job count](https://docs.keyapi.ai/en/linkedin/get_company_job_count.md) - Get LinkedIn company job count
 
 ## 5. Research jobs and hiring demand
 
@@ -82,9 +82,9 @@ people, companies, jobs, posts, comments, videos, images, experience, education,
 - Default workflow: Use job count for hiring footprint, company jobs for listings, and job detail for a selected role.
 - Reference module: `linkedin-jobs-rules.md`
 - Endpoint shortlist:
-  - [Get company job count](https://docs.keyapi.ai/linkedin/get-company-job-count.md) - Get LinkedIn company job count
-  - [Get company jobs](https://docs.keyapi.ai/linkedin/get-company-jobs.md) - Get LinkedIn company job listings
-  - [Get job detail](https://docs.keyapi.ai/linkedin/get-job-detail.md) - Get LinkedIn job details
+  - [Get company job count](https://docs.keyapi.ai/en/linkedin/get_company_job_count.md) - Get LinkedIn company job count
+  - [Get company jobs](https://docs.keyapi.ai/en/linkedin/get_company_jobs.md) - Get LinkedIn company job listings
+  - [Get job detail](https://docs.keyapi.ai/en/linkedin/get_job_detail.md) - Get LinkedIn job details
 
 ## Docs Search Strategy
 

@@ -11,7 +11,7 @@ These rules are the lowest-level execution contract for every Instagram KeyAPI R
 ## Source Of Truth
 
 - Documentation index: `https://docs.keyapi.ai/llms.txt`
-- Platform docs family: `https://docs.keyapi.ai/instagram/`
+- Platform docs family: `https://docs.keyapi.ai/en/instagram/`
 - API base URL: `https://api.keyapi.ai`
 - Authentication: `Authorization: Bearer $KEYAPI_TOKEN`
 - Before any live API request, resolve or read the current docs page for the selected endpoint and extract method, `/v1/...` path, required parameters, request body shape, pagination, and response contract.

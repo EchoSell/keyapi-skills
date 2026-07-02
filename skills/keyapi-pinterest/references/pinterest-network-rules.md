@@ -12,8 +12,8 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. Followers and following
 
-- Documentation: `https://docs.keyapi.ai/pinterest/get-followers-detail.md`
-- Documentation: `https://docs.keyapi.ai/pinterest/get-following-detail.md`
+- Documentation: `https://docs.keyapi.ai/en/pinterest/followers.md`
+- Documentation: `https://docs.keyapi.ai/en/pinterest/followings.md`
 - Purpose: Inspect follower or following relationships for a Pinterest user.
 
 ### Best Suited For

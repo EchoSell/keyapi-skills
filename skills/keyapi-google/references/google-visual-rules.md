@@ -13,8 +13,8 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. Images and Lens
 
-- Documentation: `https://docs.keyapi.ai/google/images.md`
-- Documentation: `https://docs.keyapi.ai/google/image-search(lens).md`
+- Documentation: `https://docs.keyapi.ai/en/google/images.md`
+- Documentation: `https://docs.keyapi.ai/en/google/lens.md`
 - Purpose: Retrieve image search results or visually similar Lens results.
 
 ### Best Suited For
@@ -31,7 +31,7 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 3. Videos
 
-- Documentation: `https://docs.keyapi.ai/google/videos.md`
+- Documentation: `https://docs.keyapi.ai/en/google/videos.md`
 - Purpose: Retrieve Google video search results.
 
 ### Best Suited For

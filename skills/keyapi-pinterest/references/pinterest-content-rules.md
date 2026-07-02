@@ -12,8 +12,8 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. Boards and pins
 
-- Documentation: `https://docs.keyapi.ai/pinterest/get-boards.md`
-- Documentation: `https://docs.keyapi.ai/pinterest/get-pins.md`
+- Documentation: `https://docs.keyapi.ai/en/pinterest/boards.md`
+- Documentation: `https://docs.keyapi.ai/en/pinterest/pins.md`
 - Purpose: Inspect what a user curates or publishes through boards and pins.
 
 ### Best Suited For

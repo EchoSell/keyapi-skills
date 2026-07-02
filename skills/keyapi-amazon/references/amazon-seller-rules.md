@@ -8,8 +8,8 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. Seller identity and reputation
 
-- Documentation: `https://docs.keyapi.ai/amazon/seller-profile.md`
-- Documentation: `https://docs.keyapi.ai/amazon/seller-reviews.md`
+- Documentation: `https://docs.keyapi.ai/en/amazon/seller-profile.md`
+- Documentation: `https://docs.keyapi.ai/en/amazon/seller-reviews.md`
 - Purpose: Retrieve seller profile metadata and buyer feedback.
 
 ### Best Suited For
@@ -27,8 +27,8 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 3. Seller catalog and assortment
 
-- Documentation: `https://docs.keyapi.ai/amazon/seller-products.md`
-- Documentation: `https://docs.keyapi.ai/amazon/product-details.md`
+- Documentation: `https://docs.keyapi.ai/en/amazon/seller-products.md`
+- Documentation: `https://docs.keyapi.ai/en/amazon/product-details.md`
 - Purpose: Retrieve product listings for a seller and enrich selected products.
 
 ### Best Suited For
@@ -46,7 +46,7 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 4. Seller competitiveness through offers
 
-- Documentation: `https://docs.keyapi.ai/amazon/product-offers.md`
+- Documentation: `https://docs.keyapi.ai/en/amazon/product-offers.md`
 - Purpose: Compare seller presence and offer conditions on selected products.
 
 ### Best Suited For

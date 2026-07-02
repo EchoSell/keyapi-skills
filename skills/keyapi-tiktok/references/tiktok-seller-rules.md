@@ -15,8 +15,8 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. Seller discovery and ranking
 
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/shop-list-analytics.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/shop-ranking-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/shop-list-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/shop-ranking-analytics.md`
 - Purpose: Find shops/sellers by filters, category, GMV, product count, rankings, or commerce performance.
 
 ### Best Suited For
@@ -34,8 +34,8 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 3. Shop detail and trend
 
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/shop-detail-analytics.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/shop-trends-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/shop-detail-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/shop-trends-analytics.md`
 - Purpose: Retrieve seller baseline and historical performance movement.
 
 ### Best Suited For
@@ -52,8 +52,8 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 4. Shop product inventory
 
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/shop-products.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/shop-products-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/shop-products.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/shop-products-analytics.md`
 - Purpose: Retrieve current or Analytics/EchoTik shop product lists.
 
 ### Best Suited For
@@ -70,9 +70,9 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 5. Shop traffic sources
 
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/shop-creators-analytics.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/shop-videos-analytics.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/shop-livestreams-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/shop-creators-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/shop-videos-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/shop-livestreams-analytics.md`
 - Purpose: Trace creators, videos, and live sessions associated with a shop.
 
 ### Best Suited For

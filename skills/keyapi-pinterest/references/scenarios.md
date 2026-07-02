@@ -24,8 +24,8 @@ users, profiles, boards, pins, followers, and following relationships
 - Default workflow: Search users for discovery, then get user information for selected accounts.
 - Reference module: `pinterest-profile-rules.md`
 - Endpoint shortlist:
-  - [Search Users](https://docs.keyapi.ai/pinterest/search-users.md) - Search Users
-  - [Get user information](https://docs.keyapi.ai/pinterest/get-user-information.md) - Get user information
+  - [Search Users](https://docs.keyapi.ai/en/pinterest/search.md) - Search Users
+  - [Get user information](https://docs.keyapi.ai/en/pinterest/information.md) - Get user information
 
 ## 2. Audit boards and pins
 
@@ -35,8 +35,8 @@ users, profiles, boards, pins, followers, and following relationships
 - Default workflow: Resolve user first, then retrieve boards and pins according to the requested surface.
 - Reference module: `pinterest-content-rules.md`
 - Endpoint shortlist:
-  - [Get boards](https://docs.keyapi.ai/pinterest/get-boards.md) - Get a user's boards
-  - [Get pins](https://docs.keyapi.ai/pinterest/get-pins.md) - Get Pinterest pin
+  - [Get boards](https://docs.keyapi.ai/en/pinterest/boards.md) - Get a user's boards
+  - [Get pins](https://docs.keyapi.ai/en/pinterest/pins.md) - Get Pinterest pin
 
 ## 3. Map follower and following context
 
@@ -46,8 +46,8 @@ users, profiles, boards, pins, followers, and following relationships
 - Default workflow: Use followers or following based on direction; enrich only selected related users unless broad traversal is approved.
 - Reference module: `pinterest-network-rules.md`
 - Endpoint shortlist:
-  - [Get followers detail](https://docs.keyapi.ai/pinterest/get-followers-detail.md) - Get followers detail
-  - [Get following detail](https://docs.keyapi.ai/pinterest/get-following-detail.md) - Get following detail
+  - [Get followers detail](https://docs.keyapi.ai/en/pinterest/followers.md) - Get followers detail
+  - [Get following detail](https://docs.keyapi.ai/en/pinterest/followings.md) - Get following detail
 
 ## Docs Search Strategy
 

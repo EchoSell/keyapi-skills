@@ -12,9 +12,9 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. Profile search and user info
 
-- Documentation: `https://docs.keyapi.ai/threads/search-profiles.md`
-- Documentation: `https://docs.keyapi.ai/threads/get-user-info.md`
-- Documentation: `https://docs.keyapi.ai/threads/get-user-info-by-id.md`
+- Documentation: `https://docs.keyapi.ai/en/threads/search_profiles.md`
+- Documentation: `https://docs.keyapi.ai/en/threads/fetch_user_info.md`
+- Documentation: `https://docs.keyapi.ai/en/threads/fetch_user_info_by_id.md`
 - Purpose: Find Threads profiles and retrieve user information.
 
 ### Best Suited For

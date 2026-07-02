@@ -14,8 +14,8 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. Ads and creative intelligence
 
-- Documentation: `https://docs.keyapi.ai/tiktok/intelligence/insights-ads.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/intelligence/insights-ads-detail.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/intelligence/insights-ads.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/intelligence/insights-ads-detail.md`
 - Purpose: Find and inspect top-performing TikTok ads.
 
 ### Best Suited For
@@ -32,9 +32,9 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 3. Keyword and product market intelligence
 
-- Documentation: `https://docs.keyapi.ai/tiktok/intelligence/insights-keyword.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/intelligence/insights-products.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/intelligence/insights-product-detail.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/intelligence/insights-keyword.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/intelligence/insights-products.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/intelligence/insights-product-detail.md`
 - Purpose: Understand keyword demand and top product/category signals.
 
 ### Best Suited For
@@ -51,11 +51,11 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 4. Trending content surfaces
 
-- Documentation: `https://docs.keyapi.ai/tiktok/intelligence/trending-videos.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/intelligence/trending-hashtags.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/intelligence/trending-hashtag-detail.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/intelligence/trending-music.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/intelligence/trending-music-detail.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/intelligence/trending-videos.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/intelligence/trending-hashtags.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/intelligence/trending-hashtag-detail.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/intelligence/trending-music.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/intelligence/trending-music-detail.md`
 - Purpose: Retrieve current trending videos, hashtags, and music signals.
 
 ### Best Suited For

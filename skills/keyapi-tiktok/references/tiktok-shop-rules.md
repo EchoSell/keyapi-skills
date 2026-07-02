@@ -13,9 +13,9 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. Route product requests
 
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/product-search.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/product-detail.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/product-list-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/product-search.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/product-detail.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/product-list-analytics.md`
 - Purpose: Route product search, detail, ranking, category, review, and attribution requests.
 
 ### Best Suited For
@@ -32,9 +32,10 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 3. Route seller/shop requests
 
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/shop-list-analytics.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/shop-detail-analytics.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/shop-products.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/shop-list-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/shop-detail-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/shop-products.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/shop-creators-analytics.md`
 - Purpose: Route shop/seller discovery, detail, products, trends, and traffic-source requests.
 
 ### Best Suited For

@@ -8,8 +8,8 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. Subreddit baseline and feed
 
-- Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-app-subreddit-info.md`
-- Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-app-subreddit-feed.md`
+- Documentation: `https://docs.keyapi.ai/en/reddit/fetch_subreddit_info.md`
+- Documentation: `https://docs.keyapi.ai/en/reddit/fetch_subreddit_feed.md`
 - Purpose: Retrieve subreddit profile information and its content feed.
 
 ### Best Suited For
@@ -27,10 +27,10 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 3. Governance, posting rules, and community configuration
 
-- Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-app-subreddit-rules-and-style-info.md`
-- Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-app-subreddit-settings.md`
-- Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-app-subreddit-post-channels.md`
-- Documentation: `https://docs.keyapi.ai/reddit/check-if-subreddit-is-muted.md`
+- Documentation: `https://docs.keyapi.ai/en/reddit/fetch_subreddit_style.md`
+- Documentation: `https://docs.keyapi.ai/en/reddit/fetch_subreddit_settings.md`
+- Documentation: `https://docs.keyapi.ai/en/reddit/fetch_subreddit_post_channels.md`
+- Documentation: `https://docs.keyapi.ai/en/reddit/check_subreddit_muted.md`
 - Purpose: Retrieve rules, style, settings, post channels, and mute status.
 
 ### Best Suited For
@@ -48,8 +48,8 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 4. Highlights and active community context
 
-- Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-app-community-highlights.md`
-- Documentation: `https://docs.keyapi.ai/reddit/fetch-user-s-active-subreddits.md`
+- Documentation: `https://docs.keyapi.ai/en/reddit/fetch_community_highlights.md`
+- Documentation: `https://docs.keyapi.ai/en/reddit/fetch_user_active_subreddits.md`
 - Purpose: Retrieve highlighted community content or communities where a user is active.
 
 ### Best Suited For

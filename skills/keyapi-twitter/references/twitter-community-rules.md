@@ -8,9 +8,9 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. Community discovery and profile
 
-- Documentation: `https://docs.keyapi.ai/twitter/communities-search.md`
-- Documentation: `https://docs.keyapi.ai/twitter/community-info.md`
-- Documentation: `https://docs.keyapi.ai/twitter/community-members.md`
+- Documentation: `https://docs.keyapi.ai/en/twitter/search_communities.md`
+- Documentation: `https://docs.keyapi.ai/en/twitter/community_info.md`
+- Documentation: `https://docs.keyapi.ai/en/twitter/community_members.md`
 - Purpose: Find communities, inspect community metadata, and retrieve members.
 
 ### Best Suited For
@@ -28,9 +28,9 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 3. Community posts and search modes
 
-- Documentation: `https://docs.keyapi.ai/twitter/comunity-posts.md`
-- Documentation: `https://docs.keyapi.ai/twitter/communities-posts-search-top.md`
-- Documentation: `https://docs.keyapi.ai/twitter/communities-posts-search-latest.md`
+- Documentation: `https://docs.keyapi.ai/en/twitter/community_timeline.md`
+- Documentation: `https://docs.keyapi.ai/en/twitter/search_communities_top.md`
+- Documentation: `https://docs.keyapi.ai/en/twitter/search_communities_latest.md`
 - Purpose: Retrieve community posts or search within community posts by ordering mode.
 
 ### Best Suited For
@@ -49,9 +49,9 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 4. Lists and list timelines
 
-- Documentation: `https://docs.keyapi.ai/twitter/list-timeline.md`
-- Documentation: `https://docs.keyapi.ai/twitter/list-members.md`
-- Documentation: `https://docs.keyapi.ai/twitter/list-followers.md`
+- Documentation: `https://docs.keyapi.ai/en/twitter/listtimeline.md`
+- Documentation: `https://docs.keyapi.ai/en/twitter/list_members.md`
+- Documentation: `https://docs.keyapi.ai/en/twitter/list_followers.md`
 - Purpose: Inspect list timelines, list members, or list followers.
 
 ### Best Suited For
@@ -68,7 +68,7 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 5. Spaces
 
-- Documentation: `https://docs.keyapi.ai/twitter/spaces-info.md`
+- Documentation: `https://docs.keyapi.ai/en/twitter/spaces.md`
 - Purpose: Retrieve information for a Twitter/X Space.
 
 ### Best Suited For

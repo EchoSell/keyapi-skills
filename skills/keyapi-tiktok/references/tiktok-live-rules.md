@@ -14,8 +14,8 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. Realtime live search and detail
 
-- Documentation: `https://docs.keyapi.ai/tiktok/content/live-search.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/content/live-detail.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/content/live-search.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/content/live-detail.md`
 - Purpose: Find live sessions and retrieve current live room details.
 
 ### Best Suited For
@@ -33,7 +33,7 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 3. Influencer live history
 
-- Documentation: `https://docs.keyapi.ai/tiktok/influencer/livestreams-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/influencer/livestreams-analytics.md`
 - Purpose: Retrieve historical livestream records for a creator from Analytics/EchoTik data.
 
 ### Best Suited For
@@ -50,8 +50,8 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 4. Product and shop live attribution
 
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/product-livestreams-analytics.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/shop-livestreams-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/product-livestreams-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/shop-livestreams-analytics.md`
 - Purpose: Trace live sessions associated with products or shops.
 
 ### Best Suited For

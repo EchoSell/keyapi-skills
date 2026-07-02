@@ -12,8 +12,8 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. Top and recent content search
 
-- Documentation: `https://docs.keyapi.ai/threads/search-top-content.md`
-- Documentation: `https://docs.keyapi.ai/threads/search-recent-content.md`
+- Documentation: `https://docs.keyapi.ai/en/threads/search_top.md`
+- Documentation: `https://docs.keyapi.ai/en/threads/search_recent.md`
 - Purpose: Search Threads content by keyword using top or recent ordering.
 
 ### Best Suited For

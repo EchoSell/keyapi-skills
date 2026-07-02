@@ -15,12 +15,12 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. Realtime keyword search by entity
 
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/product-search.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/influencer/search.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/content/video-search.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/content/live-search.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/content/hashtag-search.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/content/music-search.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/product-search.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/influencer/search.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/content/video-search.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/content/live-search.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/content/hashtag-search.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/content/music-search.md`
 - Purpose: Find current public entities from a keyword.
 
 ### Best Suited For
@@ -39,8 +39,8 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 3. Product image search and pagination
 
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/product-photo-search.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/product-photo-search-page.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/product-photo-search.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/product-photo-search-page.md`
 - Purpose: Search TikTok Shop products from an image and paginate additional visual matches.
 
 ### Best Suited For
@@ -57,7 +57,7 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 4. Identifier and link resolution
 
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/product-id.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/product-id.md`
 - Purpose: Resolve canonical product identifiers before detail workflows.
 
 ### Best Suited For
@@ -72,7 +72,7 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 5. Analytics search fallback
 
-- Documentation: `https://docs.keyapi.ai/tiktok/content/search-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/content/search-analytics.md`
 - Purpose: Search across Analytics/EchoTik products, shops, and influencers when the task needs enriched commerce metrics.
 
 ### Best Suited For

@@ -13,8 +13,8 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. Group identity and detail
 
-- Documentation: `https://docs.keyapi.ai/facebook/get-group-id.md`
-- Documentation: `https://docs.keyapi.ai/facebook/get-group-details.md`
+- Documentation: `https://docs.keyapi.ai/en/facebook/group_id.md`
+- Documentation: `https://docs.keyapi.ai/en/facebook/group_details.md`
 - Purpose: Resolve public group identity and retrieve group baseline detail.
 
 ### Best Suited For
@@ -31,8 +31,8 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 3. Group posts and events
 
-- Documentation: `https://docs.keyapi.ai/facebook/get-group-posts.md`
-- Documentation: `https://docs.keyapi.ai/facebook/get-group-future-events.md`
+- Documentation: `https://docs.keyapi.ai/en/facebook/group_posts.md`
+- Documentation: `https://docs.keyapi.ai/en/facebook/group_future_events.md`
 - Purpose: Retrieve public group posts and upcoming events.
 
 ### Best Suited For

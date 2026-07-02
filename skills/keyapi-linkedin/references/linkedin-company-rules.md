@@ -8,7 +8,7 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. Company profile baseline
 
-- Documentation: `https://docs.keyapi.ai/linkedin/get-company-profile.md`
+- Documentation: `https://docs.keyapi.ai/en/linkedin/get_company_profile.md`
 - Purpose: Retrieve company profile information before employee, post, or hiring workflows.
 
 ### Best Suited For
@@ -26,8 +26,8 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 3. Employee and people mapping
 
-- Documentation: `https://docs.keyapi.ai/linkedin/get-company-people.md`
-- Documentation: `https://docs.keyapi.ai/linkedin/get-user-profile.md`
+- Documentation: `https://docs.keyapi.ai/en/linkedin/get_company_people.md`
+- Documentation: `https://docs.keyapi.ai/en/linkedin/get_user_profile.md`
 - Purpose: Retrieve employees associated with a company and optionally enrich selected people.
 
 ### Best Suited For
@@ -45,7 +45,7 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 4. Company content activity
 
-- Documentation: `https://docs.keyapi.ai/linkedin/get-company-posts.md`
+- Documentation: `https://docs.keyapi.ai/en/linkedin/get_company_posts.md`
 - Purpose: Retrieve posts published by a company.
 
 ### Best Suited For
@@ -61,8 +61,8 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 5. Hiring footprint
 
-- Documentation: `https://docs.keyapi.ai/linkedin/get-company-job-count.md`
-- Documentation: `https://docs.keyapi.ai/linkedin/get-company-jobs.md`
+- Documentation: `https://docs.keyapi.ai/en/linkedin/get_company_job_count.md`
+- Documentation: `https://docs.keyapi.ai/en/linkedin/get_company_jobs.md`
 - Purpose: Quantify and inspect open roles tied to a company.
 
 ### Best Suited For

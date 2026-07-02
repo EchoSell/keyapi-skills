@@ -8,9 +8,9 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. Profile identity and baseline
 
-- Documentation: `https://docs.keyapi.ai/twitter/user-info.md`
-- Documentation: `https://docs.keyapi.ai/twitter/about-profile.md`
-- Documentation: `https://docs.keyapi.ai/twitter/profiles-by-restids.md`
+- Documentation: `https://docs.keyapi.ai/en/twitter/screenname.md`
+- Documentation: `https://docs.keyapi.ai/en/twitter/about.md`
+- Documentation: `https://docs.keyapi.ai/en/twitter/screennames.md`
 - Purpose: Resolve and retrieve Twitter/X profile metadata.
 
 ### Best Suited For
@@ -28,10 +28,10 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 3. Timeline, media, and live status
 
-- Documentation: `https://docs.keyapi.ai/twitter/user-timeline.md`
-- Documentation: `https://docs.keyapi.ai/twitter/users-media.md`
-- Documentation: `https://docs.keyapi.ai/twitter/user-live.md`
-- Documentation: `https://docs.keyapi.ai/twitter/inspiration-posts.md`
+- Documentation: `https://docs.keyapi.ai/en/twitter/timeline.md`
+- Documentation: `https://docs.keyapi.ai/en/twitter/usermedia.md`
+- Documentation: `https://docs.keyapi.ai/en/twitter/broadcast.md`
+- Documentation: `https://docs.keyapi.ai/en/twitter/top_posts.md`
 - Purpose: Retrieve account-authored content, media posts, live status, or inspiration-style posts.
 
 ### Best Suited For
@@ -49,10 +49,10 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 4. Followers, following, affiliates, and relationship checks
 
-- Documentation: `https://docs.keyapi.ai/twitter/followers.md`
-- Documentation: `https://docs.keyapi.ai/twitter/following.md`
-- Documentation: `https://docs.keyapi.ai/twitter/affilates.md`
-- Documentation: `https://docs.keyapi.ai/twitter/check-follow.md`
+- Documentation: `https://docs.keyapi.ai/en/twitter/followers.md`
+- Documentation: `https://docs.keyapi.ai/en/twitter/following.md`
+- Documentation: `https://docs.keyapi.ai/en/twitter/affilates.md`
+- Documentation: `https://docs.keyapi.ai/en/twitter/checkfollow.md`
 - Purpose: Inspect social graph or specific follow relationships.
 
 ### Best Suited For

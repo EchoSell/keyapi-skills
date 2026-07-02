@@ -21,7 +21,7 @@ tweets, threads, replies, retweets, profiles, timelines, media, followers, follo
 
 ## Documentation Hints
 
-- Filter `https://docs.keyapi.ai/llms.txt` for links under `https://docs.keyapi.ai/twitter/`.
+- Filter `https://docs.keyapi.ai/llms.txt` for links under `https://docs.keyapi.ai/en/twitter/`.
 - Treat endpoint titles as search hints, not stable tool names.
 - Extract the current REST method and `/v1/...` path from the endpoint docs page before calling the API.
 - Use examples from the docs page only after replacing sample identifiers with user-provided or resolved identifiers.

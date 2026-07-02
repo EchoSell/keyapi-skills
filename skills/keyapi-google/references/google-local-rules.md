@@ -13,8 +13,8 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. Places and maps
 
-- Documentation: `https://docs.keyapi.ai/google/places.md`
-- Documentation: `https://docs.keyapi.ai/google/maps.md`
+- Documentation: `https://docs.keyapi.ai/en/google/places.md`
+- Documentation: `https://docs.keyapi.ai/en/google/maps.md`
 - Purpose: Discover local places or map-surface results.
 
 ### Best Suited For
@@ -31,7 +31,7 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 3. Reviews
 
-- Documentation: `https://docs.keyapi.ai/google/reviews.md`
+- Documentation: `https://docs.keyapi.ai/en/google/reviews.md`
 - Purpose: Retrieve review evidence for a selected place/business.
 
 ### Best Suited For

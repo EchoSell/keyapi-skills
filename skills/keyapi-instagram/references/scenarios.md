@@ -24,12 +24,12 @@ users, usernames, user IDs, posts, Reels, Stories, Highlights, followers, follow
 - Default workflow: Search users or general search for discovery, then fetch user info; use related/similar users to expand a shortlist.
 - Reference module: `instagram-user-rules.md`
 - Endpoint shortlist:
-  - [Search users](https://docs.keyapi.ai/instagram/search-users.md) - Instagram user search endpoint, returns matching user accounts.
-  - [General search](https://docs.keyapi.ai/instagram/general-search.md) - Perform a general Instagram search by keyword. Supports paginated retrieval.
-  - [Get user info](https://docs.keyapi.ai/instagram/get-user-info.md) - Get detailed information about an Instagram user. Supports querying by username or user ID.
-  - [Get user info by user ID](https://docs.keyapi.ai/instagram/get-user-info-by-user-id.md) - Get user information by Instagram user ID. Useful for converting a user ID to a username or retrieving detailed user data.
-  - [Get related profiles](https://docs.keyapi.ai/instagram/get-related-profiles.md) - Get a list of users similar to or related to a specified user.
-  - [Get similar users](https://docs.keyapi.ai/instagram/get-similar-users.md) - Get a list of users similar to a specified user, based on Instagram recommendation algorithms.
+  - [Search users](https://docs.keyapi.ai/en/instagram/search_users.md) - Instagram user search endpoint, returns matching user accounts.
+  - [General search](https://docs.keyapi.ai/en/instagram/general_search.md) - Perform a general Instagram search by keyword. Supports paginated retrieval.
+  - [Get user info](https://docs.keyapi.ai/en/instagram/fetch_user_info.md) - Get detailed information about an Instagram user. Supports querying by username or user ID.
+  - [Get user info by user ID](https://docs.keyapi.ai/en/instagram/user_id_to_username.md) - Get user information by Instagram user ID. Useful for converting a user ID to a username or retrieving detailed user data.
+  - [Get related profiles](https://docs.keyapi.ai/en/instagram/fetch_related_profiles.md) - Get a list of users similar to or related to a specified user.
+  - [Get similar users](https://docs.keyapi.ai/en/instagram/fetch_similar_users.md) - Get a list of users similar to a specified user, based on Instagram recommendation algorithms.
 
 ## 2. Audit a user's content portfolio
 
@@ -39,13 +39,13 @@ users, usernames, user IDs, posts, Reels, Stories, Highlights, followers, follow
 - Default workflow: Fetch user info first if identity is uncertain, then collect only the requested content surfaces; use highlight list before highlight stories.
 - Reference module: `instagram-content-rules.md`
 - Endpoint shortlist:
-  - [Get user posts](https://docs.keyapi.ai/instagram/get-user-posts.md) - Get a list of all posts by an Instagram user. Supports paginated retrieval.
-  - [Get user reels](https://docs.keyapi.ai/instagram/get-user-reels.md) - Get a list of Reels (short videos) posted by an Instagram user. Supports paginated retrieval.
-  - [Get user stories](https://docs.keyapi.ai/instagram/get-user-stories.md) - Get an Instagram user's currently active stories (Stories). Stories expire after 24 hours.
-  - [Get user highlights](https://docs.keyapi.ai/instagram/get-user-highlights.md) - Get a list of an Instagram user's highlights (Highlights). Highlights are curated story archives pinned by the user.
-  - [Get highlight stories](https://docs.keyapi.ai/instagram/get-highlight-stories.md) - Get all stories in a specified highlight. Requires obtaining the highlight ID via fetch_user_highlights first.
-  - [Get user tagged posts](https://docs.keyapi.ai/instagram/get-user-tagged-posts.md) - Get a list of posts in which a specified user has been tagged. Supports paginated retrieval.
-  - [Get user reposts list](https://docs.keyapi.ai/instagram/get-user-reposts-list.md) - Get a list of a user's reposts/shares. Supports pagination.
+  - [Get user posts](https://docs.keyapi.ai/en/instagram/fetch_user_posts.md) - Get a list of all posts by an Instagram user. Supports paginated retrieval.
+  - [Get user reels](https://docs.keyapi.ai/en/instagram/fetch_user_reels.md) - Get a list of Reels (short videos) posted by an Instagram user. Supports paginated retrieval.
+  - [Get user stories](https://docs.keyapi.ai/en/instagram/fetch_user_stories.md) - Get an Instagram user's currently active stories (Stories). Stories expire after 24 hours.
+  - [Get user highlights](https://docs.keyapi.ai/en/instagram/fetch_user_highlights.md) - Get a list of an Instagram user's highlights (Highlights). Highlights are curated story archives pinned by the user.
+  - [Get highlight stories](https://docs.keyapi.ai/en/instagram/fetch_highlight_stories.md) - Get all stories in a specified highlight. Requires obtaining the highlight ID via fetch_user_highlights first.
+  - [Get user tagged posts](https://docs.keyapi.ai/en/instagram/fetch_user_tagged_posts.md) - Get a list of posts in which a specified user has been tagged. Supports paginated retrieval.
+  - [Get user reposts list](https://docs.keyapi.ai/en/instagram/fetch_user_reposts.md) - Get a list of a user's reposts/shares. Supports pagination.
 
 ## 3. Analyze a post or discussion thread
 
@@ -55,12 +55,12 @@ users, usernames, user IDs, posts, Reels, Stories, Highlights, followers, follow
 - Default workflow: Convert IDs only when necessary, fetch post info, then collect comments, replies, or likes according to the user analysis goal.
 - Reference module: `instagram-content-rules.md`
 - Endpoint shortlist:
-  - [Get post info](https://docs.keyapi.ai/instagram/get-post-info.md) - Get detailed information about an Instagram post. Supports shortcode or post URL.
-  - [Convert shortcode to media ID](https://docs.keyapi.ai/instagram/convert-shortcode-to-media-id.md) - Convert the shortcode of an Instagram post to a media ID. The shortcode is the unique identifier in the post URL, e.g., DRhvwVLAHAG in instagram.com/p/DRhvwVLAHAG/
-  - [Convert media ID to shortcode](https://docs.keyapi.ai/instagram/convert-media-id-to-shortcode.md) - Convert the media ID of an Instagram post to a shortcode. The shortcode is used to construct the post URL: instagram.com/p/{shortcode}/
-  - [Get post comments](https://docs.keyapi.ai/instagram/get-post-comments.md) - Get a list of comments on a post. Supports both top-level comments and nested replies. Supports paginated retrieval.
-  - [Get comment replies](https://docs.keyapi.ai/instagram/get-comment-replies.md) - Get a list of replies to a comment. Requires obtaining the comment ID via fetch_post_comments first. Supports paginated retrieval.
-  - [Get post likes](https://docs.keyapi.ai/instagram/get-post-likes.md) - Get a list of users who liked a post. Supports paginated retrieval.
+  - [Get post info](https://docs.keyapi.ai/en/instagram/fetch_post_info.md) - Get detailed information about an Instagram post. Supports shortcode or post URL.
+  - [Convert shortcode to media ID](https://docs.keyapi.ai/en/instagram/shortcode_to_media_id.md) - Convert the shortcode of an Instagram post to a media ID. The shortcode is the unique identifier in the post URL, e.g., DRhvwVLAHAG in instagram.com/p/DRhvwVLAHAG/
+  - [Convert media ID to shortcode](https://docs.keyapi.ai/en/instagram/media_id_to_shortcode.md) - Convert the media ID of an Instagram post to a shortcode. The shortcode is used to construct the post URL: instagram.com/p/{shortcode}/
+  - [Get post comments](https://docs.keyapi.ai/en/instagram/fetch_post_comments.md) - Get a list of comments on a post. Supports both top-level comments and nested replies. Supports paginated retrieval.
+  - [Get comment replies](https://docs.keyapi.ai/en/instagram/fetch_comment_replies.md) - Get a list of replies to a comment. Requires obtaining the comment ID via fetch_post_comments first. Supports paginated retrieval.
+  - [Get post likes](https://docs.keyapi.ai/en/instagram/fetch_post_likes.md) - Get a list of users who liked a post. Supports paginated retrieval.
 
 ## 4. Explore hashtags, locations, and Explore sections
 
@@ -70,13 +70,13 @@ users, usernames, user IDs, posts, Reels, Stories, Highlights, followers, follow
 - Default workflow: Resolve the target surface first, then fetch posts by hashtag, place, or section; use country/city and coordinate search for location-specific workflows.
 - Reference module: `instagram-discovery-rules.md`
 - Endpoint shortlist:
-  - [Search hashtags](https://docs.keyapi.ai/instagram/search-hashtags.md) - Instagram hashtag search endpoint, returns matching hashtag results.
-  - [Get posts by hashtag](https://docs.keyapi.ai/instagram/get-posts-by-hashtag.md) - Get a list of posts under a specified hashtag.
-  - [Get explore page sections](https://docs.keyapi.ai/instagram/get-explore-page-sections.md) - Get the categorized sections available on the Instagram explore page.
-  - [Get posts by section](https://docs.keyapi.ai/instagram/get-posts-by-section.md) - Get a list of posts under a specific section on the explore page.
-  - [Search places](https://docs.keyapi.ai/instagram/search-places.md) - Instagram places search endpoint, returns matching location results.
-  - [Search locations by coordinates](https://docs.keyapi.ai/instagram/search-locations-by-coordinates.md) - Search nearby Instagram locations using GPS coordinates.
-  - [Get cities by country](https://docs.keyapi.ai/instagram/get-cities-by-country.md) - Get a list of cities/regions for a specified country.
+  - [Search hashtags](https://docs.keyapi.ai/en/instagram/search_hashtags.md) - Instagram hashtag search endpoint, returns matching hashtag results.
+  - [Get posts by hashtag](https://docs.keyapi.ai/en/instagram/fetch_hashtag_posts.md) - Get a list of posts under a specified hashtag.
+  - [Get explore page sections](https://docs.keyapi.ai/en/instagram/fetch_explore_sections.md) - Get the categorized sections available on the Instagram explore page.
+  - [Get posts by section](https://docs.keyapi.ai/en/instagram/fetch_section_posts.md) - Get a list of posts under a specific section on the explore page.
+  - [Search places](https://docs.keyapi.ai/en/instagram/search_places.md) - Instagram places search endpoint, returns matching location results.
+  - [Search locations by coordinates](https://docs.keyapi.ai/en/instagram/search_by_coordinates.md) - Search nearby Instagram locations using GPS coordinates.
+  - [Get cities by country](https://docs.keyapi.ai/en/instagram/fetch_cities.md) - Get a list of cities/regions for a specified country.
 
 ## 5. Research Reels and music trends
 
@@ -86,10 +86,10 @@ users, usernames, user IDs, posts, Reels, Stories, Highlights, followers, follow
 - Default workflow: Use Reels search for video discovery, music search for audio discovery, and posts-using-music to inspect adoption examples.
 - Reference module: `instagram-discovery-rules.md`
 - Endpoint shortlist:
-  - [Search reels](https://docs.keyapi.ai/instagram/search-reels.md) - Search Instagram Reels (short videos) by keyword. Supports paginated retrieval.
-  - [Search music](https://docs.keyapi.ai/instagram/search-music.md) - Search for music available on Instagram by keyword.
-  - [Get posts using specific music](https://docs.keyapi.ai/instagram/get-posts-using-specific-music.md) - Get a list of posts/Reels that use a specified song or audio track.
-  - [Get post info](https://docs.keyapi.ai/instagram/get-post-info.md) - Get detailed information about an Instagram post. Supports shortcode or post URL.
+  - [Search reels](https://docs.keyapi.ai/en/instagram/search_reels.md) - Search Instagram Reels (short videos) by keyword. Supports paginated retrieval.
+  - [Search music](https://docs.keyapi.ai/en/instagram/search_music.md) - Search for music available on Instagram by keyword.
+  - [Get posts using specific music](https://docs.keyapi.ai/en/instagram/fetch_music_posts.md) - Get a list of posts/Reels that use a specified song or audio track.
+  - [Get post info](https://docs.keyapi.ai/en/instagram/fetch_post_info.md) - Get detailed information about an Instagram post. Supports shortcode or post URL.
 
 ## 6. Map social graph context
 
@@ -99,9 +99,9 @@ users, usernames, user IDs, posts, Reels, Stories, Highlights, followers, follow
 - Default workflow: Fetch user info first, then followers or following; enrich only a small shortlist unless the user approves a broader crawl.
 - Reference module: `instagram-user-rules.md`
 - Endpoint shortlist:
-  - [Get user info](https://docs.keyapi.ai/instagram/get-user-info.md) - Get detailed information about an Instagram user. Supports querying by username or user ID.
-  - [Get user followers](https://docs.keyapi.ai/instagram/get-user-followers.md) - Get a list of an Instagram user's followers. Supports paginated retrieval.
-  - [Get user following](https://docs.keyapi.ai/instagram/get-user-following.md) - Get a list of users that an Instagram user is following. Supports paginated retrieval.
+  - [Get user info](https://docs.keyapi.ai/en/instagram/fetch_user_info.md) - Get detailed information about an Instagram user. Supports querying by username or user ID.
+  - [Get user followers](https://docs.keyapi.ai/en/instagram/fetch_user_followers.md) - Get a list of an Instagram user's followers. Supports paginated retrieval.
+  - [Get user following](https://docs.keyapi.ai/en/instagram/fetch_user_following.md) - Get a list of users that an Instagram user is following. Supports paginated retrieval.
 
 ## Docs Search Strategy
 

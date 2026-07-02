@@ -8,9 +8,9 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. Single and batch post detail
 
-- Documentation: `https://docs.keyapi.ai/reddit/fetch-single-reddit-post-details.md`
-- Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-post-details-in-batch-max-5.md`
-- Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-post-details-in-large-batch-max-30.md`
+- Documentation: `https://docs.keyapi.ai/en/reddit/fetch_post_details.md`
+- Documentation: `https://docs.keyapi.ai/en/reddit/fetch_post_details_batch.md`
+- Documentation: `https://docs.keyapi.ai/en/reddit/fetch_post_details_batch_large.md`
 - Purpose: Retrieve detail for one or multiple Reddit posts.
 
 ### Best Suited For
@@ -29,7 +29,7 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 3. Top-level comments and discussion evidence
 
-- Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-app-post-comments.md`
+- Documentation: `https://docs.keyapi.ai/en/reddit/fetch_post_comments.md`
 - Purpose: Retrieve comments under a specified post.
 
 ### Best Suited For
@@ -47,7 +47,7 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 4. Sub-comments and reply expansion
 
-- Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-app-comment-replies-sub-comments.md`
+- Documentation: `https://docs.keyapi.ai/en/reddit/fetch_comment_replies.md`
 - Purpose: Retrieve replies under a specific comment node.
 
 ### Best Suited For

@@ -15,10 +15,10 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. Creator search and profile detail
 
-- Documentation: `https://docs.keyapi.ai/tiktok/influencer/search.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/influencer/detail.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/influencer/detail-analytics.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/influencer/qrcode.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/influencer/search.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/influencer/detail.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/influencer/detail-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/influencer/qrcode.md`
 - Purpose: Find creators and retrieve realtime or Analytics/EchoTik profile records.
 
 ### Best Suited For
@@ -36,9 +36,9 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 3. Creator discovery, ranking, and trends
 
-- Documentation: `https://docs.keyapi.ai/tiktok/influencer/list-analytics.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/influencer/ranking-analytics.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/influencer/trends-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/influencer/list-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/influencer/ranking-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/influencer/trends-analytics.md`
 - Purpose: Discover and benchmark creators through Analytics/EchoTik data.
 
 ### Best Suited For
@@ -56,12 +56,12 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 4. Creator content, products, live, and audience context
 
-- Documentation: `https://docs.keyapi.ai/tiktok/influencer/videos.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/influencer/videos-analytics.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/influencer/products-analytics.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/influencer/livestreams-analytics.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/influencer/region.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/influencer/milestones.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/influencer/videos.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/influencer/videos-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/influencer/products-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/influencer/livestreams-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/influencer/region.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/influencer/milestones.md`
 - Purpose: Retrieve creator videos, promoted products, livestream history, audience region, and growth milestones.
 
 ### Best Suited For
@@ -79,8 +79,8 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 5. Follower and following graph
 
-- Documentation: `https://docs.keyapi.ai/tiktok/influencer/followers.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/influencer/following.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/influencer/followers.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/influencer/following.md`
 - Purpose: Retrieve follower or following lists for a creator.
 
 ### Best Suited For

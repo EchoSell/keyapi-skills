@@ -13,9 +13,9 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. User activity portfolio
 
-- Documentation: `https://docs.keyapi.ai/threads/get-user-posts.md`
-- Documentation: `https://docs.keyapi.ai/threads/get-user-replies.md`
-- Documentation: `https://docs.keyapi.ai/threads/get-user-reposts.md`
+- Documentation: `https://docs.keyapi.ai/en/threads/fetch_user_posts.md`
+- Documentation: `https://docs.keyapi.ai/en/threads/fetch_user_replies.md`
+- Documentation: `https://docs.keyapi.ai/en/threads/fetch_user_reposts.md`
 - Purpose: Retrieve user authored posts, replies, and reposts.
 
 ### Best Suited For
@@ -32,8 +32,8 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 3. Post detail and comments
 
-- Documentation: `https://docs.keyapi.ai/threads/get-post-detail.md`
-- Documentation: `https://docs.keyapi.ai/threads/get-post-comments.md`
+- Documentation: `https://docs.keyapi.ai/en/threads/fetch_post_detail.md`
+- Documentation: `https://docs.keyapi.ai/en/threads/fetch_post_comments.md`
 - Purpose: Inspect a post and retrieve discussion comments.
 
 ### Best Suited For

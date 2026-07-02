@@ -8,10 +8,10 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. Tweet detail, thread, and reply context
 
-- Documentation: `https://docs.keyapi.ai/twitter/tweet-info.md`
-- Documentation: `https://docs.keyapi.ai/twitter/tweet-thread.md`
-- Documentation: `https://docs.keyapi.ai/twitter/latest-replies.md`
-- Documentation: `https://docs.keyapi.ai/twitter/user-replies.md`
+- Documentation: `https://docs.keyapi.ai/en/twitter/tweet.md`
+- Documentation: `https://docs.keyapi.ai/en/twitter/tweet_thread.md`
+- Documentation: `https://docs.keyapi.ai/en/twitter/latest_replies.md`
+- Documentation: `https://docs.keyapi.ai/en/twitter/replies.md`
 - Purpose: Inspect tweets, reconstruct thread context, and retrieve reply streams.
 
 ### Best Suited For
@@ -30,8 +30,8 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 3. Retweets and social proof
 
-- Documentation: `https://docs.keyapi.ai/twitter/retweets.md`
-- Documentation: `https://docs.keyapi.ai/twitter/check-retweet.md`
+- Documentation: `https://docs.keyapi.ai/en/twitter/retweets.md`
+- Documentation: `https://docs.keyapi.ai/en/twitter/checkretweet.md`
 - Purpose: Retrieve retweet evidence or check whether one account retweeted a tweet.
 
 ### Best Suited For
@@ -48,9 +48,9 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 4. Search, trends, and content ideation
 
-- Documentation: `https://docs.keyapi.ai/twitter/search.md`
-- Documentation: `https://docs.keyapi.ai/twitter/trends.md`
-- Documentation: `https://docs.keyapi.ai/twitter/inspiration-posts.md`
+- Documentation: `https://docs.keyapi.ai/en/twitter/search.md`
+- Documentation: `https://docs.keyapi.ai/en/twitter/trends.md`
+- Documentation: `https://docs.keyapi.ai/en/twitter/top_posts.md`
 - Purpose: Search posts, inspect current trends, or retrieve inspiration posts.
 
 ### Best Suited For
@@ -69,7 +69,7 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 5. Jobs search
 
-- Documentation: `https://docs.keyapi.ai/twitter/jobs-search.md`
+- Documentation: `https://docs.keyapi.ai/en/twitter/jobs.md`
 - Purpose: Search Twitter/X job-related listings or job surface results.
 
 ### Best Suited For

@@ -15,11 +15,11 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. Category and product discovery
 
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/category-primary-analytics.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/category-secondary-analytics.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/category-tertiary-analytics.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/product-list-analytics.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/product-ranking-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/category-primary-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/category-secondary-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/category-tertiary-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/product-list-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/product-ranking-analytics.md`
 - Purpose: Find products through category, filters, rankings, or Analytics/EchoTik commerce metrics.
 
 ### Best Suited For
@@ -37,10 +37,10 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 3. Realtime product lookup
 
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/product-search.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/product-detail.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/product-detail-app.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/product-id.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/product-search.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/product-detail.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/product-detail-app.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/product-id.md`
 - Purpose: Retrieve current product state or resolve products from search/share links.
 
 ### Best Suited For
@@ -58,8 +58,8 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 4. Product reviews and buyer evidence
 
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/product-reviews.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/product-reviews-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/product-reviews.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/product-reviews-analytics.md`
 - Purpose: Retrieve realtime or Analytics/EchoTik review evidence.
 
 ### Best Suited For
@@ -76,11 +76,11 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 5. Product trend and relationship attribution
 
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/product-detail-analytics.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/product-trends-analytics.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/product-creators-analytics.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/product-videos-analytics.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/shop/product-livestreams-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/product-detail-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/product-trends-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/product-creators-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/product-videos-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/shop/product-livestreams-analytics.md`
 - Purpose: Explain product performance through historical trends and traffic sources.
 
 ### Best Suited For

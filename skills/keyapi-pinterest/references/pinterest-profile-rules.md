@@ -12,8 +12,8 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. User search and profile baseline
 
-- Documentation: `https://docs.keyapi.ai/pinterest/search-users.md`
-- Documentation: `https://docs.keyapi.ai/pinterest/get-user-information.md`
+- Documentation: `https://docs.keyapi.ai/en/pinterest/search.md`
+- Documentation: `https://docs.keyapi.ai/en/pinterest/information.md`
 - Purpose: Find Pinterest accounts and retrieve profile information.
 
 ### Best Suited For

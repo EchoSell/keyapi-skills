@@ -13,8 +13,8 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. News and shopping
 
-- Documentation: `https://docs.keyapi.ai/google/news.md`
-- Documentation: `https://docs.keyapi.ai/google/shopping.md`
+- Documentation: `https://docs.keyapi.ai/en/google/news.md`
+- Documentation: `https://docs.keyapi.ai/en/google/shopping.md`
 - Purpose: Retrieve current news or shopping/product search results.
 
 ### Best Suited For
@@ -31,8 +31,8 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 3. Scholar and patents
 
-- Documentation: `https://docs.keyapi.ai/google/scholar.md`
-- Documentation: `https://docs.keyapi.ai/google/patents.md`
+- Documentation: `https://docs.keyapi.ai/en/google/scholar.md`
+- Documentation: `https://docs.keyapi.ai/en/google/patents.md`
 - Purpose: Retrieve academic literature or patent results.
 
 ### Best Suited For

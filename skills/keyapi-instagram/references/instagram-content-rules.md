@@ -8,9 +8,9 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. Post detail and identifier conversion
 
-- Documentation: `https://docs.keyapi.ai/instagram/get-post-info.md`
-- Documentation: `https://docs.keyapi.ai/instagram/convert-shortcode-to-media-id.md`
-- Documentation: `https://docs.keyapi.ai/instagram/convert-media-id-to-shortcode.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/fetch_post_info.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/shortcode_to_media_id.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/media_id_to_shortcode.md`
 - Purpose: Retrieve post detail and normalize post identifiers.
 
 ### Best Suited For
@@ -28,9 +28,9 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 3. Comment, reply, and like analysis
 
-- Documentation: `https://docs.keyapi.ai/instagram/get-post-comments.md`
-- Documentation: `https://docs.keyapi.ai/instagram/get-comment-replies.md`
-- Documentation: `https://docs.keyapi.ai/instagram/get-post-likes.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/fetch_post_comments.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/fetch_comment_replies.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/fetch_post_likes.md`
 - Purpose: Retrieve discussion and engagement-account evidence for a post.
 
 ### Best Suited For
@@ -48,9 +48,9 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 4. Hashtag, music, and Reels content research
 
-- Documentation: `https://docs.keyapi.ai/instagram/get-posts-by-hashtag.md`
-- Documentation: `https://docs.keyapi.ai/instagram/get-posts-using-specific-music.md`
-- Documentation: `https://docs.keyapi.ai/instagram/search-reels.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/fetch_hashtag_posts.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/fetch_music_posts.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/search_reels.md`
 - Purpose: Retrieve content around a hashtag, audio track, or Reels keyword.
 
 ### Best Suited For
@@ -68,8 +68,8 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 5. Explore section content
 
-- Documentation: `https://docs.keyapi.ai/instagram/get-explore-page-sections.md`
-- Documentation: `https://docs.keyapi.ai/instagram/get-posts-by-section.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/fetch_explore_sections.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/fetch_section_posts.md`
 - Purpose: Browse Explore sections and retrieve posts inside a selected section.
 
 ### Best Suited For

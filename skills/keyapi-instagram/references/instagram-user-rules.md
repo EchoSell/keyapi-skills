@@ -8,10 +8,10 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. User discovery and profile qualification
 
-- Documentation: `https://docs.keyapi.ai/instagram/search-users.md`
-- Documentation: `https://docs.keyapi.ai/instagram/general-search.md`
-- Documentation: `https://docs.keyapi.ai/instagram/get-user-info.md`
-- Documentation: `https://docs.keyapi.ai/instagram/get-user-info-by-user-id.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/search_users.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/general_search.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/fetch_user_info.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/user_id_to_username.md`
 - Purpose: Find candidate accounts and retrieve a stable profile baseline.
 
 ### Best Suited For
@@ -31,10 +31,10 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 3. Profile content portfolio audit
 
-- Documentation: `https://docs.keyapi.ai/instagram/get-user-posts.md`
-- Documentation: `https://docs.keyapi.ai/instagram/get-user-reels.md`
-- Documentation: `https://docs.keyapi.ai/instagram/get-user-tagged-posts.md`
-- Documentation: `https://docs.keyapi.ai/instagram/get-user-reposts-list.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/fetch_user_posts.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/fetch_user_reels.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/fetch_user_tagged_posts.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/fetch_user_reposts.md`
 - Purpose: Collect a profile content portfolio by surface.
 
 ### Best Suited For
@@ -52,9 +52,9 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 4. Stories and highlight review
 
-- Documentation: `https://docs.keyapi.ai/instagram/get-user-stories.md`
-- Documentation: `https://docs.keyapi.ai/instagram/get-user-highlights.md`
-- Documentation: `https://docs.keyapi.ai/instagram/get-highlight-stories.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/fetch_user_stories.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/fetch_user_highlights.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/fetch_highlight_stories.md`
 - Purpose: Retrieve active Stories, highlight collections, or stories inside a selected highlight.
 
 ### Best Suited For
@@ -71,10 +71,10 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 5. Audience and relationship exploration
 
-- Documentation: `https://docs.keyapi.ai/instagram/get-user-followers.md`
-- Documentation: `https://docs.keyapi.ai/instagram/get-user-following.md`
-- Documentation: `https://docs.keyapi.ai/instagram/get-related-profiles.md`
-- Documentation: `https://docs.keyapi.ai/instagram/get-similar-users.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/fetch_user_followers.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/fetch_user_following.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/fetch_related_profiles.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/fetch_similar_users.md`
 - Purpose: Inspect relationship lists or expand discovery through related/similar accounts.
 
 ### Best Suited For

@@ -24,9 +24,9 @@ public profiles, pages, profile IDs, profile posts, Reels, photos, public groups
 - Default workflow: Resolve identity first, then retrieve URL or ID detail; route media/content sections to the profile content module.
 - Reference module: `facebook-profile-rules.md`
 - Endpoint shortlist:
-  - [Get profile id](https://docs.keyapi.ai/facebook/get-profile-id.md) - Get user ID from profile URL
-  - [Profile details by url](https://docs.keyapi.ai/facebook/profile-details-by-url.md) - Get profile details via Facebook profile URL
-  - [Profiles details by id](https://docs.keyapi.ai/facebook/profiles-details-by-id.md) - Get profile details by ID, used in conjunction with get_profile_id (profile_details_by_url as an alternative)
+  - [Get profile id](https://docs.keyapi.ai/en/facebook/profile_profile_id.md) - Get user ID from profile URL
+  - [Profile details by url](https://docs.keyapi.ai/en/facebook/profile_details_url.md) - Get profile details via Facebook profile URL
+  - [Profiles details by id](https://docs.keyapi.ai/en/facebook/profile_details_id.md) - Get profile details by ID, used in conjunction with get_profile_id (profile_details_by_url as an alternative)
 
 ## 2. Collect profile/page posts and media
 
@@ -36,9 +36,9 @@ public profiles, pages, profile IDs, profile posts, Reels, photos, public groups
 - Default workflow: Use posts, Reels, or photos according to the requested surface; resolve profile/page first if identity is ambiguous.
 - Reference module: `facebook-profile-content-rules.md`
 - Endpoint shortlist:
-  - [Profile posts](https://docs.keyapi.ai/facebook/profile-posts.md) - Get public Facebook profile posts.
-  - [Profile Reels](https://docs.keyapi.ai/facebook/profile-reels.md) - Get a public Facebook page's reels.
-  - [Profiles photos](https://docs.keyapi.ai/facebook/profiles-photos.md) - Get a public Facebook page's photos.
+  - [Profile posts](https://docs.keyapi.ai/en/facebook/profile_posts.md) - Get public Facebook profile posts.
+  - [Profile Reels](https://docs.keyapi.ai/en/facebook/profile_reels.md) - Get a public Facebook page's reels.
+  - [Profiles photos](https://docs.keyapi.ai/en/facebook/profile_photos.md) - Get a public Facebook page's photos.
 
 ## 3. Analyze public groups
 
@@ -48,10 +48,10 @@ public profiles, pages, profile IDs, profile posts, Reels, photos, public groups
 - Default workflow: Resolve group ID, fetch group detail, then posts and future events only when requested.
 - Reference module: `facebook-group-rules.md`
 - Endpoint shortlist:
-  - [Get group id](https://docs.keyapi.ai/facebook/get-group-id.md) - Get a public Facebook group ID.
-  - [Get group details](https://docs.keyapi.ai/facebook/get-group-details.md) - Get a public Facebook groups details.
-  - [Get group posts](https://docs.keyapi.ai/facebook/get-group-posts.md) - Get a public Facebook groups posts.
-  - [Get group future events](https://docs.keyapi.ai/facebook/get-group-future-events.md) - Get a public Facebook group future events.
+  - [Get group id](https://docs.keyapi.ai/en/facebook/group_id.md) - Get a public Facebook group ID.
+  - [Get group details](https://docs.keyapi.ai/en/facebook/group_details.md) - Get a public Facebook groups details.
+  - [Get group posts](https://docs.keyapi.ai/en/facebook/group_posts.md) - Get a public Facebook groups posts.
+  - [Get group future events](https://docs.keyapi.ai/en/facebook/group_future_events.md) - Get a public Facebook group future events.
 
 ## Docs Search Strategy
 

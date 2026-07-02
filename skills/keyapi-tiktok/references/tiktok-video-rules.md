@@ -15,9 +15,9 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. Video discovery and ranking
 
-- Documentation: `https://docs.keyapi.ai/tiktok/content/video-search.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/content/video-list-analytics.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/content/video-ranking-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/content/video-search.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/content/video-list-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/content/video-ranking-analytics.md`
 - Purpose: Find videos through realtime keyword search or Analytics/EchoTik filters/rankings.
 
 ### Best Suited For
@@ -35,10 +35,10 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 3. Video detail and trend
 
-- Documentation: `https://docs.keyapi.ai/tiktok/content/video-detail.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/content/video-detail-analytics.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/content/video-trends.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/content/video-trends-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/content/video-detail.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/content/video-detail-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/content/video-trends.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/content/video-trends-analytics.md`
 - Purpose: Retrieve current or Analytics video detail and interaction trends.
 
 ### Best Suited For
@@ -56,10 +56,10 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 4. Comments, replies, keywords, and captions
 
-- Documentation: `https://docs.keyapi.ai/tiktok/content/video-comments.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/content/video-comment-replies.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/content/video-comment-keywords.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/content/video-captions.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/content/video-comments.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/content/video-comment-replies.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/content/video-comment-keywords.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/content/video-captions.md`
 - Purpose: Analyze audience reaction and video text/script content.
 
 ### Best Suited For
@@ -77,9 +77,9 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 5. Video assets and product links
 
-- Documentation: `https://docs.keyapi.ai/tiktok/content/video-download-url.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/content/covers-batch-download.md`
-- Documentation: `https://docs.keyapi.ai/tiktok/content/video-products-analytics.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/content/video-download-url.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/content/covers-batch-download.md`
+- Documentation: `https://docs.keyapi.ai/en/tiktok/content/video-products-analytics.md`
 - Purpose: Retrieve video download/cover assets or products attached to videos.
 
 ### Best Suited For

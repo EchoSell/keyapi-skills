@@ -24,9 +24,9 @@ users, user IDs, profiles, posts, replies, reposts, comments, top content, recen
 - Default workflow: Use profile search for discovery, then user info or user info by ID for selected profiles.
 - Reference module: `threads-profile-rules.md`
 - Endpoint shortlist:
-  - [Search profiles](https://docs.keyapi.ai/threads/search-profiles.md) - Search Threads user profiles
-  - [Get user info](https://docs.keyapi.ai/threads/get-user-info.md) - Get Threads user information
-  - [Get user info by ID](https://docs.keyapi.ai/threads/get-user-info-by-id.md) - Get Threads user information by user ID
+  - [Search profiles](https://docs.keyapi.ai/en/threads/search_profiles.md) - Search Threads user profiles
+  - [Get user info](https://docs.keyapi.ai/en/threads/fetch_user_info.md) - Get Threads user information
+  - [Get user info by ID](https://docs.keyapi.ai/en/threads/fetch_user_info_by_id.md) - Get Threads user information by user ID
 
 ## 2. Audit user activity and posts
 
@@ -36,11 +36,11 @@ users, user IDs, profiles, posts, replies, reposts, comments, top content, recen
 - Default workflow: Fetch user info first if needed, then posts/replies/reposts; use post detail/comments for selected posts.
 - Reference module: `threads-content-rules.md`
 - Endpoint shortlist:
-  - [Get user posts](https://docs.keyapi.ai/threads/get-user-posts.md) - Get the list of posts by a Threads user
-  - [Get user replies](https://docs.keyapi.ai/threads/get-user-replies.md) - Get the list of replies by a Threads user
-  - [Get user reposts](https://docs.keyapi.ai/threads/get-user-reposts.md) - Get the list of reposts by a Threads user
-  - [Get Post Detail](https://docs.keyapi.ai/threads/get-post-detail.md) - Get Threads post details (supports shortcode and full URL)
-  - [Get post comments](https://docs.keyapi.ai/threads/get-post-comments.md) - Get the list of comments for a Threads post
+  - [Get user posts](https://docs.keyapi.ai/en/threads/fetch_user_posts.md) - Get the list of posts by a Threads user
+  - [Get user replies](https://docs.keyapi.ai/en/threads/fetch_user_replies.md) - Get the list of replies by a Threads user
+  - [Get user reposts](https://docs.keyapi.ai/en/threads/fetch_user_reposts.md) - Get the list of reposts by a Threads user
+  - [Get Post Detail](https://docs.keyapi.ai/en/threads/fetch_post_detail.md) - Get Threads post details (supports shortcode and full URL)
+  - [Get post comments](https://docs.keyapi.ai/en/threads/fetch_post_comments.md) - Get the list of comments for a Threads post
 
 ## 3. Search top or recent content
 
@@ -50,8 +50,8 @@ users, user IDs, profiles, posts, replies, reposts, comments, top content, recen
 - Default workflow: Use top content for high-visibility posts and recent content for freshness; enrich selected posts through content rules.
 - Reference module: `threads-search-rules.md`
 - Endpoint shortlist:
-  - [Search top content](https://docs.keyapi.ai/threads/search-top-content.md) - Search Threads top content
-  - [Search recent content](https://docs.keyapi.ai/threads/search-recent-content.md) - Search Threads recent content
+  - [Search top content](https://docs.keyapi.ai/en/threads/search_top.md) - Search Threads top content
+  - [Search recent content](https://docs.keyapi.ai/en/threads/search_recent.md) - Search Threads recent content
 
 ## Docs Search Strategy
 

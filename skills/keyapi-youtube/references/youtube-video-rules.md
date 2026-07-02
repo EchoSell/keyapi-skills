@@ -8,7 +8,7 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. Video detail baseline
 
-- Documentation: `https://docs.keyapi.ai/youtube/get-video-information.md`
+- Documentation: `https://docs.keyapi.ai/en/youtube/get_video_info.md`
 - Purpose: Retrieve detailed raw information for one video.
 
 ### Best Suited For
@@ -26,8 +26,8 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 3. Comments and sub-comments
 
-- Documentation: `https://docs.keyapi.ai/youtube/get-video-comments.md`
-- Documentation: `https://docs.keyapi.ai/youtube/get-video-sub-comments.md`
+- Documentation: `https://docs.keyapi.ai/en/youtube/get_video_comments.md`
+- Documentation: `https://docs.keyapi.ai/en/youtube/get_video_comment_replies.md`
 - Purpose: Retrieve video comments and replies to comments.
 
 ### Best Suited For
@@ -46,7 +46,7 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 4. Related videos and recommendation context
 
-- Documentation: `https://docs.keyapi.ai/youtube/get-related-videos.md`
+- Documentation: `https://docs.keyapi.ai/en/youtube/get_related_videos.md`
 - Purpose: Retrieve recommended related content for a video.
 
 ### Best Suited For
@@ -62,7 +62,7 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 5. Streams and playback formats
 
-- Documentation: `https://docs.keyapi.ai/youtube/get-video-streams-info.md`
+- Documentation: `https://docs.keyapi.ai/en/youtube/get_video_streams.md`
 - Purpose: Retrieve playback/format information for a video.
 
 ### Best Suited For

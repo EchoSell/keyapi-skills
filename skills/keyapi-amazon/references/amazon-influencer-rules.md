@@ -8,7 +8,7 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. Storefront identity and profile
 
-- Documentation: `https://docs.keyapi.ai/amazon/influencer-profile.md`
+- Documentation: `https://docs.keyapi.ai/en/amazon/influencer-profile.md`
 - Purpose: Retrieve Influencer storefront metadata before post or product analysis.
 
 ### Best Suited For
@@ -25,7 +25,7 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 3. Post and content audit
 
-- Documentation: `https://docs.keyapi.ai/amazon/influencer-posts.md`
+- Documentation: `https://docs.keyapi.ai/en/amazon/influencer-posts.md`
 - Purpose: Retrieve Influencer posts including lists, photos, and videos.
 
 ### Best Suited For
@@ -43,8 +43,8 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 4. Featured products from list posts
 
-- Documentation: `https://docs.keyapi.ai/amazon/influencer-post-products.md`
-- Documentation: `https://docs.keyapi.ai/amazon/product-details.md`
+- Documentation: `https://docs.keyapi.ai/en/amazon/influencer-post-products.md`
+- Documentation: `https://docs.keyapi.ai/en/amazon/product-details.md`
 - Purpose: Retrieve products featured inside a specific Influencer list post.
 
 ### Best Suited For

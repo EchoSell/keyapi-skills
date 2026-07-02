@@ -13,7 +13,7 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. Web search
 
-- Documentation: `https://docs.keyapi.ai/google/search.md`
+- Documentation: `https://docs.keyapi.ai/en/google/search.md`
 - Purpose: Retrieve Google web search results for a query.
 
 ### Best Suited For
@@ -30,7 +30,7 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 3. Autocomplete
 
-- Documentation: `https://docs.keyapi.ai/google/autocomplete.md`
+- Documentation: `https://docs.keyapi.ai/en/google/autocomplete.md`
 - Purpose: Generate search suggestions from a seed query.
 
 ### Best Suited For

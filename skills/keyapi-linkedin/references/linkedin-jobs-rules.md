@@ -8,7 +8,7 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. Job demand sizing
 
-- Documentation: `https://docs.keyapi.ai/linkedin/get-company-job-count.md`
+- Documentation: `https://docs.keyapi.ai/en/linkedin/get_company_job_count.md`
 - Purpose: Estimate hiring footprint for a company.
 
 ### Best Suited For
@@ -25,7 +25,7 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 3. Company job listings
 
-- Documentation: `https://docs.keyapi.ai/linkedin/get-company-jobs.md`
+- Documentation: `https://docs.keyapi.ai/en/linkedin/get_company_jobs.md`
 - Purpose: Retrieve job listings for a company.
 
 ### Best Suited For
@@ -42,7 +42,7 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 4. Selected job detail
 
-- Documentation: `https://docs.keyapi.ai/linkedin/get-job-detail.md`
+- Documentation: `https://docs.keyapi.ai/en/linkedin/get_job_detail.md`
 - Purpose: Retrieve detailed information for one selected job.
 
 ### Best Suited For

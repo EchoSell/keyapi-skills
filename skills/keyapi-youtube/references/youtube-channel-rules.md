@@ -8,9 +8,9 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. Channel identity conversion and resolution
 
-- Documentation: `https://docs.keyapi.ai/youtube/get-channel-id.md`
-- Documentation: `https://docs.keyapi.ai/youtube/get-channel-id-from-url.md`
-- Documentation: `https://docs.keyapi.ai/youtube/get-channel-url-from-channel-id.md`
+- Documentation: `https://docs.keyapi.ai/en/youtube/get_channel_id.md`
+- Documentation: `https://docs.keyapi.ai/en/youtube/get_channel_id_from_url.md`
+- Documentation: `https://docs.keyapi.ai/en/youtube/get_channel_url.md`
 - Purpose: Resolve channel names, URLs, handles, and channel IDs into the form needed by downstream endpoints.
 
 ### Best Suited For
@@ -29,7 +29,7 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 3. Channel profile baseline
 
-- Documentation: `https://docs.keyapi.ai/youtube/get-channel-description.md`
+- Documentation: `https://docs.keyapi.ai/en/youtube/get_channel_description.md`
 - Purpose: Retrieve detailed channel profile information.
 
 ### Best Suited For
@@ -45,7 +45,7 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 4. Channel video catalog
 
-- Documentation: `https://docs.keyapi.ai/youtube/get-channel-videos.md`
+- Documentation: `https://docs.keyapi.ai/en/youtube/get_channel_videos.md`
 - Purpose: Retrieve videos from a channel.
 
 ### Best Suited For
@@ -62,8 +62,8 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 5. Channel discovery search
 
-- Documentation: `https://docs.keyapi.ai/youtube/search-channel.md`
-- Documentation: `https://docs.keyapi.ai/youtube/search-channels.md`
+- Documentation: `https://docs.keyapi.ai/en/youtube/search_channel.md`
+- Documentation: `https://docs.keyapi.ai/en/youtube/search_channels.md`
 - Purpose: Search YouTube channels.
 
 ### Best Suited For

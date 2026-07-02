@@ -8,7 +8,7 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. Search suggestions and query expansion
 
-- Documentation: `https://docs.keyapi.ai/youtube/get-search-suggestions.md`
+- Documentation: `https://docs.keyapi.ai/en/youtube/get_search_suggestions.md`
 - Purpose: Generate YouTube search suggestions from a seed query.
 
 ### Best Suited For
@@ -24,8 +24,8 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 3. Video and filtered search
 
-- Documentation: `https://docs.keyapi.ai/youtube/search-video.md`
-- Documentation: `https://docs.keyapi.ai/youtube/general-search-with-filters.md`
+- Documentation: `https://docs.keyapi.ai/en/youtube/search_video.md`
+- Documentation: `https://docs.keyapi.ai/en/youtube/get_general_search.md`
 - Purpose: Search YouTube videos or run advanced filtered search.
 
 ### Best Suited For
@@ -43,7 +43,7 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 4. Shorts-specific discovery
 
-- Documentation: `https://docs.keyapi.ai/youtube/youtube-shorts-search.md`
+- Documentation: `https://docs.keyapi.ai/en/youtube/get_shorts_search.md`
 - Purpose: Search YouTube Shorts using the native Shorts search surface.
 
 ### Best Suited For
@@ -60,9 +60,9 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 5. Trending videos and channel discovery
 
-- Documentation: `https://docs.keyapi.ai/youtube/get-trending-videos.md`
-- Documentation: `https://docs.keyapi.ai/youtube/search-channel.md`
-- Documentation: `https://docs.keyapi.ai/youtube/search-channels.md`
+- Documentation: `https://docs.keyapi.ai/en/youtube/get_trending_videos.md`
+- Documentation: `https://docs.keyapi.ai/en/youtube/search_channel.md`
+- Documentation: `https://docs.keyapi.ai/en/youtube/search_channels.md`
 - Purpose: Retrieve trending videos or search channels.
 
 ### Best Suited For

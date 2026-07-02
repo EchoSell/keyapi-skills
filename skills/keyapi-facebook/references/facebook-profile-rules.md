@@ -12,9 +12,9 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. Profile/page URL and ID resolution
 
-- Documentation: `https://docs.keyapi.ai/facebook/get-profile-id.md`
-- Documentation: `https://docs.keyapi.ai/facebook/profile-details-by-url.md`
-- Documentation: `https://docs.keyapi.ai/facebook/profiles-details-by-id.md`
+- Documentation: `https://docs.keyapi.ai/en/facebook/profile_profile_id.md`
+- Documentation: `https://docs.keyapi.ai/en/facebook/profile_details_url.md`
+- Documentation: `https://docs.keyapi.ai/en/facebook/profile_details_id.md`
 - Purpose: Resolve a public Facebook profile/page identity and retrieve baseline detail.
 
 ### Best Suited For

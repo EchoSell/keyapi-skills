@@ -12,7 +12,7 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. Webpage extraction
 
-- Documentation: `https://docs.keyapi.ai/google/webpage.md`
+- Documentation: `https://docs.keyapi.ai/en/google/webpage.md`
 - Purpose: Extract a webpage from a URL for deeper analysis.
 
 ### Best Suited For

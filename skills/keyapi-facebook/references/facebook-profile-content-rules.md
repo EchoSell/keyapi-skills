@@ -12,9 +12,9 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. Posts, Reels, and photos
 
-- Documentation: `https://docs.keyapi.ai/facebook/profile-posts.md`
-- Documentation: `https://docs.keyapi.ai/facebook/profile-reels.md`
-- Documentation: `https://docs.keyapi.ai/facebook/profiles-photos.md`
+- Documentation: `https://docs.keyapi.ai/en/facebook/profile_posts.md`
+- Documentation: `https://docs.keyapi.ai/en/facebook/profile_reels.md`
+- Documentation: `https://docs.keyapi.ai/en/facebook/profile_photos.md`
 - Purpose: Retrieve public posts, Reels, and photos from a profile/page.
 
 ### Best Suited For

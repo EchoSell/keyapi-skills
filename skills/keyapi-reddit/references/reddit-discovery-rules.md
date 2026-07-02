@@ -8,9 +8,9 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. Dynamic search and query expansion
 
-- Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-app-dynamic-search-results.md`
-- Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-app-search-typeahead-suggestions.md`
-- Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-app-trending-searches.md`
+- Documentation: `https://docs.keyapi.ai/en/reddit/fetch_dynamic_search.md`
+- Documentation: `https://docs.keyapi.ai/en/reddit/fetch_search_typeahead.md`
+- Documentation: `https://docs.keyapi.ai/en/reddit/fetch_trending_searches.md`
 - Purpose: Discover posts, communities, comments, media, users, search suggestions, and trending topics.
 
 ### Best Suited For
@@ -29,10 +29,10 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 3. Feed surface monitoring
 
-- Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-app-popular-feed.md`
-- Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-app-home-feed.md`
-- Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-app-news-feed.md`
-- Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-app-games-feed.md`
+- Documentation: `https://docs.keyapi.ai/en/reddit/fetch_popular_feed.md`
+- Documentation: `https://docs.keyapi.ai/en/reddit/fetch_home_feed.md`
+- Documentation: `https://docs.keyapi.ai/en/reddit/fetch_news_feed.md`
+- Documentation: `https://docs.keyapi.ai/en/reddit/fetch_games_feed.md`
 - Purpose: Retrieve different Reddit feed surfaces.
 
 ### Best Suited For
@@ -50,11 +50,11 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 4. User activity discovery
 
-- Documentation: `https://docs.keyapi.ai/reddit/fetch-reddit-app-user-profile.md`
-- Documentation: `https://docs.keyapi.ai/reddit/fetch-user-posts.md`
-- Documentation: `https://docs.keyapi.ai/reddit/fetch-user-comments.md`
-- Documentation: `https://docs.keyapi.ai/reddit/fetch-user-public-trophies.md`
-- Documentation: `https://docs.keyapi.ai/reddit/fetch-user-s-active-subreddits.md`
+- Documentation: `https://docs.keyapi.ai/en/reddit/fetch_user_profile.md`
+- Documentation: `https://docs.keyapi.ai/en/reddit/fetch_user_posts.md`
+- Documentation: `https://docs.keyapi.ai/en/reddit/fetch_user_comments.md`
+- Documentation: `https://docs.keyapi.ai/en/reddit/fetch_user_trophies.md`
+- Documentation: `https://docs.keyapi.ai/en/reddit/fetch_user_active_subreddits.md`
 - Purpose: Retrieve profile, posts, comments, trophies, and active communities for a Reddit user.
 
 ### Best Suited For

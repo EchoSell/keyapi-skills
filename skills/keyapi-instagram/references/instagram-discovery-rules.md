@@ -8,8 +8,8 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. General and user-facing search
 
-- Documentation: `https://docs.keyapi.ai/instagram/general-search.md`
-- Documentation: `https://docs.keyapi.ai/instagram/search-users.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/general_search.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/search_users.md`
 - Purpose: Search broadly or find accounts by keyword.
 
 ### Best Suited For
@@ -26,8 +26,8 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 3. Hashtag and music seed resolution
 
-- Documentation: `https://docs.keyapi.ai/instagram/search-hashtags.md`
-- Documentation: `https://docs.keyapi.ai/instagram/search-music.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/search_hashtags.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/search_music.md`
 - Purpose: Resolve hashtag or music/audio targets before fetching related posts.
 
 ### Best Suited For
@@ -44,9 +44,9 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 4. Place, city, and coordinate discovery
 
-- Documentation: `https://docs.keyapi.ai/instagram/search-places.md`
-- Documentation: `https://docs.keyapi.ai/instagram/get-cities-by-country.md`
-- Documentation: `https://docs.keyapi.ai/instagram/search-locations-by-coordinates.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/search_places.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/fetch_cities.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/search_by_coordinates.md`
 - Purpose: Resolve location-based targets for local Instagram research.
 
 ### Best Suited For
@@ -65,9 +65,9 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 5. Reels and Explore discovery
 
-- Documentation: `https://docs.keyapi.ai/instagram/search-reels.md`
-- Documentation: `https://docs.keyapi.ai/instagram/get-explore-page-sections.md`
-- Documentation: `https://docs.keyapi.ai/instagram/get-posts-by-section.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/search_reels.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/fetch_explore_sections.md`
+- Documentation: `https://docs.keyapi.ai/en/instagram/fetch_section_posts.md`
 - Purpose: Find short-video examples or Explore sections for content research.
 
 ### Best Suited For

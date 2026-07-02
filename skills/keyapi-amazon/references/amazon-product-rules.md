@@ -8,9 +8,9 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 2. Product discovery and first-pass candidate collection
 
-- Documentation: `https://docs.keyapi.ai/amazon/product-search.md`
-- Documentation: `https://docs.keyapi.ai/amazon/products-by-category.md`
-- Documentation: `https://docs.keyapi.ai/amazon/product-category-list.md`
+- Documentation: `https://docs.keyapi.ai/en/amazon/search.md`
+- Documentation: `https://docs.keyapi.ai/en/amazon/products-by-category.md`
+- Documentation: `https://docs.keyapi.ai/en/amazon/product-category-list.md`
 - Purpose: Find product candidates from keyword, ASIN-like input, category browsing, or marketplace/category navigation.
 
 ### Best Suited For
@@ -30,7 +30,7 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 3. Ranking, best-seller, and demand scan
 
-- Documentation: `https://docs.keyapi.ai/amazon/best-seller.md`
+- Documentation: `https://docs.keyapi.ai/en/amazon/best-sellers.md`
 - Purpose: Retrieve marketplace/category ranking lists such as best sellers, new releases, movers, most wished for, and gift ideas.
 
 ### Best Suited For
@@ -49,8 +49,8 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 4. Product detail and catalog normalization
 
-- Documentation: `https://docs.keyapi.ai/amazon/product-details.md`
-- Documentation: `https://docs.keyapi.ai/amazon/asin-to-gtin.md`
+- Documentation: `https://docs.keyapi.ai/en/amazon/product-details.md`
+- Documentation: `https://docs.keyapi.ai/en/amazon/asin-to-gtin.md`
 - Purpose: Retrieve detailed product records and convert ASINs to GTIN when external catalog matching is needed.
 
 ### Best Suited For
@@ -69,7 +69,7 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 5. Offer economics and seller comparison
 
-- Documentation: `https://docs.keyapi.ai/amazon/product-offers.md`
+- Documentation: `https://docs.keyapi.ai/en/amazon/product-offers.md`
 - Purpose: Retrieve available purchase offers for ASINs and compare offer-level conditions.
 
 ### Best Suited For
@@ -87,9 +87,9 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 6. Deals and promotional research
 
-- Documentation: `https://docs.keyapi.ai/amazon/deals.md`
-- Documentation: `https://docs.keyapi.ai/amazon/deal-products.md`
-- Documentation: `https://docs.keyapi.ai/amazon/promo-code-detail.md`
+- Documentation: `https://docs.keyapi.ai/en/amazon/deals.md`
+- Documentation: `https://docs.keyapi.ai/en/amazon/deal-products.md`
+- Documentation: `https://docs.keyapi.ai/en/amazon/promo-code-details.md`
 - Purpose: Find active deals, inspect products inside a known deal, or analyze a promo code.
 
 ### Best Suited For
@@ -108,9 +108,9 @@ These notes are routing guidance from `https://docs.keyapi.ai/llms.txt`. Before 
 
 ## 7. Review and buyer-signal analysis
 
-- Documentation: `https://docs.keyapi.ai/amazon/product-reviews.md`
-- Documentation: `https://docs.keyapi.ai/amazon/top-product-reviews.md`
-- Documentation: `https://docs.keyapi.ai/amazon/product-review-details.md`
+- Documentation: `https://docs.keyapi.ai/en/amazon/product-reviews.md`
+- Documentation: `https://docs.keyapi.ai/en/amazon/top-product-reviews.md`
+- Documentation: `https://docs.keyapi.ai/en/amazon/product-review-details.md`
 - Purpose: Collect customer review evidence, top helpful reviews, or a single review record.
 
 ### Best Suited For
