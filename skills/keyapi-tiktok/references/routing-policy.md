@@ -4,6 +4,8 @@ Use this file to choose the right TikTok endpoint family and, when necessary, co
 
 ## Default Decision Order
 
+First translate the user's natural-language request into the closest platform data surface and API action. Use `search-keyapi-docs.mjs` to verify current docs after that semantic route is chosen; do not let literal keyword ranking decide the route by itself.
+
 1. Prefer one precise realtime endpoint when the user needs current details, current search results, live status, comments, downloads, image search, or direct lookup.
 2. Prefer one Analytics/EchoTik endpoint when the user wants broad discovery, ranking, historical comparison, GMV, sales, creator/product/shop benchmarking, or trend analysis.
 3. Prefer a resolver first when the user provides a URL, handle, keyword, category name, image, or ambiguous identifier but the target endpoint needs a canonical ID.
@@ -70,6 +72,7 @@ Do not ask when the user's wording already makes the mode clear. Words such as c
 ## UX Policy
 
 - Do not expose endpoint names first to non-technical users. Think in terms of business goals and entity families, then map to endpoints.
+- When docs search is needed, query with the inferred API concept and action, then verify the selected page before execution.
 - Ask only for missing high-value inputs that cannot be safely defaulted from the scenario.
 - Prefer API-side filtering from the current docs over client-side filtering.
 - If params are uncertain, resolve the docs page and use one minimal documented request instead of guessing hidden enums.

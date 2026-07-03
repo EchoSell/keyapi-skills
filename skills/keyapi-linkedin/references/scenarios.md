@@ -88,7 +88,7 @@ people, companies, jobs, posts, comments, videos, images, experience, education,
 
 ## Docs Search Strategy
 
-1. Search `llms.txt` for the platform slug plus the user's entity and action.
+1. Map the user's natural-language request to the closest scenario and API concept, then search `llms.txt` for the platform slug plus that semantic entity/action. Do not rely on literal keyword matching when the user wording is vague, translated, or business-oriented.
 2. Prefer the narrowest endpoint whose title and description match the requested workflow.
 3. Resolve the selected endpoint page before any live call; never infer method or path from this file.
 4. Compose multiple endpoints only when the user asks for a report, comparison, enrichment, or explanation that one endpoint cannot answer.

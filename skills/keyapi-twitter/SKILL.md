@@ -29,7 +29,7 @@ For Twitter/X data lookup, ranking, analysis, search, comparison, or reporting, 
 6. Use `references/routing-policy.md` to choose search/list, detail, resolver, ranking/trend, related-entity, or composed workflow patterns.
 7. Apply `references/twitter-rules.md` for Twitter / X-specific identifiers, pagination, and reporting rules.
 8. Load the scenario reference named in `references/scenarios.md` when the request maps to a curated scenario.
-9. Resolve current docs with `node scripts/search-keyapi-docs.mjs --query "<entity action>" --resolve` when the helper script is available; otherwise open `https://docs.keyapi.ai/llms.txt` and the selected endpoint page directly.
+9. Resolve current docs with `node scripts/search-keyapi-docs.mjs --query "<semantic entity action>" --resolve` when the helper script is available; otherwise open `https://docs.keyapi.ai/llms.txt` and the selected endpoint page directly. Build the query from the inferred scenario/API concept, not by copying vague or translated user wording literally.
 10. Use the resolver output or opened docs page to extract the current OpenAPI method, `/v1/...` path, required query/body parameters, examples, and response contract before any live API call. Never infer API paths from docs URLs, scenario names, endpoint titles, remembered routes, or a previous 404.
 11. Ask only for missing high-value inputs that cannot be safely defaulted.
 12. Prefer `node scripts/keyapi-api.mjs` for live REST calls when script execution is available. Use the host's HTTP client only when scripts are unavailable or the helper cannot express the documented request.
@@ -40,6 +40,7 @@ For Twitter/X data lookup, ranking, analysis, search, comparison, or reporting, 
 
 - Do not start by listing raw endpoints or dumping all parameters. First identify the user's business goal, choose the closest scenario, collect only missing high-value inputs, resolve the current docs, then execute.
 - Prefer scenario names and user-facing workflows over endpoint names for non-technical users. Use raw endpoint names only after the route is chosen or when the user asks for integration details.
+- Treat endpoint selection as semantic routing first: infer the platform data surface and action from the user's goal, then use docs search to verify the current endpoint.
 - If multiple endpoints could solve the task, choose the one with the least user input burden and strongest documented filtering.
 - If the user's request is vague, offer 2 to 4 concrete scenario options instead of asking an open-ended question.
 - If a request needs a broad report or many adjacent calls, confirm the sections and maximum scope before execution.

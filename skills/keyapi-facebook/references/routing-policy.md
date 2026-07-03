@@ -4,6 +4,8 @@ Use this file to choose the right Facebook endpoint family and, when necessary, 
 
 ## Default Decision Order
 
+First translate the user's natural-language request into the closest platform data surface and API action. Use `search-keyapi-docs.mjs` to verify current docs after that semantic route is chosen; do not let literal keyword ranking decide the route by itself.
+
 1. If the user provides an exact identifier or URL, start with the narrowest detail, resolver, conversion, or content endpoint.
 2. If the user provides a keyword, broad topic, category, or discovery goal, start with the relevant search/list endpoint.
 3. If the user asks for top, best, trending, ranking, growth, demand, or monitoring, prefer a ranking, trend, feed, vertical-search, or list endpoint when the docs provide one.
@@ -20,6 +22,7 @@ Use this file to choose the right Facebook endpoint family and, when necessary, 
 ## Endpoint Selection
 
 - Prefer one precise endpoint over a broad endpoint plus manual filtering.
+- When docs search is needed, query with the inferred API concept and action, then verify the selected page before execution.
 - Prefer documented API filters over client-side filtering.
 - Resolve identifiers before detail, comments, related-entity, or enrichment calls.
 - Search/list first, then enrich shortlisted results with detail endpoints.
