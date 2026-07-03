@@ -99,7 +99,7 @@ This skill includes helper scripts under `scripts/` for reliable local execution
 - `scripts/search-keyapi-docs.mjs`
 - `scripts/keyapi-api.mjs`
 
-Run script commands from this skill directory. If the host agent uses a different current working directory, resolve `scripts/...` relative to this `SKILL.md`. For large JSON bodies, especially base64 image payloads, prefer `--body-file` or `--image-file` instead of inline `--body`. `keyapi-api.mjs` always sends live API requests; repeating identical requests calls the API again. The helper does not create local response files automatically. Use `--output-file path.json` only when the user explicitly wants the complete response saved to disk. Large responses may return a stdout preview; rerun with `--output-file` when complete JSON is needed. Use `--stdout full` only when the user explicitly needs raw JSON in stdout. For query strings, prefer repeated `--query-param key=value` or `--param key=value`; use `--query-file query.json` or `--query` only when structured array/object query values are needed. Query sources merge in this order: `--query`, `--query-file`, then repeated query params, with later values overriding earlier ones; empty query-param values are not sent.
+Run script commands from this skill directory. If the host agent uses a different current working directory, resolve `scripts/...` relative to this `SKILL.md`. For large JSON bodies, especially base64 image payloads, prefer `--body-file` or `--image-file` instead of inline `--body`. `keyapi-api.mjs` always sends live API requests; repeating identical requests calls the API again. The helper does not create local response files unless `--output-file` is supplied. Large responses may return a stdout preview; when complete fields are needed for extraction, sorting, aggregation, or validation, use `--output-file` to save the full helper result and read the API payload from `data.data`. For agent-internal analysis, write to a temporary path such as the OS temp directory or a workspace `.tmp-keyapi-*.json` file; do not present that temporary file as a user deliverable, and clean it up when practical or briefly mention it in the final answer. When the user asks to save results, export JSON, or provide a file, treat `--output-file` as an intentional user-facing output file. Use `--stdout full` only when the user explicitly needs raw JSON in stdout. For query strings, prefer repeated `--query-param key=value` or `--param key=value`; use `--query-file query.json` or `--query` only when structured array/object query values are needed. Query sources merge in this order: `--query`, `--query-file`, then repeated query params, with later values overriding earlier ones; empty query-param values are not sent.
 
 Prefer them in this order when script execution is available:
 
@@ -135,7 +135,13 @@ Preview a large response without saving:
 node scripts/keyapi-api.mjs --path /v1/pinterest/... --query-param example=value --stdout preview
 ```
 
-Save a complete response explicitly:
+Write a complete response to a temporary file for internal analysis:
+
+```bash
+node scripts/keyapi-api.mjs --path /v1/pinterest/... --query-param example=value --output-file .tmp-keyapi-pinterest-response.json
+```
+
+Save or export a complete response for the user:
 
 ```bash
 node scripts/keyapi-api.mjs --path /v1/pinterest/... --query-param example=value --output-file response.json

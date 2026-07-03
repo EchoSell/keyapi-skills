@@ -92,7 +92,7 @@ people, companies, jobs, posts, comments, videos, images, experience, education,
 2. Prefer the narrowest endpoint whose title and description match the requested workflow.
 3. Resolve the selected endpoint page before any live call; never infer method or path from this file.
 4. Compose multiple endpoints only when the user asks for a report, comparison, enrichment, or explanation that one endpoint cannot answer.
-5. API calls are live by default. Repeating the same parameters calls the API again. Large payloads may return a stdout preview; if complete JSON is needed, rerun the same documented request with `--output-file path.json` and read the saved file.
+5. API calls are live by default. Repeating the same parameters calls the API again. Large payloads may return a stdout preview; when complete fields are needed for analysis, rerun the same documented request with `--output-file <temp-or-workspace-.tmp-keyapi-file>.json` and read the API payload from `data.data`. Use a user-facing output path only when the user asks to save or export results.
 
 ## User Input Compression
 
