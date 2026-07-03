@@ -47,6 +47,13 @@ These rules are the lowest-level execution contract for TikTok KeyAPI REST workf
 - For `429`, wait or reduce request rate.
 - For `500`, retry once for idempotent requests before reporting failure.
 
+## Cache And Large Output Handling
+
+- `scripts/keyapi-api.mjs` caches exact successful requests for 60 seconds under `~/.codex/keyapi-cache/{platform}/YYYY-MM-DD/`; `KEYAPI_CACHE_DIR` overrides only the base cache directory, and the platform name is still appended.
+- The cache key includes method, full URL/query, and body, so different parameters do not share a cache entry.
+- Use `--output-file` only for a user-requested explicit save path; automatic cache lookup scans the configured cache directory, not arbitrary output paths.
+- Saved files have top-level shape `{ cache, result }`; the API payload is usually under `result.data.data`.
+
 ## Pagination
 
 - Use the pagination shape documented for the exact endpoint.

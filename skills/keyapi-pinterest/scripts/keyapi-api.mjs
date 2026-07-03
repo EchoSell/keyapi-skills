@@ -17,7 +17,26 @@ const managedBlockStart = "# >>> keyapi-skills >>>";
 const managedBlockEnd = "# <<< keyapi-skills <<<";
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const skillDir = path.dirname(scriptDir);
-const cacheRootDir = path.join(skillDir, ".keyapi-cache");
+const defaultCacheBaseDir = path.join(os.homedir(), ".codex", "keyapi-cache");
+const cacheRootDir = path.join(resolveCacheBaseDir(), platform);
+
+function resolveCacheBaseDir() {
+  const override = process.env.KEYAPI_CACHE_DIR;
+  if (override && override.trim()) {
+    return path.resolve(expandHomePath(override.trim()));
+  }
+  return defaultCacheBaseDir;
+}
+
+function expandHomePath(value) {
+  if (value === "~") {
+    return os.homedir();
+  }
+  if (value.startsWith("~/") || value.startsWith("~\\")) {
+    return path.join(os.homedir(), value.slice(2));
+  }
+  return value;
+}
 
 function requireSupportedNodeVersion() {
   const major = Number(process.versions.node.split(".")[0]);
