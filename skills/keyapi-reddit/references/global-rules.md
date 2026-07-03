@@ -54,8 +54,8 @@ These rules are the lowest-level execution contract for every Reddit KeyAPI REST
 
 ## Output Handling
 
-- `scripts/keyapi-api.mjs` makes live API requests by default. It does not read historical cache and does not write automatic cache files.
-- Repeating the same request with the same parameters calls the API again.
+- `scripts/keyapi-api.mjs` sends each request to the live API by default. Repeating the same request with the same parameters calls the API again.
+- The helper does not create local response files automatically.
 - Large responses may return a stdout preview to keep agent output manageable.
 - Use `--output-file path.json` only when the user explicitly wants the complete response saved. The saved file is the full helper result JSON, and the API payload is usually under `data.data`.
 - When `savedTo` is present, it came from an explicit `--output-file`; read that file for deeper analysis instead of repeating the request unless fresh data is required.

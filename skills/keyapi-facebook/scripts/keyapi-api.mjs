@@ -12,6 +12,24 @@ const defaultPreviewItems = 5;
 const minNodeMajor = 18;
 const managedBlockStart = "# >>> keyapi-skills >>>";
 const managedBlockEnd = "# <<< keyapi-skills <<<";
+const valueArgKeys = new Set([
+  "path",
+  "endpoint",
+  "method",
+  "query",
+  "query-file",
+  "query-param",
+  "param",
+  "body",
+  "body-file",
+  "image-file",
+  "image-field",
+  "timeout-ms",
+  "max-stdout-bytes",
+  "preview-items",
+  "stdout",
+  "output-file"
+]);
 
 function requireSupportedNodeVersion() {
   const major = Number(process.versions.node.split(".")[0]);
@@ -40,8 +58,8 @@ function parseArgs(argv) {
     const rawKey = equalsIndex === -1 ? token : token.slice(0, equalsIndex);
     const inlineValue = equalsIndex === -1 ? undefined : token.slice(equalsIndex + 1);
     const key = rawKey.slice(2);
-    if (["cache", "no-cache", "cache-ttl", "save-response"].includes(key)) {
-      throw new Error("Cache and automatic response saving are not supported. Use --output-file <path> to save a complete response.");
+    if (!valueArgKeys.has(key)) {
+      throw new Error(`Unsupported argument: --${key}`);
     }
 
     const nextValue = inlineValue ?? argv[index + 1];
@@ -67,7 +85,6 @@ function parseArgs(argv) {
     else if (key === "preview-items") args.previewItems = Number(nextValue);
     else if (key === "stdout") args.stdout = nextValue;
     else if (key === "output-file") args.outputFile = nextValue;
-    else throw new Error(`Unsupported argument: --${key}`);
   }
 
   validateArgs(args);
