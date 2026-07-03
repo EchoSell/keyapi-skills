@@ -52,14 +52,13 @@ These rules are the lowest-level execution contract for every LinkedIn KeyAPI RE
 - Stop when the requested top N or evidence target is satisfied, the response has no items, `has_more` is false, or no next cursor exists.
 - Ask before broad crawling, large fan-out enrichment, or report workflows that require many adjacent endpoints.
 
-## Cache And Large Output Handling
+## Output Handling
 
-- `scripts/keyapi-api.mjs` may cache exact successful requests for a short TTL under the system KeyAPI cache base: Windows `%LOCALAPPDATA%\KeyAPI\cache`, macOS `~/Library/Caches/keyapi`, Linux `$XDG_CACHE_HOME/keyapi` or `~/.cache/keyapi`; files are saved under `<baseCacheDir>/{platform}/YYYY-MM-DD/`. `KEYAPI_CACHE_DIR` overrides only the base cache directory, and the platform name is still appended.
-- The cache key includes method, full URL/query, and body, so different parameters do not share a cache entry.
-- Large responses may be saved and stdout may return a preview with `savedTo`.
-- Use `--output-file` only for a user-requested explicit save path; automatic cache lookup scans the configured cache directory, not arbitrary output paths.
-- Saved files have top-level shape `{ cache, result }`; the API payload is usually under `result.data.data`.
-- When `savedTo` is present, read that file for deeper analysis instead of repeating the same request unless fresh data is required.
+- `scripts/keyapi-api.mjs` makes live API requests by default. It does not read historical cache and does not write automatic cache files.
+- Repeating the same request with the same parameters calls the API again.
+- Large responses may return a stdout preview to keep agent output manageable.
+- Use `--output-file path.json` only when the user explicitly wants the complete response saved. The saved file is the full helper result JSON, and the API payload is usually under `data.data`.
+- When `savedTo` is present, it came from an explicit `--output-file`; read that file for deeper analysis instead of repeating the request unless fresh data is required.
 
 ## Reporting
 

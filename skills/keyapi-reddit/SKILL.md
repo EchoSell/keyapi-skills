@@ -99,7 +99,7 @@ This skill includes helper scripts under `scripts/` for reliable local execution
 - `scripts/search-keyapi-docs.mjs`
 - `scripts/keyapi-api.mjs`
 
-Run script commands from this skill directory. If the host agent uses a different current working directory, resolve `scripts/...` relative to this `SKILL.md`. For large JSON bodies, especially base64 image payloads, prefer `--body-file` or `--image-file` instead of inline `--body`. `keyapi-api.mjs` caches successful exact same requests for 60 seconds under the system KeyAPI cache base: Windows `%LOCALAPPDATA%\KeyAPI\cache`, macOS `~/Library/Caches/keyapi`, Linux `$XDG_CACHE_HOME/keyapi` or `~/.cache/keyapi`; files are saved under `<baseCacheDir>/{platform}/YYYY-MM-DD/`. Set `KEYAPI_CACHE_DIR` to override only the base cache directory, with the platform name still appended. The cache key includes method, full URL/query, and body, so different parameters do not share a cache entry. Large responses automatically save there and stdout returns a preview with `savedTo`. Use `--output-file` only when the user wants this response saved to an exact path; later automatic cache lookup still scans the configured cache directory, not arbitrary output paths. When `savedTo` is present, prefer reading that file for deeper analysis instead of repeating the same API request. Use `--no-cache` when fresh live data matters, and use `--stdout full` only when the user explicitly needs raw JSON in stdout. For query strings, prefer repeated `--query-param key=value` or `--param key=value`; use `--query-file query.json` or `--query` only when structured array/object query values are needed. Query sources merge in this order: `--query`, `--query-file`, then repeated query params, with later values overriding earlier ones; empty query-param values are not sent.
+Run script commands from this skill directory. If the host agent uses a different current working directory, resolve `scripts/...` relative to this `SKILL.md`. For large JSON bodies, especially base64 image payloads, prefer `--body-file` or `--image-file` instead of inline `--body`. `keyapi-api.mjs` always makes live API requests by default: it does not read historical cache and does not write automatic cache files, so repeated identical requests call the API again. Use `--output-file path.json` only when the user explicitly wants the complete response saved to disk. Large responses may return a stdout preview; rerun with `--output-file` when complete JSON is needed. Use `--stdout full` only when the user explicitly needs raw JSON in stdout. For query strings, prefer repeated `--query-param key=value` or `--param key=value`; use `--query-file query.json` or `--query` only when structured array/object query values are needed. Query sources merge in this order: `--query`, `--query-file`, then repeated query params, with later values overriding earlier ones; empty query-param values are not sent.
 
 Prefer them in this order when script execution is available:
 
@@ -129,10 +129,16 @@ Execute query parameters from a JSON file:
 node scripts/keyapi-api.mjs --path /v1/reddit/... --query-file query.json
 ```
 
-Execute a large response with preview and local file output:
+Preview a large response without saving:
 
 ```bash
 node scripts/keyapi-api.mjs --path /v1/reddit/... --query-param example=value --stdout preview
+```
+
+Save a complete response explicitly:
+
+```bash
+node scripts/keyapi-api.mjs --path /v1/reddit/... --query-param example=value --output-file response.json
 ```
 
 Execute a documented POST endpoint:
