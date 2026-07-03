@@ -17,7 +17,6 @@ const managedBlockStart = "# >>> keyapi-skills >>>";
 const managedBlockEnd = "# <<< keyapi-skills <<<";
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const skillDir = path.dirname(scriptDir);
-const defaultCacheBaseDir = path.join(os.homedir(), ".codex", "keyapi-cache");
 const cacheRootDir = path.join(resolveCacheBaseDir(), platform);
 
 function resolveCacheBaseDir() {
@@ -25,7 +24,17 @@ function resolveCacheBaseDir() {
   if (override && override.trim()) {
     return path.resolve(expandHomePath(override.trim()));
   }
-  return defaultCacheBaseDir;
+  return defaultKeyApiCacheBaseDir();
+}
+
+function defaultKeyApiCacheBaseDir() {
+  if (process.platform === "win32") {
+    return path.join(process.env.LOCALAPPDATA || path.join(os.homedir(), "AppData", "Local"), "KeyAPI", "cache");
+  }
+  if (process.platform === "darwin") {
+    return path.join(os.homedir(), "Library", "Caches", "keyapi");
+  }
+  return path.join(process.env.XDG_CACHE_HOME || path.join(os.homedir(), ".cache"), "keyapi");
 }
 
 function expandHomePath(value) {

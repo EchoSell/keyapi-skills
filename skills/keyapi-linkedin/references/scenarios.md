@@ -92,7 +92,7 @@ people, companies, jobs, posts, comments, videos, images, experience, education,
 2. Prefer the narrowest endpoint whose title and description match the requested workflow.
 3. Resolve the selected endpoint page before any live call; never infer method or path from this file.
 4. Compose multiple endpoints only when the user asks for a report, comparison, enrichment, or explanation that one endpoint cannot answer.
-5. If an endpoint returns a large payload saved with `savedTo`, read the saved file instead of repeating the same request. By default saved files are under `~/.codex/keyapi-cache/{platform}/YYYY-MM-DD/`, or under `KEYAPI_CACHE_DIR/{platform}/YYYY-MM-DD/` when that env var is set. Use `--output-file` only for a user-requested explicit save path; automatic cache lookup scans the configured cache directory. Saved files have shape `{ cache, result }`, and the API payload is usually under `result.data.data`.
+5. If an endpoint returns a large payload saved with `savedTo`, read the saved file instead of repeating the same request. By default saved files are under the system KeyAPI cache base plus `{platform}/YYYY-MM-DD/` (Windows `%LOCALAPPDATA%\KeyAPI\cache`, macOS `~/Library/Caches/keyapi`, Linux `$XDG_CACHE_HOME/keyapi` or `~/.cache/keyapi`); when `KEYAPI_CACHE_DIR` is set, files go under `KEYAPI_CACHE_DIR/{platform}/YYYY-MM-DD/`. Use `--output-file` only for a user-requested explicit save path; automatic cache lookup scans the configured cache directory. Saved files have shape `{ cache, result }`, and the API payload is usually under `result.data.data`.
 
 ## User Input Compression
 

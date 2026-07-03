@@ -54,7 +54,7 @@ These rules are the lowest-level execution contract for every Instagram KeyAPI R
 
 ## Cache And Large Output Handling
 
-- `scripts/keyapi-api.mjs` may cache exact successful requests for a short TTL under `~/.codex/keyapi-cache/{platform}/YYYY-MM-DD/`; `KEYAPI_CACHE_DIR` overrides only the base cache directory, and the platform name is still appended.
+- `scripts/keyapi-api.mjs` may cache exact successful requests for a short TTL under the system KeyAPI cache base: Windows `%LOCALAPPDATA%\KeyAPI\cache`, macOS `~/Library/Caches/keyapi`, Linux `$XDG_CACHE_HOME/keyapi` or `~/.cache/keyapi`; files are saved under `<baseCacheDir>/{platform}/YYYY-MM-DD/`. `KEYAPI_CACHE_DIR` overrides only the base cache directory, and the platform name is still appended.
 - The cache key includes method, full URL/query, and body, so different parameters do not share a cache entry.
 - Large responses may be saved and stdout may return a preview with `savedTo`.
 - Use `--output-file` only for a user-requested explicit save path; automatic cache lookup scans the configured cache directory, not arbitrary output paths.

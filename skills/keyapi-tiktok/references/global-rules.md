@@ -49,7 +49,7 @@ These rules are the lowest-level execution contract for TikTok KeyAPI REST workf
 
 ## Cache And Large Output Handling
 
-- `scripts/keyapi-api.mjs` caches exact successful requests for 60 seconds under `~/.codex/keyapi-cache/{platform}/YYYY-MM-DD/`; `KEYAPI_CACHE_DIR` overrides only the base cache directory, and the platform name is still appended.
+- `scripts/keyapi-api.mjs` caches exact successful requests for 60 seconds under the system KeyAPI cache base: Windows `%LOCALAPPDATA%\KeyAPI\cache`, macOS `~/Library/Caches/keyapi`, Linux `$XDG_CACHE_HOME/keyapi` or `~/.cache/keyapi`; files are saved under `<baseCacheDir>/{platform}/YYYY-MM-DD/`. `KEYAPI_CACHE_DIR` overrides only the base cache directory, and the platform name is still appended.
 - The cache key includes method, full URL/query, and body, so different parameters do not share a cache entry.
 - Use `--output-file` only for a user-requested explicit save path; automatic cache lookup scans the configured cache directory, not arbitrary output paths.
 - Saved files have top-level shape `{ cache, result }`; the API payload is usually under `result.data.data`.
