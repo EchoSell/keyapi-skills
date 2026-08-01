@@ -63,8 +63,18 @@ What each part does:
 
 You can install one platform skill, several platform skills, or the full KeyAPI skill set.
 
-Install from GitHub with prompts such as:
+### Option 1 · Install with Command
 
+Run the following command:
+```bash
+npx skills add EchoSell/keyapi-skills
+```
+
+Then follow the prompts to select and install the skills you need.
+
+### Option 2 · Install from your AI Agent (⭐Recommended)
+
+Copy and send one of the following prompts to your AI Agent:
 - `Install these KeyAPI skills: https://github.com/EchoSell/keyapi-skills`
 - `Install keyapi-tiktok from https://github.com/EchoSell/keyapi-skills`
 - `帮我安装关于Tiktok的skill skills: https://github.com/EchoSell/keyapi-skills`
