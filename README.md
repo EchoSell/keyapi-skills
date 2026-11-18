@@ -77,6 +77,15 @@ Both initial setup and the status command display the configured API Key in mask
 
 The API key is configured once and shared by every platform supported through `keyapi-assistant`. No platform-specific setup is required.
 
+## Other KeyAPI Tools
+
+KeyAPI also offers these optional tools:
+
+- [KeyAPI CLI](https://www.keyapi.ai/ai/cli) provides terminal-based endpoint discovery and API calls. Install it with `npm install -g keyapi-cli@latest` when needed.
+- [KeyAPI MCP](https://www.keyapi.ai/ai/mcp) is available at `https://mcp.keyapi.ai/mcp` for MCP-compatible AI clients and supports OAuth authentication.
+
+This skill uses its included scripts and does not require either tool.
+
 ## Use The Skill
 
 Ask for a platform data task naturally:

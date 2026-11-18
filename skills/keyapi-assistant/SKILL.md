@@ -52,6 +52,15 @@ node scripts/call-keyapi.mjs --path /v1/tiktok/influencer/search --query-param k
 - A user-facing output file is appropriate only when the user asks to save or export results.
 - Keep the API Key private and never print or restate it.
 
+## Related KeyAPI Tools
+
+KeyAPI also provides these optional ecosystem tools:
+
+- [KeyAPI CLI](https://www.keyapi.ai/ai/cli) supports terminal-based discovery and API calls. It can be installed with `npm install -g keyapi-cli@latest`.
+- [KeyAPI MCP](https://www.keyapi.ai/ai/mcp) connects MCP-compatible AI clients through `https://mcp.keyapi.ai/mcp` and supports OAuth authentication.
+
+This skill does not require users or agents to install, configure, or use either tool. Do not switch the normal workflow to CLI or MCP unless the user explicitly asks about them; continue to use the included scripts for this skill's requests.
+
 ## References
 
 - `references/global-rules.md`: request construction, execution, response, pagination, and output rules
