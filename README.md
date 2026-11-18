@@ -1,268 +1,170 @@
-# KeyAPI Skills
+# KeyAPI Assistant
 
-KeyAPI Skills is a collection of standalone platform skills for Codex and Claude Code.
+`keyapi-assistant` is one unified skill for discovering and calling every platform currently supported by KeyAPI. It determines the platform from the user's goal, discovers current endpoints at runtime, resolves the selected OpenAPI operation, and executes the documented REST request.
 
-Each skill turns natural-language platform requests into documentation-guided KeyAPI REST workflows. The skills do not depend on MCP servers, package installs, or repository-root runners. Each installed `keyapi-{platform}` directory includes its own instructions, references, and helper scripts.
+The skill does not maintain separate packages or static endpoint catalogs for TikTok, Instagram, Amazon, Google, or other platforms.
 
-Runtime requirement for helper scripts: `Node.js >= 18`
+Runtime requirement: `Node.js >= 18`.
 
-## Available Skills
-
-| Skill | Path | Covers |
-|---|---|---|
-| `keyapi-amazon` | `skills/keyapi-amazon/` | Amazon products, categories, sellers, offers, reviews, deals, storefronts, ASIN/GTIN conversion |
-| `keyapi-facebook` | `skills/keyapi-facebook/` | Facebook public profiles, pages, groups, posts, photos, Reels, events, identifier resolution |
-| `keyapi-google` | `skills/keyapi-google/` | Google web, images, videos, places, maps, reviews, news, shopping, Lens, scholar, patents, autocomplete, extraction |
-| `keyapi-instagram` | `skills/keyapi-instagram/` | Instagram users, posts, Reels, Stories, Highlights, followers, following, comments, hashtags, music, locations |
-| `keyapi-linkedin` | `skills/keyapi-linkedin/` | LinkedIn profiles, contact info, companies, employees, posts, comments, videos, jobs, job counts, job details |
-| `keyapi-pinterest` | `skills/keyapi-pinterest/` | Pinterest users, pins, boards, followers, following, profile and board discovery |
-| `keyapi-reddit` | `skills/keyapi-reddit/` | Reddit posts, comments, users, subreddits, feeds, rules, settings, search, trends |
-| `keyapi-threads` | `skills/keyapi-threads/` | Threads users, posts, reposts, replies, post details, comments, keyword search |
-| `keyapi-tiktok` | `skills/keyapi-tiktok/` | TikTok creators, Shop products, shops, categories, videos, hashtags, music, comments, live, trends, ads |
-| `keyapi-twitter` | `skills/keyapi-twitter/` | Twitter/X tweets, profiles, timelines, media, replies, search, trends, communities, lists, jobs, Spaces, graph data |
-| `keyapi-youtube` | `skills/keyapi-youtube/` | YouTube videos, comments, streams, Shorts, related videos, trending, channels, search, suggestions |
-
-## Skill Package
-
-Every platform skill is self-contained:
+## Package
 
 ```text
-skills/keyapi-tiktok/
+skills/keyapi-assistant/
   SKILL.md
   references/
     global-rules.md
-    routing-policy.md
-    scenarios.md
+    discovery-and-routing.md
     setup-and-auth.md
-    tiktok-rules.md
-    tiktok-influencer-rules.md
-    tiktok-shop-creator-rules.md
-    tiktok-shop-rules.md
-    tiktok-content-rules.md
-    tiktok-intelligence-rules.md
   scripts/
-    configure-keyapi-auth.mjs
-    search-keyapi-docs.mjs
-    keyapi-api.mjs
+    setup-keyapi.mjs
+    discover-keyapi.mjs
+    call-keyapi.mjs
 ```
 
-What each part does:
-
-- `SKILL.md`: entrypoint, trigger behavior, workflow, script contract, and platform-specific execution rules.
-- `references/global-rules.md`: docs-first REST contract, auth, response handling, pagination, and reporting rules.
-- `references/scenarios.md`: maps user intent to platform entities, scopes, metrics, and docs search terms.
-- `references/routing-policy.md`: endpoint selection and multi-step workflow policy.
-- `references/setup-and-auth.md`: first-time token setup, KeyAPI auth docs, and REST fallback examples.
-- `references/<platform>-rules.md`: platform-specific identifiers, pagination, freshness, and output guidance.
-- Additional scenario modules, when present, split large platforms into focused business domains. For example, TikTok includes Influencer, Shop Creator, Shop, Content, and Intelligence modules.
-- `scripts/configure-keyapi-auth.mjs`: local KeyAPI token setup.
-- `scripts/search-keyapi-docs.mjs`: searches `https://docs.keyapi.ai/llms.txt` for this skill's platform.
-- `scripts/keyapi-api.mjs`: executes REST requests for this skill's platform only.
+- `SKILL.md`: unified workflow and execution contract.
+- `references/discovery-and-routing.md`: semantic platform and endpoint selection.
+- `references/global-rules.md`: request, response, pagination, and output rules.
+- `references/setup-and-auth.md`: one-time shared API key setup.
+- `scripts/discover-keyapi.mjs`: platform index, paginated endpoint discovery, and full OpenAPI operation resolution.
+- `scripts/call-keyapi.mjs`: authenticated requests for complete `/v1/...` paths across all platforms.
 
 ## Install
 
-You can install one platform skill, several platform skills, or the full KeyAPI skill set.
+Install from the repository:
 
-### Option 1 · Install with Command
-
-Run the following command:
 ```bash
 npx skills add EchoSell/keyapi-skills
 ```
 
-Then follow the prompts to select and install the skills you need.
-
-### Option 2 · Install from your AI Agent (⭐Recommended)
-
-Copy and send one of the following prompts to your AI Agent:
-- `Install these KeyAPI skills: https://github.com/EchoSell/keyapi-skills`
-- `Install keyapi-tiktok from https://github.com/EchoSell/keyapi-skills`
-- `帮我安装关于Tiktok的skill skills: https://github.com/EchoSell/keyapi-skills`
-
-Manual setup:
+Or install manually for Codex:
 
 ```bash
 git clone https://github.com/EchoSell/keyapi-skills.git
-cd keyapi-skills
-```
-
-Install one skill:
-
-```bash
 mkdir -p ~/.codex/skills
-cp -r skills/keyapi-tiktok ~/.codex/skills/
-```
-
-Install several skills:
-
-```bash
-mkdir -p ~/.codex/skills
-cp -r skills/keyapi-google ~/.codex/skills/
-cp -r skills/keyapi-youtube ~/.codex/skills/
-```
-
-Install all skills:
-
-```bash
-mkdir -p ~/.codex/skills
-cp -r skills/keyapi-* ~/.codex/skills/
+cp -r keyapi-skills/skills/keyapi-assistant ~/.codex/skills/
 ```
 
 Claude Code example:
 
 ```bash
 mkdir -p ~/.claude/skills
-cp -r skills/keyapi-tiktok ~/.claude/skills/
+cp -r keyapi-skills/skills/keyapi-assistant ~/.claude/skills/
 ```
 
-Each installed skill includes its own `scripts/` directory. The root-level `.mjs` files are development copies for repository-root testing, not runtime dependencies for installed skills.
+## Configure API Key
 
-## First-Time Setup
+After installing the skill:
 
-Before any live KeyAPI request, configure a KeyAPI token into shell environment variables.
-
-Auth doc:
-
-- `https://docs.keyapi.ai/overview/authentication#bearer-authentication`
-
-From an installed skill directory, check current status:
+1. Open `https://keyapi.ai/app/dashboard` and copy an API Key.
+2. Enter the installed `keyapi-assistant` directory and run:
 
 ```bash
-node scripts/configure-keyapi-auth.mjs --status
+cd ~/keyapi-assistant
+node scripts/setup-keyapi.mjs
 ```
 
-Run the guided setup:
+3. Paste the copied API Key when prompted.
+
+If an already-running agent cannot see the new API Key, restart the agent or terminal.
+
+Check status at any time with:
 
 ```bash
-node scripts/configure-keyapi-auth.mjs
+node scripts/setup-keyapi.mjs --status
 ```
 
-What the setup script does:
+Both initial setup and the status command display the configured API Key in masked form.
 
-- prompts for the KeyAPI token locally
-- writes a managed KeyAPI export block into the user's shell profile
-- stores `KEYAPI_TOKEN` for future sessions
-- supports PowerShell profiles on Windows and POSIX shell profiles on macOS/Linux
+The API key is configured once and shared by every platform supported through `keyapi-assistant`. No platform-specific setup is required.
 
-After setup, retry the KeyAPI request. `keyapi-api.mjs` can read `KEYAPI_TOKEN` from the current session or the managed shell profile; restart Codex or Claude Code only if live calls still cannot see the token.
+## Use The Skill
 
-## Use A Skill
-
-Ask the assistant for the platform skill by name or by platform task:
+Ask for a platform data task naturally:
 
 ```text
-Use keyapi-tiktok to find fast-growing TikTok Shop creators in the US.
+Use keyapi-assistant to find TikTok influencers in the US for a baby-products campaign.
 ```
 
 ```text
-Use keyapi-google to search recent news about Apple and summarize the sources.
+Use keyapi-assistant to compare recent Amazon product results for portable blenders.
 ```
 
-Correct runtime behavior:
+The agent should:
 
-1. Read the relevant `SKILL.md`.
-2. Load only needed files from `references/`.
-3. Search the latest docs index: `https://docs.keyapi.ai/llms.txt`.
-4. Open the selected endpoint docs and extract method, `/v1/...` path, params, pagination, examples, and response shape.
-5. Prefer the skill-local script for REST execution when available, or use the host HTTP client when scripts are unavailable or cannot express the documented request.
-6. Return user-facing analysis rather than raw endpoint jargon.
+1. determine or confirm the platform
+2. discover current endpoints page by page
+3. semantically select the closest operation
+4. resolve its complete OpenAPI parameters and request body
+5. collect only missing required inputs
+6. execute the complete discovered path with the included request helper
+7. return user-facing analysis
 
-## Use The Scripts
+## Script Usage
 
-Run script commands from the installed skill directory.
+Run commands from the installed `keyapi-assistant` directory.
 
-Example from `skills/keyapi-tiktok/`:
+List the current platform catalog:
 
 ```bash
-node scripts/search-keyapi-docs.mjs --query "creator detail"
+node scripts/discover-keyapi.mjs --list-platforms
 ```
 
-Execute a documented GET endpoint:
+Discover one page of endpoints:
 
 ```bash
-node scripts/keyapi-api.mjs \
-  --path /v1/tiktok/... \
-  --query '{"example":"value"}'
+node scripts/discover-keyapi.mjs --platform tiktok --limit 10 --offset 0
 ```
 
-Or use a platform-relative endpoint:
+Resolve the complete OpenAPI operation for a selected path:
 
 ```bash
-node scripts/keyapi-api.mjs \
-  --endpoint /... \
-  --query '{"example":"value"}'
+node scripts/discover-keyapi.mjs \
+  --platform tiktok \
+  --endpoint-path /v1/tiktok/influencer/search
 ```
 
-Execute a documented POST endpoint:
+Execute a GET request with shell-stable query parameters:
 
 ```bash
-node scripts/keyapi-api.mjs \
-  --endpoint /... \
-  --method POST \
-  --body '{"example":"value"}'
+node scripts/call-keyapi.mjs \
+  --path /v1/tiktok/influencer/search \
+  --query-param keyword=baby \
+  --query-param region=US
 ```
 
-For large JSON bodies, especially base64 image payloads, prefer `--body-file` or `--image-file` instead of inline `--body`.
+Execute a POST request from a JSON body file:
 
 ```bash
-node scripts/keyapi-api.mjs \
-  --endpoint /... \
+node scripts/call-keyapi.mjs \
+  --path /v1/amazon/... \
   --method POST \
   --body-file request.json
 ```
 
+Execute an image request:
+
 ```bash
-node scripts/keyapi-api.mjs \
-  --endpoint /... \
+node scripts/call-keyapi.mjs \
+  --path /v1/tiktok/... \
   --method POST \
-  --image-file ./image.jpg \
+  --query-param region=US \
+  --image-file image.jpg \
   --image-field image_base64
 ```
 
-The scripts are preferred local execution clients. They do not define the API contract; the current KeyAPI docs do.
+Large responses may print a preview. Save the complete helper result when full fields are needed:
 
-## Script Reference
+```bash
+node scripts/call-keyapi.mjs \
+  --path /v1/youtube/... \
+  --query-param example=value \
+  --output-file result.json
+```
 
-### `scripts/configure-keyapi-auth.mjs`
+For a normal KeyAPI response envelope, the business payload in the saved helper result is at `data.data`.
 
-Guided local setup for KeyAPI environment variables.
+## Runtime Sources
 
-Supported flags:
-
-- `--status`
-- `--profile`
-- `--token`
-
-### `scripts/search-keyapi-docs.mjs`
-
-Looks up matching lines for the current platform from:
-
-- `https://docs.keyapi.ai/llms.txt`
-
-Supported flags:
-
-- `--query`
-- `--limit`
-
-### `scripts/keyapi-api.mjs`
-
-Executes KeyAPI REST requests for the current platform.
-
-Supported flags:
-
-- `--path`
-- `--endpoint`
-- `--method`
-- `--query`
-- `--body`
-- `--body-file`
-- `--image-file`
-- `--image-field`
-- `--timeout-ms`
-
-## Security
-
-- never commit real credentials
-- prefer local environment variables for secrets
-- avoid pasting credentials into shared chat unless the user explicitly accepts that risk
-- do not print `KEYAPI_TOKEN` in command output or final answers
+- Platform index: `https://www.keyapi.ai/openapi/index.json`
+- Endpoint discovery: `https://www.keyapi.ai/openapi/discover_endpoints?platform=tiktok&limit=10&offset=0`
+- Business API base URL: `https://api.keyapi.ai`

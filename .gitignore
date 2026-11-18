@@ -5,3 +5,5 @@ package-lock.json
 *.log
 .idea/
 echotik-api-skills/*
+docs/
+tests/
